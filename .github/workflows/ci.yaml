@@ -1,0 +1,24 @@
+name: Integración Continua (CI)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Run Flake8 / Ruff
+        run: ruff check .
+      
+      - name: Verificar presencia de README.md
+        run: |
+          if [ ! -s README.md ]; then
+            echo "Error: README.md no existe o está vacío."
+            exit 1
+          fi

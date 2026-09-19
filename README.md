@@ -1,12 +1,33 @@
-# PetLink
+# PetLink, Red Social de Mascotas
 
-Breve descripción del propósito y las capacidades principales del proyecto.
+Proyecto desarrollado para la asignatura **Aplicaciones con Tecnología Internet (Semestre 2026-1)** de la Escuela de Computación - Universidad Central de Venezuela.
+
+---
+
+## Integrantes del Equipo
+
+* **Carlos Arena** - CI: 30.371.074 - `@Candrixx`
+* **Juan Belisario** - CI: 31.532.714 - `@JuanJoSam`
+* **Gabriel Conde** - CI: 32.412.330 - `@gdavidd19`
+* **Daniel Morales** - CI: 30.030.004 - `@Dani-3800`
+
+---
+
+## Tecnologías Utilizadas
+
+* **Lenguaje:** Python 3.12
+* **Framework Web:** Django 4.2.7 / 6.0
+* **Base de Datos:** SQLite 3
+* **Contenedorización:** Docker & Docker Compose
+* **Integración Continua:** GitHub Actions
+
+---
 
 ## Requisitos Previos
 
-Listado de herramientas necesarias antes de compilar o ejecutar:
-- Compilador o Runtime (ej. GCC, Python 3.x, Node.js)
-- Herramienta de construcción (ej. CMake, Make, npm)
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) y `docker-compose`.
+
+---
 
 ## Instalación y Configuración
 
@@ -15,12 +36,6 @@ Listado de herramientas necesarias antes de compilar o ejecutar:
    git clone [https://github.com/ProyectoATI2026/PetLink.git](https://github.com/ProyectoATI2026/PetLink.git)
    cd tu-repositorio
 
-## Dependencias a instalar...
-
-## Cómo ejecutar el Proyecto...
-
-## Contribución y Estilo de Código
-
-Revisar CONTRIBUTING.md para más información
-
-## Licencia
+2. Ejecutar:
+   ```bash
+   docker-compose up --build

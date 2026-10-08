@@ -1,0 +1,251 @@
+@import url("../css/_theme.css");
+
+body {
+    font-family: var(--primary-font);
+    margin: 0;
+    background-color: rgba(235, 235, 235, 1);
+}
+
+header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75% 5.25% 0.75% 5.25%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.75% 5.25% 0.75% 5.25%;
+}
+
+.logo {
+    width: 20%;
+    height: 20%;
+}
+
+.titulo {
+    color: black;
+    display: flex;
+    font-size: 2.8vw;
+    font-weight: 700;
+    align-items: center;
+    margin: 0;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    will-change: color;
+}
+
+.titulo:hover {
+    color: var(--accent-color);
+}
+
+.titulo2 {
+    color: var(--main-color);
+    font-size: 2.8vw;
+    font-weight: 700;
+    margin: 0;
+    text-decoration: none;
+}
+
+#busqueda {
+    display: flex;
+    margin: 0;
+    width: 34.5%;
+    height: 2.85%;
+}
+
+#campoBusqueda {
+    border: none;
+    width: 40%;
+    background-color: var(--grey-50);
+    border-radius: 25px 0px 0px 25px;
+    font-size: 1.19vw;
+    padding: 10px;
+}
+
+#botonBusqueda {
+    border: none;
+    width: 20%;
+    border-radius: 0px 25px 25px 0px;
+    color: white;
+    font-size: 1.19vx;
+    background-color: var(--accent-color);
+}
+
+#circuloIconoUsuario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+    background-color: var(--accent-color);
+    border-radius: 100%;
+    margin: 0;
+}
+
+#iconoUsuario {
+    width: 70%;
+    height: 70%;
+}
+
+#menu {
+    display: none;
+}
+
+#listaMenu {
+    display: none;
+    border: none;
+}
+
+#busquedaMini {
+    display: none;
+}
+
+#campoBusquedaMini {
+    display: none;
+    font-size: 10vw;
+}
+
+#botonBusquedaMini {
+    display: none;
+}
+
+#contenedorUsuarioMini {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+}
+
+#circuloIconoUsuarioMini {
+    display: none;
+}
+
+#iconoUsuarioMini {
+    display: none;
+}
+
+#myProfile {
+    font-size: 6vw;
+    margin: 0;
+}
+
+.separador {
+    margin: 0;
+}
+
+.separadorMenu {
+    margin: 5% 0% 5% 0%;
+    width: 100%;
+    background-color: white;
+}
+
+footer {
+    font-size: 1.05vw;
+    text-align: center;
+    color: gray;
+    opacity: 50%;
+    object-position: center;
+    padding: 3%;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .titulo {
+        font-size: 8vw;
+    }
+
+    #ucv {
+        font-size: 4vw;
+    }
+
+    #bigVisible {
+        display: none;
+    }
+
+    #campoBusqueda {
+        display: none;
+    }
+
+    #botonBusqueda {
+        display: none;
+    }
+
+    #circuloIconoUsuario {
+        display: none;
+    }
+
+    #iconoUsuario {
+        display: none;
+    }
+
+    #menu {
+        display: inline;
+        width: 7vw;
+        height: 7vw;
+        border: none;
+        background: none;
+    }
+
+    #listaMenu {
+        display: none;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-direction: column;
+        background-color: var(--main-color);
+        font-size: 2vw;
+        color: white;
+        padding: 0% 5% 5% 5%;
+    }
+
+    #busquedaMini {
+        display: flex;
+        margin: 0;
+        width: 100%;
+        height: 2.85%;
+        justify-content: center;
+    }
+
+    #campoBusquedaMini {
+        display: flex;
+        align-items: center;
+        border: none;
+        width: 75%;
+        border-radius: 25px 0px 0px 25px;
+        font-size: 3vw;
+        padding: 10px;
+    }
+
+    #botonBusquedaMini {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        width: 25%;
+        border-radius: 0px 25px 25px 0px;
+        color: white;
+        font-size: 3vx;
+        background-color: var(--accent-color);
+    }
+
+    #circuloIconoUsuarioMini {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 55px;
+        height: 55px;
+        background-color: var(--accent-color);
+        border-radius: 100%;
+        margin: 0;
+    }
+
+    #iconoUsuarioMini {
+        display: flex;
+        width: 70%;
+        height: 70%;
+    }
+}

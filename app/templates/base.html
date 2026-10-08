@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if title %}
+        {{title}}
+        {% else %}
+        PetLink
+        {% endif %}
+    </title>
+    <link rel="icon" href="..\static\img\logo.png">
+    <link rel="stylesheet" href="..\static\css\style.css">
+</head>
+
+<body>
+    <header>
+        {% block header %}
+        <div>
+            <img class="logo" src="..\static\img\logoConFondo.png">
+        </div>
+        <h1 class="titulo">Pet<p class="titulo2">Link</p></h1>
+        <form id="busqueda">
+            <input id="campoBusqueda">
+            <button id="botonBusqueda" type="submit">Buscar</button>
+        </form>
+        <nav>
+            <a href="#">Inicio</a></li>
+            <a href="#">Adopciones</a></li>
+            <a href="#">Mensajes</a></li>
+        </nav>
+        <div>
+            <div>
+                <img src="#">
+            </div>
+            <p>{{username}}</p>
+        </div>
+        {% endblock %}
+    </header>
+    {% block content %}
+    <div id="listaMenu">
+        <hr class="separadorMenu">
+        <form id="busquedaMini">
+            <input id="campoBusquedaMini">
+            <button id="botonBusquedaMini" type="submit"></button>
+        </form>
+        <hr class="separadorMenu">
+        <div id="contenedorUsuarioMini">
+            <p id="myProfile"></p>
+            <div id="circuloIconoUsuarioMini">
+                <img src="icon/userIcon.svg" id="iconoUsuarioMini">
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block content %}
+    <section>
+    </section>
+    {% endblock %}
+    <footer>
+        {% block footer %}
+        Copyright © 2026 Escuela de computación - ATI. Todos los derechos reservados
+        {% endblock %}
+    </footer>
+</body>
+
+</html>

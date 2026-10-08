@@ -3,249 +3,305 @@
 body {
     font-family: var(--primary-font);
     margin: 0;
-    background-color: rgba(235, 235, 235, 1);
+    background-color: var(--grey-50);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-header {
-    background-color: white;
+main {
+    flex: 1;
+    padding: 2% 5%;
+}
+
+.header-main {
+    background-color: var(--white);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75% 5.25% 0.75% 5.25%;
+    padding: 1% 5%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-nav {
+.logo-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     text-decoration: none;
-    padding: 0.75% 5.25% 0.75% 5.25%;
+    gap: 10px;
 }
 
 .logo {
-    width: 20%;
-    height: 20%;
+    height: 45px;
+    width: auto;
 }
 
 .titulo {
-    color: black;
-    display: flex;
-    font-size: 2.8vw;
+    color: var(--black);
+    font-size: 2rem;
     font-weight: 700;
-    align-items: center;
     margin: 0;
-    text-decoration: none;
-    transition: color 0.5s ease;
-    will-change: color;
-}
-
-.titulo:hover {
-    color: var(--accent-color);
+    display: flex;
 }
 
 .titulo2 {
     color: var(--main-color);
-    font-size: 2.8vw;
-    font-weight: 700;
-    margin: 0;
-    text-decoration: none;
 }
 
 #busqueda {
     display: flex;
-    margin: 0;
-    width: 34.5%;
-    height: 2.85%;
+    flex: 0 1 30%;
+    height: 38px;
 }
 
 #campoBusqueda {
-    border: none;
-    width: 40%;
+    border: 1px solid var(--grey-100);
+    width: 75%;
     background-color: var(--grey-50);
-    border-radius: 25px 0px 0px 25px;
-    font-size: 1.19vw;
-    padding: 10px;
+    border-radius: 25px 0 0 25px;
+    padding: 0 15px;
+    font-family: var(--primary-font);
+    font-size: 1rem;
 }
 
 #botonBusqueda {
     border: none;
-    width: 20%;
-    border-radius: 0px 25px 25px 0px;
-    color: white;
-    font-size: 1.19vx;
+    width: 25%;
+    border-radius: 0 25px 25px 0;
+    color: var(--white);
     background-color: var(--accent-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.nav-desktop {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-desktop a {
+    text-decoration: none;
+    color: var(--grey-800);
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-desktop a:hover {
+    color: var(--accent-color);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
 }
 
 #circuloIconoUsuario {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 55px;
-    height: 55px;
+    width: 40px;
+    height: 40px;
     background-color: var(--accent-color);
-    border-radius: 100%;
-    margin: 0;
+    border-radius: 50%;
 }
 
 #iconoUsuario {
-    width: 70%;
-    height: 70%;
+    width: 60%;
+    height: auto;
 }
 
-#menu {
+.mobile-only {
     display: none;
 }
-
-#listaMenu {
+.mobile-menu {
     display: none;
-    border: none;
-}
-
-#busquedaMini {
-    display: none;
-}
-
-#campoBusquedaMini {
-    display: none;
-    font-size: 10vw;
-}
-
-#botonBusquedaMini {
-    display: none;
-}
-
-#contenedorUsuarioMini {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 50%;
-}
-
-#circuloIconoUsuarioMini {
-    display: none;
-}
-
-#iconoUsuarioMini {
-    display: none;
-}
-
-#myProfile {
-    font-size: 6vw;
-    margin: 0;
-}
-
-.separador {
-    margin: 0;
-}
-
-.separadorMenu {
-    margin: 5% 0% 5% 0%;
-    width: 100%;
-    background-color: white;
 }
 
 footer {
-    font-size: 1.05vw;
+    background-color: var(--white);
+    font-size: 0.9rem;
     text-align: center;
-    color: gray;
-    opacity: 50%;
-    object-position: center;
-    padding: 3%;
+    color: var(--grey-400);
+    padding: 20px;
+    border-top: 1px solid var(--grey-100);
+    margin-top: auto;
 }
 
-@media (min-width: 320px) and (max-width: 768px) {
-    .titulo {
-        font-size: 8vw;
+.nav-img {
+    max-width: 2vw;
+    max-height: auto;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 65px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--grey-400);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: color 0.3s;
+    width: 100%;
+}
+
+.nav-item:hover, 
+.nav-item:active {
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
     }
 
-    #ucv {
-        font-size: 4vw;
+    .mobile-only {
+        display: block;
     }
 
-    #bigVisible {
-        display: none;
-    }
-
-    #campoBusqueda {
-        display: none;
-    }
-
-    #botonBusqueda {
-        display: none;
-    }
-
-    #circuloIconoUsuario {
-        display: none;
-    }
-
-    #iconoUsuario {
-        display: none;
-    }
-
-    #menu {
-        display: inline;
-        width: 7vw;
-        height: 7vw;
-        border: none;
-        background: none;
-    }
-
-    #listaMenu {
-        display: none;
-        justify-content: space-between;
-        align-items: flex-end;
-        flex-direction: column;
+    #menu-toggle {
         background-color: var(--main-color);
-        font-size: 2vw;
-        color: white;
-        padding: 0% 5% 5% 5%;
+        border-radius: 15%;
+        border-width: 0;
+        font-size: 2rem;
+        color: var(--main-color);
+        cursor: pointer;
+    }
+
+    .titulo {
+        font-size: 1.6rem;
+    }
+
+    .mobile-menu {
+        display: none; 
+        background-color: var(--main-color);
+        flex-direction: column;
+        padding: 20px 5%;
+        gap: 20px;
+    }
+
+    .nav-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-mobile a {
+        color: var(--white);
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 600;
     }
 
     #busquedaMini {
         display: flex;
-        margin: 0;
         width: 100%;
-        height: 2.85%;
-        justify-content: center;
+        height: 40px;
     }
 
     #campoBusquedaMini {
-        display: flex;
-        align-items: center;
+        width: 80%;
         border: none;
-        width: 75%;
-        border-radius: 25px 0px 0px 25px;
-        font-size: 3vw;
-        padding: 10px;
+        border-radius: 25px 0 0 25px;
+        padding: 0 15px;
+        font-family: var(--primary-font);
     }
 
     #botonBusquedaMini {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 20%;
         border: none;
-        width: 25%;
-        border-radius: 0px 25px 25px 0px;
-        color: white;
-        font-size: 3vx;
+        border-radius: 0 25px 25px 0;
         background-color: var(--accent-color);
+        color: var(--white);
+        font-size: 1.2rem;
+    }
+
+    .separadorMenu {
+        border: 0;
+        height: 1px;
+        background-color: var(--white);
+        opacity: 0.3;
+        margin: 5px 0;
+    }
+
+    #contenedorUsuarioMini {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--white);
+    }
+
+    #myProfile {
+        font-size: 1.2rem;
+        margin: 0;
+        font-weight: 600;
     }
 
     #circuloIconoUsuarioMini {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 55px;
-        height: 55px;
+        width: 45px;
+        height: 45px;
         background-color: var(--accent-color);
-        border-radius: 100%;
-        margin: 0;
+        border-radius: 50%;
     }
 
     #iconoUsuarioMini {
+        width: 60%;
+    }
+
+    body {
+        padding-bottom: 65px; 
+    }
+
+    .bottom-nav {
         display: flex;
-        width: 70%;
-        height: 70%;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 65px;
+        background-color: var(--white);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: var(--grey-400);
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: color 0.3s;
+        width: 100%;
+    }
+
+    .bottom-nav-item:hover, 
+    .bottom-nav-item:active {
+        color: var(--accent-color);
+    }
+
+    .nav-icon {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+    }
+
+    .nav-img {
+        max-width: 5vw;
+        max-height: auto;
     }
 }

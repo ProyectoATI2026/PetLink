@@ -3,66 +3,100 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        {% if title %}
-        {{title}}
-        {% else %}
-        PetLink
-        {% endif %}
+        {% block title %}
+            {% if title %}{{ title }}{% else %}PetLink{% endif %}
+        {% endblock %}
     </title>
-    <link rel="icon" href="..\static\img\logo.png">
-    <link rel="stylesheet" href="..\static\css\style.css">
+    <link rel="icon" href="../static/img/logo.png">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/main.js"></script>
 </head>
 
 <body>
-    <header>
+    <header class="header-main">
         {% block header %}
-        <div>
-            <img class="logo" src="..\static\img\logoConFondo.png">
-        </div>
-        <h1 class="titulo">Pet<p class="titulo2">Link</p></h1>
-        <form id="busqueda">
-            <input id="campoBusqueda">
+        <a href="/" class="logo-container">
+            <img class="logo" src="../static/img/logoConFondo.png" alt="Logo de PetLink">
+            <h1 class="titulo">Pet<span class="titulo2">Link</span></h1>
+        </a>
+
+        <form id="busqueda" class="desktop-only">
+            <input id="campoBusqueda" type="text" placeholder="Buscar mascotas...">
             <button id="botonBusqueda" type="submit">Buscar</button>
         </form>
-        <nav>
-            <a href="#">Inicio</a></li>
-            <a href="#">Adopciones</a></li>
-            <a href="#">Mensajes</a></li>
+
+        <nav class="nav-desktop desktop-only">
+            <a href="#" class="nav-item">
+                <img class="nav-img" src="../static/img/home.svg" alt="Casa">
+                <span>Inicio</span>
+            </a>
+            <a href="#" class="nav-item">
+                <img class="nav-img" src="../static/img/paw.svg" alt="Pata">
+                <span>Adopciones</span>
+            </a>
+            <a href="#" class="nav-item">
+                <img class="nav-img" src="../static/img/message.svg" alt="Chat">
+                <span>Mensajes</span>
+            </a>
         </nav>
-        <div>
-            <div>
-                <img src="#">
+
+        <div class="user-profile desktop-only">
+            <div id="circuloIconoUsuario">
+                <img src="../static/img/userIcon.svg" id="iconoUsuario" alt="Usuario">
             </div>
-            <p>{{username}}</p>
+            <p>{{ user.username|default:"Usuario" }}</p>
         </div>
+
+        <button id="menu-toggle" class="mobile-only" aria-label="Abrir menú">
+            <img src="../static/img/menuIcon.svg" id="iconoMenu" alt="Menu">
+        </button>
         {% endblock %}
     </header>
-    {% block content %}
-    <div id="listaMenu">
-        <hr class="separadorMenu">
+
+    <div id="listaMenu" class="mobile-menu">
         <form id="busquedaMini">
-            <input id="campoBusquedaMini">
-            <button id="botonBusquedaMini" type="submit"></button>
+            <input id="campoBusquedaMini" type="text" placeholder="Buscar...">
+            <button id="botonBusquedaMini" type="submit">🔍</button>
         </form>
         <hr class="separadorMenu">
         <div id="contenedorUsuarioMini">
-            <p id="myProfile"></p>
+            <p id="myProfile">{{ user.username|default:"Mi Perfil" }}</p>
             <div id="circuloIconoUsuarioMini">
-                <img src="icon/userIcon.svg" id="iconoUsuarioMini">
+                <img src="{% static 'icon/userIcon.svg' %}" id="iconoUsuarioMini" alt="Usuario">
             </div>
         </div>
     </div>
-    {% endblock %}
-    {% block content %}
-    <section>
-    </section>
-    {% endblock %}
+
+    <main>
+        {% block content %}
+        <section>
+
+        </section>
+        {% endblock %}
+    </main>
+
     <footer>
         {% block footer %}
-        Copyright © 2026 Escuela de computación - ATI. Todos los derechos reservados
+        <p>Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados</p>
         {% endblock %}
     </footer>
+
+    <nav class="bottom-nav mobile-only">
+        <a href="#" class="bottom-nav-item">
+            <img class="nav-img" src="../static/img/home.svg" alt="Casa">
+            <span>Inicio</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <img class="nav-img" src="../static/img/paw.svg" alt="Pata">
+            <span>Adopciones</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <img class="nav-img" src="../static/img/message.svg" alt="Chat">
+            <span>Mensajes</span>
+        </a>
+    </nav>
 </body>
 
 </html>

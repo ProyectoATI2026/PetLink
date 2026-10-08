@@ -34,7 +34,7 @@ class CustomLoginView(LoginView):
     """
     Gestiona el inicio de sesión del usuario.
     """
-    template_name = 'templates/login.html'
+    template_name = 'login.html'
     authentication_form = CustomLoginForm
     redirect_authenticated_user = True
 
@@ -90,7 +90,7 @@ class RegistroUsuarioView(CreateView):
     Permite registrar nuevos usuarios en el sistema.
     """
     form_class = CustomUserCreationForm
-    template_name = 'templates/registro.html'
+    template_name = 'register.html'
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
@@ -112,7 +112,7 @@ class ListaUsuariosView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     Vista protegida solo para administradores/roles con permiso explícito.
     """
     model = CustomUser
-    template_name = 'templates/lista_usuarios.html'
+    template_name = 'lista_usuarios.html'
     context_object_name = 'usuarios'
     permission_required = 'autenticacion.view_customuser' # Requisito de permiso
 
@@ -125,7 +125,7 @@ class AuditLogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     Muestra el historial/tabla de auditoría a los administradores.
     """
     model = AuditLog
-    template_name = 'templates/logs_auditoria.html'
+    template_name = 'logs_auditoria.html'
     context_object_name = 'logs'
     paginate_by = 20 # Paginación
     permission_required = 'autenticacion.view_auditlog'

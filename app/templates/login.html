@@ -1,0 +1,63 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate "Iniciar Sesión" %} - PetLink</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="auth-page-body">
+    <div class="auth-wrapper">
+        <!-- Panel de Marca / Logo -->
+        <div class="auth-brand-section">
+            <img src="{% static 'img/logoConFondo.png' %}" alt="PetLink Logo" class="auth-logo">
+            <h1 class="auth-brand-title">Pet<span class="titulo2">Link</span></h1>
+            <p class="auth-tagline">{% translate "Conectando corazones, cambiando vidas" %}</p>
+        </div>
+
+        <!-- Panel del Formulario -->
+        <div class="auth-form-section">
+            <h2>{% translate "Iniciar Sesión" %}</h2>
+
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <p class="alert-message {{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}" class="auth-form">
+                {% csrf_token %}
+                <div class="auth-form-group">
+                    <label for="{{ form.username.id_for_label }}">{% translate "Nombre de Usuario" %}</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <p class="error-message">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="{{ form.password.id_for_label }}">{% translate "Contraseña" %}</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <p class="error-message">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-auth">{% translate "Ingresar" %}</button>
+            </form>
+
+            <div class="auth-footer-links">
+                <p>{% translate "¿No tienes una cuenta?" %} <a href="{% url 'registro' %}">{% translate "Regístrate aquí" %}</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

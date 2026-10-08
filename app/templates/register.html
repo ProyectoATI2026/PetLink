@@ -1,0 +1,52 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate "Registro" %} - PetLink</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="auth-page-body">
+    <div class="auth-wrapper">
+        <!-- Panel de Marca / Logo -->
+        <div class="auth-brand-section">
+            <img src="{% static 'img/logoConFondo.png' %}" alt="PetLink Logo" class="auth-logo">
+            <h1 class="auth-brand-title">Pet<span class="titulo2">Link</span></h1>
+            <p class="auth-tagline">{% translate "Conectando corazones, cambiando vidas" %}</p>
+        </div>
+
+        <!-- Panel del Formulario -->
+        <div class="auth-form-section">
+            <h2>{% translate "Crear Cuenta" %}</h2>
+
+            <form method="post" action="{% url 'registro' %}" class="auth-form">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="auth-form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="help-text">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn-auth">{% translate "Registrarse" %}</button>
+            </form>
+
+            <div class="auth-footer-links">
+                <p>{% translate "¿Ya tienes cuenta?" %} <a href="{% url 'login' %}">{% translate "Inicia sesión" %}</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

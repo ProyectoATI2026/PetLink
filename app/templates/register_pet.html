@@ -1,0 +1,57 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate "Registro Mascota" %} - PetLink</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="auth-page-body">
+
+    <div class="pet-register-container">
+    <!-- Panel de Marca / Sección para subir la foto -->
+        <div class="auth-form-img-section">
+            
+            <!-- Campo de imagen fuera de <form>, vinculado con el atributo form="..." -->
+            <div class="auth-form-group">
+                <label for="{{ form.imagen.id_for_label }}">{{ form.imagen.label }}</label>
+                
+                <input type="file" name="imagen" accept="image/*" id="id_imagen" form="pet-registration-form">
+            </div>
+        </div>
+        <div class="auth-wrapper">
+
+            
+            <!-- Formulario principal -->
+            <div class="auth-form-section">
+                <h2>{% translate "Registrar nueva Mascota" %}</h2>
+
+                <form id="pet-registration-form" method="post" action="{% url 'registro_mascota' %}" class="auth-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {% if field.name != 'imagen' %}
+                        <div class="auth-form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </form>
+
+                <button type="submit" class="btn-auth">{% translate "Registrar Mascota" %}</button>
+                <p class="auth-tagline">{% translate "Al registrar la mascota, aceptas publicar esta información de forma abierta para que otros miembros de PetLink puedan contactarte." %}</p>
+            </div>
+        </div>
+                
+    </div>
+</body>
+
+</html>

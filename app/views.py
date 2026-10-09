@@ -8,8 +8,8 @@ from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 
 # Importación de modelos y formularios propios
-from .models import AuditLog, CustomUser # o Group/Profile según tu modelo
-from .forms import CustomLoginForm, CustomUserCreationForm
+from .models import AuditLog, CustomPet, CustomUser # o Group/Profile según tu modelo
+from .forms import CustomLoginForm, CustomPetCreationForm, CustomUserCreationForm
 
 # -----------------------------------------------------------------------------
 # HELPER / UTILIDAD DE AUDITORÍA
@@ -133,3 +133,31 @@ class AuditLogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         # Ordenar los logs del más reciente al más antiguo
         return AuditLog.objects.select_related('usuario').order_by('-fecha_hora')
+
+# -----------------------------------------------------------------------------
+# 4. MÓDULO DE REGISTRO MASCOTAS
+# -----------------------------------------------------------------------------
+
+class RegistroMascotaView(LoginRequiredMixin, CreateView):
+    """
+    Permite a los usuarios registrados agregar mascotas al sistema.
+    """
+    model = CustomPet  
+    form_class = CustomPetCreationForm 
+    template_name = 'register_pet.html'
+    success_url = reverse_lazy('pet_list')  # Redirige a la lista de mascotas después del registro
+
+    def form_valid(self, form):
+        # Asignar el usuario actual como propietario de la mascota
+        form.instance.propietario = self.request.user
+        response = super().form_valid(form)
+        
+        # Auditoría: Registro de nueva mascota
+        registrar_log_auditoria(
+            request=self.request,
+            usuario=self.request.user,
+            accion="MASCOTA_REGISTERED",
+            detalles=f"Se registró una nueva mascota: {form.instance.nombre}"
+        )
+        messages.success(self.request, _("Mascota registrada exitosamente."))
+        return response

@@ -60,3 +60,31 @@ class AuditLog(models.Model):
     def __str__(self):
         user_str = self.usuario.username if self.usuario else _('Anónimo')
         return f"{self.fecha_hora.strftime('%Y-%m-%d %H:%M:%S')} - {user_str} - {self.accion}"
+
+class CustomPet(models.Model):
+    """
+    Modelo para representar una mascota en el sistema.
+    """
+    nombre = models.CharField(max_length=100, verbose_name=_('Nombre'))
+    especie = models.CharField(max_length=50, verbose_name=_('Especie'))
+    raza = models.CharField(max_length=50, verbose_name=_('Raza / Mestizaje'), blank=True)
+    edad = models.DateField(verbose_name=_('Edad'), null=True, blank=True)
+    genero = models.CharField(max_length=10, verbose_name=_('Género'), blank=True)
+    descripcion = models.TextField(verbose_name=_('Breve Descripción / Estado'), blank=True)
+    imagen = models.ImageField(upload_to='mascotas/', null=True, blank=True, verbose_name=_('Imagen de la Mascota'))
+    
+    propietario = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='mascotas',
+        verbose_name=_('Propietario')
+    )
+    fecha_registro = models.DateTimeField(auto_now_add=True, verbose_name=_('Fecha de Registro'))
+
+    class Meta:
+        verbose_name = _('Mascota')
+        verbose_name_plural = _('Mascotas')
+        ordering = ['nombre']
+
+    def __str__(self):
+        return f"{self.nombre} ({self.especie})"

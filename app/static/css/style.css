@@ -15,12 +15,15 @@ main {
 }
 
 .header-main {
+    width: 100%;
+    margin: 0;
     background-color: var(--white);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1% 5%;
+    padding: 1% 5%;       
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-sizing: border-box;
 }
 
 .logo-container {
@@ -119,6 +122,8 @@ main {
 }
 
 footer {
+    width: 100%;
+    margin: 0;
     background-color: var(--white);
     font-size: 0.9rem;
     text-align: center;
@@ -478,10 +483,8 @@ body.auth-page-body {
     background-color: var(--grey-50);
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
     box-sizing: border-box;
 }
 

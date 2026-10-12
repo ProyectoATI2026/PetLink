@@ -654,3 +654,266 @@ body.auth-page-body {
         font-size: 1.5rem;
     }
 }
+
+/* =========================================
+   MÓDULO DE PERFIL DE USUARIO
+========================================= */
+
+.profile-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-subtitle {
+    color: var(--grey-400);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.profile-title {
+    color: var(--grey-950);
+    font-size: 1.8rem;
+    margin: 5px 0 8px 0;
+    font-weight: 700;
+}
+
+.profile-description {
+    color: var(--grey-400);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.profile-edit-btn {
+    width: auto !important;
+    padding: 10px 20px !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.profile-grid-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Tarjetas y Contenedores */
+.profile-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.profile-sidebar {
+    flex: 1;
+    min-width: 280px;
+    text-align: center;
+}
+
+.profile-content-area {
+    flex: 2;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Avatar del Usuario */
+.profile-avatar {
+    width: 96px;
+    height: 96px;
+    background-color: var(--main-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 auto 20px auto;
+}
+
+.profile-username {
+    color: var(--grey-950);
+    margin: 0 0 8px 0;
+    font-size: 1.4rem;
+}
+
+.profile-badge-verified {
+    display: inline-block;
+    background-color: var(--grey-50);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.profile-sidebar-text {
+    color: var(--grey-400);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Secciones internas de Información Personal */
+.profile-section-title {
+    color: var(--grey-950);
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+}
+
+.profile-section-subtitle {
+    color: var(--grey-400);
+    font-size: 0.85rem;
+    margin: 0 0 25px 0;
+}
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.profile-info-label {
+    display: block;
+    color: var(--grey-400);
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.profile-info-value {
+    color: var(--grey-800);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.profile-interests-container {
+    margin-top: 25px;
+    border-top: 1px solid var(--grey-100);
+    padding-top: 20px;
+}
+
+.profile-interest-tag {
+    background-color: var(--grey-50);
+    color: var(--grey-800);
+    border: 1px solid var(--grey-100);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.profile-tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Sección de Mascotas */
+.profile-pets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-pet-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--grey-100);
+}
+
+.profile-pet-name {
+    display: block;
+    color: var(--grey-950);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.profile-pet-details {
+    color: var(--grey-400);
+    font-size: 0.85rem;
+}
+
+.profile-action-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.profile-action-link:hover {
+    text-decoration: underline;
+}
+
+.profile-add-pet-wrapper {
+    margin-top: 20px;
+}
+
+.profile-empty-text {
+    color: var(--grey-400);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* =========================================
+   ADAPTACIÓN MÓVIL PARA EL PERFIL (< 768px)
+========================================= */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 0 5px;
+    }
+
+    /* El encabezado pasa a ordenarse en columna */
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    /* El botón de modificar perfil se expande en móvil */
+    .profile-edit-btn {
+        width: 100% !important;
+        justify-content: center;
+    }
+
+    /* Las dos columnas principales se apilan una debajo de la otra */
+    .profile-grid-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Forzamos que las tarjetas ocupen todo el ancho disponible */
+    .profile-sidebar,
+    .profile-content-area {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* Reducimos un poco el padding interno de las tarjetas para pantallas pequeñas */
+    .profile-card {
+        padding: 20px;
+    }
+
+    /* La información personal pasa a una sola columna para evitar recortes */
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}

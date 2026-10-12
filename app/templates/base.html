@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,9 +10,9 @@
             {% if title %}{{ title }}{% else %}PetLink{% endif %}
         {% endblock %}
     </title>
-    <link rel="icon" href="../static/img/logo.png">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <script src="../static/js/main.js"></script>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 
 <body>
@@ -44,7 +45,7 @@
 
         <div class="user-profile desktop-only">
             <div id="circuloIconoUsuario">
-                <img src="../static/img/userIcon.svg" id="iconoUsuario" alt="Usuario">
+                <img src="{% static 'img/userIcon.svg' %}" id="iconoUsuario" alt="Usuario">
             </div>
             <p>{{ user.username|default:"Usuario" }}</p>
         </div>
@@ -64,7 +65,7 @@
         <div id="contenedorUsuarioMini">
             <p id="myProfile">{{ user.username|default:"Mi Perfil" }}</p>
             <div id="circuloIconoUsuarioMini">
-                <img src="{% static 'icon/userIcon.svg' %}" id="iconoUsuarioMini" alt="Usuario">
+                <img src="{% static 'img/userIcon.svg' %}" id="iconoUsuarioMini" alt="Usuario">
             </div>
         </div>
     </div>

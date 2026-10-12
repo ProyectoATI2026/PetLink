@@ -1,5 +1,6 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, User
 from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractUser):
@@ -88,3 +89,27 @@ class CustomPet(models.Model):
 
     def __str__(self):
         return f"{self.nombre} ({self.especie})"
+
+class UserProfile(models.Model):
+    # Relación uno a uno con el usuario por defecto de Django
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    cedula = models.CharField(max_length=20, unique=True)
+    birth_date = models.DateField()
+    gender = models.CharField(max_length=20, choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino')])
+    location = models.CharField(max_length=100)
+    is_verified = models.BooleanField(default=False)
+    # Si quieres guardar los gustos como una lista separada por comas o relación many-to-many
+    interests = models.TextField(help_text="Separados por comas o en formato adecuado")
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+class Pet(models.Model):
+    # Relación de muchos a uno: un usuario puede tener varias mascotas
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    breed = models.CharField(max_length=50) # Raza y especie (ej: Golden Retriever)
+    age = models.IntegerField() # Edad en años
+
+    def __str__(self):
+        return f"{self.name} ({self.owner.username})"

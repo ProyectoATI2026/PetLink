@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
+from .models import UserProfile, Pet
 
 # Importación de modelos y formularios propios
 from .models import AuditLog, CustomPet, CustomUser # o Group/Profile según tu modelo
@@ -161,3 +163,38 @@ class RegistroMascotaView(LoginRequiredMixin, CreateView):
         )
         messages.success(self.request, _("Mascota registrada exitosamente."))
         return response
+
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import UserProfile, Pet
+
+class UserProfileView(LoginRequiredMixin, DetailView):
+    model = UserProfile
+    template_name = 'profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self, queryset=None):
+        # Obtiene o crea el perfil correspondiente al usuario que ha iniciado sesión
+        profile, created = UserProfile.objects.get_or_create(
+            user=self.request.user,
+            defaults={
+                'cedula': 'V-00.000.000',
+                'birth_date': '2000-01-01',
+                'gender': 'No especificado',
+                'location': 'Caracas',
+                'interests': 'Perros, Gatos, Adopción responsable',
+                'is_verified': True
+            }
+        )
+        return profile
+
+    def get_context_data(self, **kwargs):
+        # Añadimos datos adicionales al contexto, como las mascotas y los intereses divididos en lista
+        context = super().get_context_data(**kwargs)
+        context['pets'] = Pet.objects.filter(owner=self.request.user)
+        
+        # Convertimos los intereses separados por comas en una lista para los badges
+        interests_str = self.object.interests
+        context['interests_list'] = [i.strip() for i in interests_str.split(',')] if interests_str else []
+        
+        return context

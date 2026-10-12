@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractUser):
@@ -88,3 +90,37 @@ class CustomPet(models.Model):
 
     def __str__(self):
         return f"{self.nombre} ({self.especie})"
+
+class ProfileInfo(models.Model):
+    """
+    Modelo para almacenar información adicional del perfil del usuario.
+    """
+    cedula = models.CharField(max_length=20, null=True, blank=True, verbose_name=_('Cédula de identidad'))
+    nacimiento = models.DateField(null=True, blank=True, verbose_name=_('Fecha de nacimiento'))
+    genero = models.CharField(max_length=10, null=True, blank=True, verbose_name=_('Género'))
+    ubicacion = models.CharField(max_length=50, null=True, blank=True,verbose_name=_('Ubicación'))
+    gustos = models.TextField(null=True, blank=True, verbose_name=_('Gustos / Preferencias'))
+    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True, verbose_name=_('Foto de Perfil'))
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, verbose_name=_('Usuario'))
+    class Meta:
+        verbose_name = _('Perfil')
+        verbose_name_plural = _('Perfiles')
+
+    def __str__(self):
+        return f"Perfil de {self.user.username}"
+
+@receiver(post_save, sender=CustomUser)
+def gestionar_perfil_usuario(sender, instance, created, **kwargs):
+    """
+    Crea automáticamente el perfil de usuario cuando se registra un nuevo CustomUser,
+    o lo guarda si ya existe, evitando duplicados.
+    """
+    if created:
+        ProfileInfo.objects.get_or_create(user=instance)
+    else:
+        # Asegura que si se actualiza el usuario, su perfil también se procese correctamente
+        if hasattr(instance, 'profile'):
+            instance.profile.save()
+        else:
+        # Por si acaso el perfil no existiera previamente en usuarios antiguos
+            ProfileInfo.objects.get_or_create(user=instance)

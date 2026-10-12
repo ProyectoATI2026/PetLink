@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Mi perfil{% endblock %}
+
+{% block content %}
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate "Mi perfil" %} - PetLink</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="home-page-body">
+
+    <div id="profile-container">
+        <div id="profile-modify-section">
+            <div id="text-modify-section">
+                <h2>{% translate "Modificar perfil" %}</h2>
+                <p>{% translate "Actualiza tu información personal y preferencias en PetLink." %}</p>
+            </div>
+
+            <button type="submit" class="btn-auth" id="btn-modify-profile">{% translate "Modificar perfil" %}</button>
+        </div>
+        <div id="profile-separator">
+            <div id="profile-separator2">
+                <div id="profile-name-section">
+                    <div id="circuloIconoUsuario">
+                        <img src="../static/img/userIcon.svg" id="iconoUsuario" alt="Usuario">
+                    </div>
+                    <h2>{{ user.username|default:"Usuario" }}</h2>
+                    <p>{% translate "Tu información ayuda a crear una comunidad PetLink más segura y cercana." %}</p>
+                </div>
+                <div id="profile-info-section" class="profile-container">
+                    <h2>{% translate "Información personal" %}</h2>
+                    <p>{% translate "Datos visibles únicamente para ti." %}</p>
+
+                    <h3 class = "form-label">{% translate "Cedula de identidad" %} </h3>
+                    <h3 class = "result-label">{{ user.profile.cedula|default:"No especificada" }}</h3>
+
+                    <h3 class = "form-label">{% translate "Fecha de nacimiento" %} </h3>
+                    <h3 class = "result-label">{{ user.profile.nacimiento|default:"No especificada" }}</h3>
+
+                    <h3 class = "form-label">{% translate "Genero" %} </h3>
+                    <h3 class = "result-label">{{ user.profile.genero|default:"No especificado" }}</h3>
+
+                    <h3 class = "form-label">{% translate "Ubicacion" %} </h3>
+                    <h3 class = "result-label">{{ user.profile.ubicacion|default:"No especificada" }}</h3>
+
+                    <h3 class = "form-label">{% translate "Gustos / Preferencias" %} </h3>
+                    <h3 class = "result-label">{{ user.profile.gustos|default:"No especificados" }}</h3>
+                </div>
+            </div>
+            <div id="profile-pets-section">
+                <h2>{% translate "Mis mascotas" %}</h2>
+                <p>{% translate "Aquí puedes ver y administrar las mascotas que has registrado en PetLink." %}</p>
+
+                <!-- Verificamos si el usuario tiene mascotas registradas -->
+                {% if mascotas %}
+                    <div class="pet-list">
+                        <!-- Iteramos sobre la lista de mascotas (n cantidad) -->
+                        {% for mascota in mascotas %}
+                            <div class="tarjeta-mascota">
+                                {% if mascota.foto %}
+                                    <img src="{{ mascota.foto.url }}" alt="Foto de {{ mascota.nombre }}">
+                                {% else %}
+                                    <img src="{% static 'img/default-pet.png' %}" alt="Imagen por defecto">
+                                {% endif %}
+                                
+                                <h3>{{ mascota.nombre }}</h3>
+                                <p><strong>Especie:</strong> {{ mascota.especie }}</p>
+                                <p><strong>Raza:</strong> {{ mascota.raza|default:"No especificada" }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aún no tienes mascotas registradas.</p>
+                {% endif %}
+
+                <button type="submit" class="btn-auth">{% translate "Registrar nueva mascota" %}</button>
+            </div>
+        </div>
+
+</body>
+
+{% endblock %}

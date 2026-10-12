@@ -8,7 +8,7 @@ from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 
 # Importación de modelos y formularios propios
-from .models import AuditLog, CustomPet, CustomUser # o Group/Profile según tu modelo
+from .models import AuditLog, CustomPet, CustomUser, ProfileInfo # o Group/Profile según tu modelo
 from .forms import CustomLoginForm, CustomPetCreationForm, CustomUserCreationForm
 
 # -----------------------------------------------------------------------------
@@ -145,7 +145,7 @@ class RegistroMascotaView(LoginRequiredMixin, CreateView):
     model = CustomPet  
     form_class = CustomPetCreationForm 
     template_name = 'register_pet.html'
-    success_url = reverse_lazy('pet_list')  # Redirige a la lista de mascotas después del registro
+    success_url = reverse_lazy('profile')
 
     def form_valid(self, form):
         # Asignar el usuario actual como propietario de la mascota
@@ -161,3 +161,24 @@ class RegistroMascotaView(LoginRequiredMixin, CreateView):
         )
         messages.success(self.request, _("Mascota registrada exitosamente."))
         return response
+
+# -----------------------------------------------------------------------------
+# 4. MÓDULO INFORMACIÓN DE PERFIL DE USUARIO
+# -----------------------------------------------------------------------------
+class PerfilUsuarioView(LoginRequiredMixin, DetailView):
+    """
+    Vista para mostrar el perfil del usuario y sus mascotas registradas.
+    """
+    model = ProfileInfo
+    template_name = 'profile.html'
+    context_object_name = 'usuario'
+
+    def get_object(self, queryset=None):
+        # Retorna el perfil del usuario actualmente autenticado
+        return ProfileInfo.objects.get(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Agregar las mascotas del usuario al contexto
+        context['mascotas'] = CustomPet.objects.filter(propietario=self.request.user)
+        return context

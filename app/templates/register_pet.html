@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
@@ -11,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body class="auth-page-body">
+<body class="home-page-body">
 
     <div class="pet-register-container">
     <!-- Panel de Marca / Sección para subir la foto -->
@@ -55,3 +58,4 @@
 </body>
 
 </html>
+{% endblock %}

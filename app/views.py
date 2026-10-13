@@ -147,7 +147,7 @@ class RegistroMascotaView(LoginRequiredMixin, CreateView):
     model = CustomPet  
     form_class = CustomPetCreationForm 
     template_name = 'register_pet.html'
-    success_url = reverse_lazy('pet_list')  # Redirige a la lista de mascotas después del registro
+    success_url = reverse_lazy('profile')  # Redirige a la lista de mascotas después del registro
 
     def form_valid(self, form):
         # Asignar el usuario actual como propietario de la mascota
@@ -178,7 +178,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         profile, created = UserProfile.objects.get_or_create(
             user=self.request.user,
             defaults={
-                'cedula': 'V-00.000.000',
+                'cedula': f'V-{self.request.user.id:08d}',
                 'birth_date': '2000-01-01',
                 'gender': 'No especificado',
                 'location': 'Caracas',

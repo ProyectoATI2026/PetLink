@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
-from .models import CustomPet, CustomUser
+from django.contrib.auth.models import User
+from .models import CustomPet, CustomUser, UserProfile
 
 class CustomLoginForm(AuthenticationForm):
     """
@@ -115,3 +116,25 @@ class CustomPetCreationForm(forms.ModelForm):
         self.fields['gender'].label = _("Género")
         self.fields['desc'].label = _("Breve Descripción / Estado")
         self.fields['imagen'].label = _("Foto de Perfil de la Mascota")
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+            'last_name': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+        }
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['cedula', 'birth_date', 'gender', 'location', 'interests']
+        widgets = {
+            'cedula': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+            'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'auth-form-group input'}),
+            'gender': forms.Select(attrs={'class': 'auth-form-group input'}),
+            'location': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+            'interests': forms.Textarea(attrs={'rows': 3, 'class': 'auth-form-group input'}),
+        }

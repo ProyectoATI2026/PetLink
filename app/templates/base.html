@@ -19,7 +19,7 @@
     <header class="header-main">
         {% block header %}
         <a href="/" class="logo-container">
-            <img class="logo" src="../static/img/logoConFondo.png" alt="Logo de PetLink">
+            <img class="logo" src="{% static 'img/logoConFondo.png' %}" alt="Logo de PetLink">
             <h1 class="titulo">Pet<span class="titulo2">Link</span></h1>
         </a>
 
@@ -30,15 +30,15 @@
 
         <nav class="nav-desktop desktop-only">
             <a href="#" class="nav-item">
-                <img class="nav-img" src="../static/img/home.svg" alt="Casa">
+                <img class="nav-img" src="{% static 'img/home.svg' %}" alt="Casa">
                 <span>Inicio</span>
             </a>
             <a href="#" class="nav-item">
-                <img class="nav-img" src="../static/img/paw.svg" alt="Pata">
+                <img class="nav-img" src="{% static 'img/paw.svg' %}" alt="Pata">
                 <span>Adopciones</span>
             </a>
             <a href="#" class="nav-item">
-                <img class="nav-img" src="../static/img/message.svg" alt="Chat">
+                <img class="nav-img" src="{% static 'img/message.svg' %}" alt="Chat">
                 <span>Mensajes</span>
             </a>
         </nav>
@@ -51,7 +51,7 @@
         </div>
 
         <button id="menu-toggle" class="mobile-only" aria-label="Abrir menú">
-            <img src="../static/img/menuIcon.svg" id="iconoMenu" alt="Menu">
+            <img src="{% static 'img/menuIcon.svg' %}" id="iconoMenu" alt="Menu">
         </button>
         {% endblock %}
     </header>
@@ -86,15 +86,15 @@
 
     <nav class="bottom-nav mobile-only">
         <a href="#" class="bottom-nav-item">
-            <img class="nav-img" src="../static/img/home.svg" alt="Casa">
+            <img class="nav-img" src="{% static 'img/home.svg' %}" alt="Casa">
             <span>Inicio</span>
         </a>
         <a href="#" class="bottom-nav-item">
-            <img class="nav-img" src="../static/img/paw.svg" alt="Pata">
+            <img class="nav-img" src="{% static 'img/paw.svg' %}" alt="Pata">
             <span>Adopciones</span>
         </a>
         <a href="#" class="bottom-nav-item">
-            <img class="nav-img" src="../static/img/message.svg" alt="Chat">
+            <img class="nav-img" src="{% static 'img/message.svg' %}" alt="Chat">
             <span>Mensajes</span>
         </a>
     </nav>

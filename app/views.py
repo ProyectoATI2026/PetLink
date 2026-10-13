@@ -178,7 +178,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         profile, created = UserProfile.objects.get_or_create(
             user=self.request.user,
             defaults={
-                'cedula': 'V-00.000.000',
+                'cedula': f'V-{self.request.user.id:08d}',
                 'birth_date': '2000-01-01',
                 'gender': 'No especificado',
                 'location': 'Caracas',

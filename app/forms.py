@@ -52,7 +52,7 @@ class CustomPetCreationForm(forms.ModelForm):
     """
     Formulario para el registro de nuevas mascotas en el sistema.
     """
-    petname = forms.CharField(
+    nombre = forms.CharField(
         required=True,
         label=_("Nombre de la Mascota"),
         widget=forms.TextInput(attrs={
@@ -60,7 +60,7 @@ class CustomPetCreationForm(forms.ModelForm):
         })
     )
 
-    species = forms.CharField(
+    especie = forms.CharField(
         required=True,
         label=_("Especie"),
         widget=forms.TextInput(attrs={
@@ -68,7 +68,7 @@ class CustomPetCreationForm(forms.ModelForm):
         })
     )
 
-    age = forms.DateField(
+    edad = forms.DateField(
         label=_("Edad"),
         widget=forms.DateInput(attrs={
             'placeholder': _('Ingrese la edad de la mascota'),
@@ -76,19 +76,19 @@ class CustomPetCreationForm(forms.ModelForm):
         })
     )
 
-    breed = forms.CharField(
+    raza = forms.CharField(
         label=_("Raza / Mestizaje"),
         widget=forms.TextInput(attrs={
             'placeholder': _('Ingrese la raza de la mascota')
         })
     )
 
-    gender = forms.ChoiceField(
+    genero = forms.ChoiceField(
         choices=[('M', _('Macho')), ('F', _('Hembra'))],
         label=_("Género"),
     )
 
-    desc = forms.CharField(
+    descripcion = forms.CharField(
         label=_("Breve Descripción / Estado"),
         widget=forms.Textarea(attrs={
             'placeholder': _('Ingrese una descripción de la mascota'),
@@ -104,17 +104,17 @@ class CustomPetCreationForm(forms.ModelForm):
 
     class Meta:
         model = CustomPet
-        fields = ('petname', 'species', 'breed', 'age', 'gender', 'desc', 'imagen')
+        fields = ('nombre', 'especie', 'raza', 'edad', 'genero', 'descripcion', 'imagen')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Traducción explícita de etiquetas para internacionalización
-        self.fields['petname'].label = _("Nombre de la Mascota")
-        self.fields['species'].label = _("Especie")
-        self.fields['breed'].label = _("Raza / Mestizaje")
-        self.fields['age'].label = _("Edad")
-        self.fields['gender'].label = _("Género")
-        self.fields['desc'].label = _("Breve Descripción / Estado")
+        self.fields['nombre'].label = _("Nombre de la Mascota")
+        self.fields['especie'].label = _("Especie")
+        self.fields['raza'].label = _("Raza / Mestizaje")
+        self.fields['edad'].label = _("Edad")
+        self.fields['genero'].label = _("Género")
+        self.fields['descripcion'].label = _("Breve Descripción / Estado")
         self.fields['imagen'].label = _("Foto de Perfil de la Mascota")
 
 

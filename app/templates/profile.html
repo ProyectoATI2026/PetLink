@@ -88,7 +88,10 @@
                     <div class="profile-pet-item">
                         <div>
                             <span class="profile-pet-name">{{ pet.nombre }}</span>
-                            <span class="profile-pet-details">{{ pet.especie }} • {{ pet.edad }} año{{ pet.edad|pluralize:"s" }}</span>
+                            {{ pet.especie }}
+                            {% if pet.edad %}
+                                • Nacimiento: {{ pet.edad|date:"d/m/Y" }}
+                            {% endif %}
                         </div>
                         <a href="#" class="profile-action-link">Editar</a>
                     </div>

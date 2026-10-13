@@ -9,7 +9,7 @@
             <h1 class="profile-title">Mi perfil</h1>
             <p class="profile-description">Administra tu información personal y tus preferencias en PetLink.</p>
         </div>
-        <a href="#" class="btn-auth profile-edit-btn">
+        <a href="{% url 'profile_edit' %}" class="btn-auth profile-edit-btn">
             ✏️ Modificar perfil
         </a>
     </div>
@@ -87,8 +87,8 @@
                     {% for pet in pets %}
                     <div class="profile-pet-item">
                         <div>
-                            <span class="profile-pet-name">{{ pet.name }}</span>
-                            <span class="profile-pet-details">{{ pet.breed }} • {{ pet.age }} año{{ pet.age|pluralize:"s" }}</span>
+                            <span class="profile-pet-name">{{ pet.nombre }}</span>
+                            <span class="profile-pet-details">{{ pet.especie }} • {{ pet.edad }} año{{ pet.edad|pluralize:"s" }}</span>
                         </div>
                         <a href="#" class="profile-action-link">Editar</a>
                     </div>
@@ -98,9 +98,11 @@
                 </div>
 
                 <div class="profile-add-pet-wrapper">
-                    <a href="#" class="profile-action-link" style="display: inline-flex; align-items: center; gap: 5px;">
-                        + Agregar mascota
-                    </a>
+                    <div class="profile-add-pet-wrapper">
+                        <a href="{% url 'registro_mascota' %}" class="profile-action-link" style="display: inline-flex; align-items: center; gap: 5px;">
+                            + Agregar mascota
+                        </a>
+                    </div>
                 </div>
             </div>
 

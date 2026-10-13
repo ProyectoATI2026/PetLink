@@ -1,3 +1,5 @@
+from django.http import request
+from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
@@ -8,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 from .models import UserProfile, Pet
+from .forms import UserForm, UserProfileForm
 
 # Importación de modelos y formularios propios
 from .models import AuditLog, CustomPet, CustomUser # o Group/Profile según tu modelo
@@ -164,9 +167,6 @@ class RegistroMascotaView(LoginRequiredMixin, CreateView):
         messages.success(self.request, _("Mascota registrada exitosamente."))
         return response
 
-from django.views.generic import DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import UserProfile, Pet
 
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = UserProfile
@@ -191,10 +191,40 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         # Añadimos datos adicionales al contexto, como las mascotas y los intereses divididos en lista
         context = super().get_context_data(**kwargs)
-        context['pets'] = Pet.objects.filter(owner=self.request.user)
+        context['pets'] = self.request.user.mascotas.all()
         
         # Convertimos los intereses separados por comas en una lista para los badges
         interests_str = self.object.interests
         context['interests_list'] = [i.strip() for i in interests_str.split(',')] if interests_str else []
         
         return context
+
+class UserProfileUpdateView(LoginRequiredMixin, View):
+    template_name = 'profile_edit.html'
+
+    def get(self, request, *args, **kwargs):
+        profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=profile)
+        
+        context = {
+            'user_form': user_form,
+            'profile_form': profile_form,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile') # Redirige de vuelta a la vista de perfil
+
+        context = {
+            'user_form': user_form,
+            'profile_form': profile_form,
+        }
+        return render(request, self.template_name, context)

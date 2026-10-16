@@ -170,6 +170,62 @@ class Publication(models.Model):
     def __str__(self):
         return f"{self.author.username} - {self.get_publication_type_display()}"
 
+class Comment(models.Model):
+    """Represents a comment made by a user on a publication,
+       Comments can also be replies yo other comments.
+    """
+    
+    publication = models.ForeignKey(
+        Publication,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('Publication')
+    )
+    
+    author = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('Author')
+    )
+    
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='replies',
+        verbose_name=_('Parent Comment')
+    )
+    
+    contet = models.TextField (
+        verbose_name=_('Content')
+    )
+    
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+    
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name=_('Active')
+    )
+
+    class Meta:
+        verbose_name = _('Comment')
+        verbose_name_plural = _('Comments')
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"Comment by {self.author.username}"
+    
+
 class ProfileInfo(models.Model):
     """
     Modelo para almacenar información adicional del perfil del usuario.

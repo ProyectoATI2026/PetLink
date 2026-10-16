@@ -224,7 +224,66 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.author.username}"
-    
+
+
+class AdoptionRequest(models.Model):
+    """
+    Represents a request made by a user to adopt a pet
+    through an adoption publication.
+    """
+
+    class Status(models.TextChoices):
+        PENDING = 'PENDING', _('Pending')
+        ACCEPTED = 'ACCEPTED', _('Accepted')
+        REJECTED = 'REJECTED', _('Rejected')
+        CANCELLED = 'CANCELLED', _('Cancelled')
+        COMPLETED = 'COMPLETED', _('Completed')
+
+    publication = models.ForeignKey(
+        Publication,
+        on_delete=models.CASCADE,
+        related_name='adoption_requests',
+        verbose_name=_('Publication')
+    )
+
+    applicant = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='adoption_requests',
+        verbose_name=_('Applicant')
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+        verbose_name=_('Status')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    class Meta:
+        verbose_name = _('Adoption Request')
+        verbose_name_plural = _('Adoption Requests')
+        ordering = ['-created_at']
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=['publication', 'applicant'],
+                name='unique_adoption_request'
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.applicant.username} - {self.publication.title}"
 
 class ProfileInfo(models.Model):
     """

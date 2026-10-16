@@ -90,6 +90,85 @@ class CustomPet(models.Model):
 
     def __str__(self):
         return f"{self.nombre} ({self.especie})"
+    
+class Publication(models.Model):
+    """
+    Represents a publication created by a user in PetLink.
+    """
+
+    class PublicationType(models.TextChoices):
+        GENERAL = 'GENERAL', _('General')
+        ADOPTION = 'ADOPTION', _('Adoption')
+        LOST = 'LOST', _('Lost Pet')
+    
+
+    author = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='publications',
+        verbose_name=_('Author')
+    )
+
+    pet = models.ForeignKey(
+        CustomPet,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='publications',
+        verbose_name=_('Pet')
+    )
+
+    publication_type = models.CharField(
+        max_length=20,
+        choices=PublicationType.choices,
+        default=PublicationType.GENERAL,
+        verbose_name=_('Publication Type')
+    )
+    
+    title = models.CharField(
+        max_length = 200,
+        verbose_name=_('Title')
+    )
+
+    description = models.TextField(
+        verbose_name=_('Description')
+    )
+
+    image = models.ImageField(
+        upload_to='publications/',
+        null=True,
+        blank=True,
+        verbose_name=_('Image')
+    )
+
+    location = models.CharField(
+        max_length=150,
+        blank=True,
+        verbose_name=_('Location')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name=_('Active')
+    )
+
+    class Meta:
+        verbose_name = _('Publication')
+        verbose_name_plural = _('Publications')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.author.username} - {self.get_publication_type_display()}"
 
 class ProfileInfo(models.Model):
     """

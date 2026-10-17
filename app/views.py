@@ -89,7 +89,6 @@ class UserRegisterView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         
-        # Auditoría: Registro de nuevo usuario
         register_audit_log(
             request=self.request,
             user=self.object,

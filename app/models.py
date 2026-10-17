@@ -365,6 +365,158 @@ class Message(models.Model):
     def __str__(self):
         return f"Message from {self.sender.username}"
 
+class Rating(models.Model):
+    """
+    Represents a rating given by one user to another
+    after an adoption process.
+    """
+
+    adoption_request = models.ForeignKey(
+        AdoptionRequest,
+        on_delete=models.CASCADE,
+        related_name='ratings',
+        verbose_name=_('Adoption Request')
+    )
+
+    reviewer = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='ratings_given',
+        verbose_name=_('Reviewer')
+    )
+
+    reviewed_user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='ratings_received',
+        verbose_name=_('Reviewed User')
+    )
+
+    score = models.PositiveSmallIntegerField(
+        choices=[
+            (1, '1'),
+            (2, '2'),
+            (3, '3'),
+            (4, '4'),
+            (5, '5'),
+        ],
+        verbose_name=_('Score')
+    )
+
+    comment = models.TextField(
+        blank=True,
+        verbose_name=_('Comment')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    class Meta:
+        verbose_name = _('Rating')
+        verbose_name_plural = _('Ratings')
+        ordering = ['-created_at']
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=['adoption_request', 'reviewer'],
+                name='unique_rating_per_reviewer'
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.reviewer.username} -> {self.reviewed_user.username}: {self.score}"
+
+class Report(models.Model):
+    """
+    Represents a report submitted by a user against
+    a publication, comment or user account.
+    """
+
+    class Status(models.TextChoices):
+        PENDING = 'PENDING', _('Pending')
+        RESOLVED = 'RESOLVED', _('Resolved')
+        DISMISSED = 'DISMISSED', _('Dismissed')
+
+    reporter = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='reports_submitted',
+        verbose_name=_('Reporter')
+    )
+
+    reported_user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='reports_received',
+        verbose_name=_('Reported User')
+    )
+
+    publication = models.ForeignKey(
+        Publication,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='reports',
+        verbose_name=_('Publication')
+    )
+
+    comment = models.ForeignKey(
+        Comment,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='reports',
+        verbose_name=_('Comment')
+    )
+
+    reason = models.TextField(
+        verbose_name=_('Reason')
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+        verbose_name=_('Status')
+    )
+
+    reviewed_by = models.ForeignKey(
+        CustomUser,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='reports_reviewed',
+        verbose_name=_('Reviewed By')
+    )
+
+    resolution_notes = models.TextField(
+        blank=True,
+        verbose_name=_('Resolution Notes')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    resolved_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_('Resolved At')
+    )
+
+    class Meta:
+        verbose_name = _('Report')
+        verbose_name_plural = _('Reports')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Report #{self.id} - {self.status}"
+
 class ProfileInfo(models.Model):
     """
     Modelo para almacenar información adicional del perfil del usuario.

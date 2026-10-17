@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
-from .models import CustomPet, CustomUser
+from django.contrib.auth.models import User
+from .models import CustomPet, CustomUser, UserProfile
 
 class CustomLoginForm(AuthenticationForm):
     """
@@ -51,7 +52,7 @@ class CustomPetCreationForm(forms.ModelForm):
     """
     Formulario para el registro de nuevas mascotas en el sistema.
     """
-    petname = forms.CharField(
+    name = forms.CharField(
         required=True,
         label=_("Nombre de la Mascota"),
         widget=forms.TextInput(attrs={
@@ -67,7 +68,7 @@ class CustomPetCreationForm(forms.ModelForm):
         })
     )
 
-    age = forms.DateField(
+    birth_date = forms.DateField(
         label=_("Edad"),
         widget=forms.DateInput(attrs={
             'placeholder': _('Ingrese la edad de la mascota'),
@@ -87,7 +88,7 @@ class CustomPetCreationForm(forms.ModelForm):
         label=_("Género"),
     )
 
-    desc = forms.CharField(
+    description = forms.CharField(
         label=_("Breve Descripción / Estado"),
         widget=forms.Textarea(attrs={
             'placeholder': _('Ingrese una descripción de la mascota'),
@@ -96,22 +97,57 @@ class CustomPetCreationForm(forms.ModelForm):
         required=False
     )
 
-    imagen = forms.ImageField(
+    image = forms.ImageField(
         label=_("Imagen de la Mascota"),
         required=True
     )
 
     class Meta:
         model = CustomPet
-        fields = ('petname', 'species', 'breed', 'age', 'gender', 'desc', 'imagen')
+        fields = ('name', 'species', 'breed', 'birth_date', 'gender', 'description', 'image')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Traducción explícita de etiquetas para internacionalización
-        self.fields['petname'].label = _("Nombre de la Mascota")
+        self.fields['name'].label = _("Nombre de la Mascota")
         self.fields['species'].label = _("Especie")
         self.fields['breed'].label = _("Raza / Mestizaje")
-        self.fields['age'].label = _("Edad")
+        self.fields['birth_date'].label = _("Edad")
         self.fields['gender'].label = _("Género")
-        self.fields['desc'].label = _("Breve Descripción / Estado")
-        self.fields['imagen'].label = _("Foto de Perfil de la Mascota")
+        self.fields['description'].label = _("Breve Descripción / Estado")
+        self.fields['image'].label = _("Foto de Perfil de la Mascota")
+
+class CustomPetForm(forms.ModelForm):
+    class Meta:
+        model = CustomPet
+        fields = ['name', 'species', 'breed', 'birth_date', 'gender', 'description', 'image']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Nombre de la mascota')}),
+            'species': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Ej. Perro, Gato')}),
+            'breed': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Ej. Mestizo, Poodle')}),
+            'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'gender': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Macho / Hembra')}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': _('Descripción...')}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+            'last_name': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+        }
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['id_number', 'birth_date', 'gender', 'location', 'interests']
+        widgets = {
+            'id_number': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+            'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'auth-form-group input'}),
+            'gender': forms.Select(attrs={'class': 'auth-form-group input'}),
+            'location': forms.TextInput(attrs={'class': 'auth-form-group input'}),
+            'interests': forms.Textarea(attrs={'rows': 3, 'class': 'auth-form-group input'}),
+        }

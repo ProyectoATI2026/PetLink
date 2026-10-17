@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractUser):
@@ -91,18 +93,51 @@ class CustomPet(models.Model):
         return f"{self.name} ({self.species})"
 
 class UserProfile(models.Model):
-    # Relación uno a uno con el usuario por defecto de Django
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    id_number = models.CharField(max_length=20, unique=True, verbose_name=_('Cédula'))
-    birth_date = models.DateField()
-    gender = models.CharField(max_length=20, choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino')])
-    location = models.CharField(max_length=100)
-    is_verified = models.BooleanField(default=False)
-    # Si quieres guardar los gustos como una lista separada por comas o relación many-to-many
-    interests = models.TextField(help_text="Separados por comas o en formato adecuado")
+    """
+    Modelo de perfil extendido del usuario (relación uno a uno según mejores prácticas de DB).
+    """
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile',
+        verbose_name=_('Usuario')
+    )
+    id_number = models.CharField(max_length=20, unique=True, null=True, blank=True, verbose_name=_('Cédula de identidad'))
+    birth_date = models.DateField(null=True, blank=True, verbose_name=_('Fecha de nacimiento'))
+    gender = models.CharField(
+        max_length=20,
+        choices=[('Masculino', _('Masculino')), ('Femenino', _('Femenino'))],
+        null=True,
+        blank=True,
+        verbose_name=_('Género')
+    )
+    location = models.CharField(max_length=100, null=True, blank=True, verbose_name=_('Ubicación'))
+    is_verified = models.BooleanField(default=False, verbose_name=_('Verificado'))
+    interests = models.TextField(null=True, blank=True, help_text=_("Separados por comas o en formato adecuado"), verbose_name=_('Gustos / Preferencias'))
+    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True, verbose_name=_('Foto de Perfil'))
+
+    class Meta:
+        verbose_name = _('Perfil')
+        verbose_name_plural = _('Perfiles')
 
     def __str__(self):
-        return self.user.get_full_name()
+        return f"Perfil de {self.user.username}"
+
+# Alias para compatibilidad con develop
+ProfileInfo = UserProfile
+
+@receiver(post_save, sender=CustomUser)
+def handle_user_profile_creation(sender, instance, created, **kwargs):
+    """
+    Buena práctica adoptada de develop:
+    Crea automáticamente el perfil de usuario cuando se registra un nuevo CustomUser,
+    o lo guarda si ya existe, evitando duplicados.
+    """
+    if created:
+        UserProfile.objects.get_or_create(user=instance)
+    else:
+        if hasattr(instance, 'profile'):
+            instance.profile.save()
 
 class Pet(models.Model):
     # Relación de muchos a uno: un usuario puede tener varias mascotas
@@ -112,4 +147,4 @@ class Pet(models.Model):
     age = models.IntegerField() # Edad en años
 
     def __str__(self):
-        return f"{self.name} ({self.owner.username})"
+        return f"{self.name} ({self.owner.username})"

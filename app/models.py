@@ -285,6 +285,86 @@ class AdoptionRequest(models.Model):
     def __str__(self):
         return f"{self.applicant.username} - {self.publication.title}"
 
+class Conversation(models.Model):
+    """
+    Represents a conversation between PetLink users.
+    It can optionally originate from an adoption request.
+    """
+
+    participants = models.ManyToManyField(
+        CustomUser,
+        related_name='conversations',
+        verbose_name=_('Participants')
+    )
+
+    adoption_request = models.OneToOneField(
+        AdoptionRequest,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='conversation',
+        verbose_name=_('Adoption Request')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    class Meta:
+        verbose_name = _('Conversation')
+        verbose_name_plural = _('Conversations')
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        return f"Conversation {self.id}"
+
+class Message(models.Model):
+    """
+    Represents a message sent inside a conversation.
+    """
+
+    conversation = models.ForeignKey(
+        Conversation,
+        on_delete=models.CASCADE,
+        related_name='messages',
+        verbose_name=_('Conversation')
+    )
+
+    sender = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='sent_messages',
+        verbose_name=_('Sender')
+    )
+
+    content = models.TextField(
+        verbose_name=_('Content')
+    )
+
+    sent_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Sent At')
+    )
+
+    is_read = models.BooleanField(
+        default=False,
+        verbose_name=_('Read')
+    )
+
+    class Meta:
+        verbose_name = _('Message')
+        verbose_name_plural = _('Messages')
+        ordering = ['sent_at']
+
+    def __str__(self):
+        return f"Message from {self.sender.username}"
+
 class ProfileInfo(models.Model):
     """
     Modelo para almacenar información adicional del perfil del usuario.

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% translate "Moderación de Reportes - PetLink Admin" %}{% endblock %}
+
+{% block content %}
+<div class="admin-page-container">
+    <div class="admin-header-content">
+        <div>
+            <span class="admin-breadcrumb">{% translate "Administración / Moderación" %}</span>
+            <h1 class="admin-page-title">{% translate "Moderación de Reportes" %}</h1>
+            <p class="admin-page-description">
+                {% translate "Revisa y procesa las denuncias enviadas por la comunidad para mantener a PetLink seguro y libre de abusos." %}
+            </p>
+        </div>
+
+        <div class="admin-tabs-row">
+            <button type="button" class="admin-tab-btn active" data-tab="pendientes"
+                onclick="filterReportsTab('pendientes')">
+                {% translate "Pendientes" %} (<span id="tabPendientesCount">{{ reports|length }}</span>)
+            </button>
+            <button type="button" class="admin-tab-btn" data-tab="procesados"
+                onclick="filterReportsTab('procesados')">
+                {% translate "Procesados" %} (<span id="tabProcesadosCount">0</span>)
+            </button>
+            <button type="button" class="admin-tab-btn" data-tab="todos" onclick="filterReportsTab('todos')">
+                {% translate "Historial Completo" %}
+            </button>
+        </div>
+    </div>
+
+    <div class="reports-cards-list" id="reportsCardsList">
+        {% for reporte in reports %}
+        <article class="report-card report-priority-{{ reporte.priority|default:reporte.prioridad }}" id="reporteCard-{{ reporte.id }}"
+            data-status="pendiente">
+
+            <div class="report-card-top">
+                <div class="report-title-group">
+                    <span class="report-priority-tag priority-{{ reporte.priority|default:reporte.prioridad }}">
+                        {% if reporte.priority == 'alta' or reporte.prioridad == 'alta' %}🔴{% elif reporte.priority == 'media' or reporte.prioridad == 'media' %}🟠{% else %}🟡{% endif %}
+                        {{ reporte.priority_label|default:reporte.prioridad_label }}
+                    </span>
+                    <h3 class="report-card-title">{{ reporte.title|default:reporte.titulo }}</h3>
+                    <span class="report-meta-reporter">
+                        {% translate "Reportado por:" %} <strong>{{ reporte.reported_by|default:reporte.reportado_por }}</strong> &bull; {{ reporte.time|default:reporte.tiempo }}
+                    </span>
+                </div>
+
+                <span class="report-infraccion-badge">
+                    {{ reporte.infraction_type|default:reporte.tipo_infraccion }}
+                </span>
+            </div>
+
+            <div class="report-card-body">
+                <p class="report-card-description">
+                    {{ reporte.description|default:reporte.descripcion }}
+                </p>
+
+                <div class="report-offender-box">
+                    <span><strong>{% translate "Publicación denunciada:" %}</strong> Post #{{ reporte.post_id }} de <em>{{
+                            reporte.post_author|default:reporte.post_autor }}</em></span>
+                    <span class="report-counter-tag">{{ reporte.accumulated|default:reporte.acumuladas }} {% translate "reportes acumulados" %}</span>
+                </div>
+            </div>
+
+            <div class="report-card-actions">
+                <div class="report-status-feedback" id="statusFeedback-{{ reporte.id }}" style="display: none;"></div>
+
+                <div class="report-action-buttons">
+                    <button type="button" class="btn-report-ignore"
+                        onclick="processReportAction({{ reporte.id }}, 'ignorar')">
+                        {% translate "Ignorar" %}
+                    </button>
+                    <button type="button" class="btn-report-delete"
+                        onclick="processReportAction({{ reporte.id }}, 'eliminar')">
+                        {% translate "Eliminar Post" %}
+                    </button>
+                </div>
+            </div>
+
+        </article>
+        {% endfor %}
+        <div id="emptyReportsState" class="empty-reports-box">
+            <h2>{% translate "¡Bandeja de moderación limpia!" %}</h2>
+            <p>{% translate "No hay denuncias o publicaciones pendientes de moderación en este momento. La comunidad está en orden." %}
+            </p>
+        </div>
+
+    </div>
+
+    <div id="modalConfirmarModeracion" class="modal-overlay" style="display: none;">
+        <div class="modal-card modal-confirm">
+            <h3 id="modalConfirmTitle">{% translate "Confirmar Acción" %}</h3>
+            <p id="modalConfirmText">{% translate "¿Estás seguro de procesar esta moderación?" %}</p>
+            <div class="modal-actions-row">
+                <button type="button" class="btn-cancel" onclick="closeConfirmationModal()">{% translate "Cancelar" %}</button>
+                <button type="button" id="btnConfirmarAccionAdmin"
+                    class="btn-auth btn-danger-confirm">{% translate "Confirmar" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reports.js' %}"></script>
+{% endblock %}

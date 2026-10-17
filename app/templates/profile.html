@@ -1,92 +1,113 @@
-{% extends "base.html" %}
-
-{% block title %}Mi perfil{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
 
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% translate "Mi perfil" %} - PetLink</title>
-    <link rel="icon" href="{% static 'img/logo.png' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-
-<body class="home-page-body">
-
-    <div id="profile-container">
-        <div id="profile-modify-section">
-            <div id="text-modify-section">
-                <h2>{% translate "Modificar perfil" %}</h2>
-                <p>{% translate "Actualiza tu información personal y preferencias en PetLink." %}</p>
-            </div>
-
-            <button type="submit" class="btn-auth" id="btn-modify-profile">{% translate "Modificar perfil" %}</button>
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div>
+            <span class="profile-subtitle">{% translate "Mi perfil" %}</span>
+            <h1 class="profile-title">{% translate "Mi perfil" %}</h1>
+            <p class="profile-description">{% translate "Administra tu información personal y tus preferencias en PetLink." %}</p>
         </div>
-        <div id="profile-separator">
-            <div id="profile-separator2">
-                <div id="profile-name-section">
-                    <div id="circuloIconoUsuario">
-                        <img src="../static/img/userIcon.svg" id="iconoUsuario" alt="Usuario">
-                    </div>
-                    <h2>{{ user.username|default:"Usuario" }}</h2>
-                    <p>{% translate "Tu información ayuda a crear una comunidad PetLink más segura y cercana." %}</p>
-                </div>
-                <div id="profile-info-section" class="profile-container">
-                    <h2>{% translate "Información personal" %}</h2>
-                    <p>{% translate "Datos visibles únicamente para ti." %}</p>
+        <a href="{% url 'profile_edit' %}" class="btn-auth profile-edit-btn">
+            {% translate "Modificar perfil" %}
+        </a>
+    </div>
 
-                    <h3 class = "form-label">{% translate "Cedula de identidad" %} </h3>
-                    <h3 class = "result-label">{{ user.profile.cedula|default:"No especificada" }}</h3>
-
-                    <h3 class = "form-label">{% translate "Fecha de nacimiento" %} </h3>
-                    <h3 class = "result-label">{{ user.profile.nacimiento|default:"No especificada" }}</h3>
-
-                    <h3 class = "form-label">{% translate "Genero" %} </h3>
-                    <h3 class = "result-label">{{ user.profile.genero|default:"No especificado" }}</h3>
-
-                    <h3 class = "form-label">{% translate "Ubicacion" %} </h3>
-                    <h3 class = "result-label">{{ user.profile.ubicacion|default:"No especificada" }}</h3>
-
-                    <h3 class = "form-label">{% translate "Gustos / Preferencias" %} </h3>
-                    <h3 class = "result-label">{{ user.profile.gustos|default:"No especificados" }}</h3>
-                </div>
+    <div class="profile-grid-layout">
+        <div class="profile-card profile-sidebar">
+            <div class="profile-avatar">
+                {% if request.user.first_name %}
+                {{ request.user.first_name|slice:":1"|upper }}{% if request.user.last_name %}
+                {{ request.user.last_name|slice:":1"|upper }}{% endif %}
+                {% else %}
+                {{ request.user.username|slice:":1"|upper }}
+                {% endif %}
             </div>
-            <div id="profile-pets-section">
-                <h2>{% translate "Mis mascotas" %}</h2>
-                <p>{% translate "Aquí puedes ver y administrar las mascotas que has registrado en PetLink." %}</p>
+            <h3 class="profile-username">{{ request.user.get_full_name|default:request.user.username }}</h3>
 
-                <!-- Verificamos si el usuario tiene mascotas registradas -->
-                {% if mascotas %}
-                    <div class="pet-list">
-                        <!-- Iteramos sobre la lista de mascotas (n cantidad) -->
-                        {% for mascota in mascotas %}
-                            <div class="tarjeta-mascota">
-                                {% if mascota.foto %}
-                                    <img src="{{ mascota.foto.url }}" alt="Foto de {{ mascota.nombre }}">
-                                {% else %}
-                                    <img src="{% static 'img/default-pet.png' %}" alt="Imagen por defecto">
-                                {% endif %}
-                                
-                                <h3>{{ mascota.nombre }}</h3>
-                                <p><strong>Especie:</strong> {{ mascota.especie }}</p>
-                                <p><strong>Raza:</strong> {{ mascota.raza|default:"No especificada" }}</p>
-                            </div>
+            {% if profile.is_verified %}
+            <div class="profile-badge-verified">
+                ✓ {% translate "Perfil Verificado" %}
+            </div>
+            {% endif %}
+
+            <p class="profile-sidebar-text">
+                {% translate "Tu información ayuda a crear una comunidad PetLink más segura y cercana." %}
+            </p>
+        </div>
+
+        <div class="profile-content-area">
+            <div class="profile-card">
+                <h4 class="profile-section-title">{% translate "Información personal" %}</h4>
+                <p class="profile-section-subtitle">{% translate "Datos visibles únicamente para ti." %}</p>
+
+                <div class="profile-info-grid">
+                    <div>
+                        <span class="profile-info-label">{% translate "Cédula de identidad" %}</span>
+                        <span class="profile-info-value">{{ profile.id_number }}</span>
+                    </div>
+                    <div>
+                        <span class="profile-info-label">{% translate "Fecha de nacimiento" %}</span>
+                        <span class="profile-info-value">{{ profile.birth_date|date:"d \d\e F \d\e Y" }}</span>
+                    </div>
+                    <div>
+                        <span class="profile-info-label">{% translate "Género" %}</span>
+                        <span class="profile-info-value">{{ profile.gender }}</span>
+                    </div>
+                    <div>
+                        <span class="profile-info-label">{% translate "Ubicación" %}</span>
+                        <span class="profile-info-value">{{ profile.location }}</span>
+                    </div>
+                </div>
+
+                <div class="profile-interests-container">
+                    <span class="profile-section-subtitle">{% translate "Intereses y afinidades" %}</span>
+                    <div class="profile-tags-wrapper">
+                        {% for interest in interests_list %}
+                        <span class="profile-interest-tag">
+                            {{ interest }}
+                        </span>
                         {% endfor %}
                     </div>
-                {% else %}
-                    <p>Aún no tienes mascotas registradas.</p>
-                {% endif %}
-
-                <button type="submit" class="btn-auth">{% translate "Registrar nueva mascota" %}</button>
+                </div>
             </div>
+
+            <div class="profile-card">
+                <h4 class="profile-section-title" style="margin-bottom: 20px;">{% translate "Mis Mascotas" %}</h4>
+
+                <div class="profile-pets-list">
+                    {% for pet in pets %}
+                    <div class="profile-pet-item">
+                        {% if pet.image %}
+                        <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="profile-pet-img" loading="lazy"
+                            onerror="this.src='{% static 'img/paw.svg' %}';">
+                        {% endif %}
+                        <span class="profile-pet-name">{{ pet.name }}</span>
+                        <span class="profile-pet-details">
+                            {{ pet.species }}
+                            {% if pet.birth_date %}
+                            • {% translate "Nacimiento:" %} {{ pet.birth_date|date:"d/m/Y" }}
+                            {% endif %}</span>
+
+                        <a href="{% url 'pet_profile' pk=pet.pk %}" class="profile-action-link">{% translate "Ver perfil" %}</a>
+                        <a href="{% url 'pet_profile_edit' pk=pet.pk %}" class="profile-action-link">{% translate "Editar" %}</a>
+                    </div>
+                    {% empty %}
+                    <p class="profile-empty-text">{% translate "No tienes mascotas registradas todavía." %}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="profile-add-pet-wrapper">
+                    <a href="{% url 'register_pet' %}" class="profile-action-link"
+                        style="display: inline-flex; align-items: center; gap: 5px;">
+                        {% translate "Agregar mascota" %}
+                    </a>
+                </div>
+            </div>
+
         </div>
-
-</body>
-
+    </div>
+</div>
 {% endblock %}

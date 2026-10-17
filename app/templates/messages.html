@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% translate "Mensajes - PetLink | Chats y Conversaciones" %}{% endblock %}
+
+{% block content %}
+<div class="mensajes-page-layout">
+    <div class="chat-app-card" id="chatAppCard">
+
+        <aside class="chat-sidebar-panel" id="chatSidebarPanel">
+
+            <div class="chat-sidebar-header">
+                <div class="chat-header-title-box">
+                    <h2 class="chat-main-title">{% translate "Mensajes" %}</h2>
+                    <p class="chat-main-subtitle">{% translate "Continúa tus conversaciones con la comunidad." %}</p>
+                </div>
+
+                <div class="chat-search-wrapper">
+                    <input type="text" id="inputBuscarChat" class="chat-search-input"
+                        placeholder="{% translate 'Buscar conversaciones...' %}">
+                </div>
+            </div>
+
+            <div class="chat-conversations-list" id="chatConversationsList">
+                {% for conv in conversations %}
+                <div class="chat-item" data-id="{{ conv.id }}" data-name="{{ conv.name|default:conv.nombre }}"
+                    data-nombre="{{ conv.name|default:conv.nombre }}"
+                    data-online="{% if conv.is_online or conv.en_linea %}true{% else %}false{% endif %}"
+                    data-subject="{{ conv.subject|default:conv.asunto }}"
+                    data-asunto="{{ conv.subject|default:conv.asunto }}"
+                    tabindex="0" role="button" aria-label="{% translate 'Abrir chat con' %} {{ conv.name|default:conv.nombre }}">
+
+                    <div class="chat-item-avatar-wrapper">
+                        <div class="chat-item-avatar-initial">{{ conv.name|default:conv.nombre|slice:":1"|upper }}</div>
+                        {% if conv.is_online or conv.en_linea %}
+                        <span class="online-indicator-dot" title="{% translate 'En línea' %}"></span>
+                        {% endif %}
+                    </div>
+
+                    <div class="chat-item-info">
+                        <div class="chat-item-row-top">
+                            <h4 class="chat-item-name">{{ conv.name|default:conv.nombre }}</h4>
+                            <span class="chat-item-time">{{ conv.time|default:conv.hora }}</span>
+                        </div>
+                        <div class="chat-item-row-bottom">
+                            <p class="chat-item-snippet">{{ conv.last_message|default:conv.ultimo_mensaje }}</p>
+                            {% if conv.unread_count > 0 or conv.no_leidos > 0 %}
+                            <span class="chat-unread-badge">{{ conv.unread_count|default:conv.no_leidos }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+                {% empty %}
+                <div class="chat-empty-sidebar">
+                    <p class="chat-empty-text">{% translate "No tienes conversaciones aún." %}</p>
+                    <small>{% translate "Cuando contactes a alguien desde una ficha de adopción, aparecerá aquí." %}</small>
+                </div>
+                {% endfor %}
+            </div>
+
+        </aside>
+
+        <section class="chat-conversation-panel" id="chatConversationPanel">
+
+            {% if active_chat %}
+            <div class="active-chat-header" id="activeChatHeader">
+                <button type="button" class="btn-back-chats mobile-only" id="btnVolverListaChats"
+                    aria-label="{% translate 'Volver a lista de mensajes' %}">
+                    &larr; {% translate "Chats" %}
+                </button>
+
+                <div class="active-chat-user-info">
+                    <div class="chat-user-avatar-box">
+                        <div class="chat-item-avatar-initial" id="activeChatAvatarInitial">{{
+                            active_chat.name|default:active_chat.nombre|slice:":1"|upper }}</div>
+                        <span id="activeChatOnlineDot"
+                            class="online-indicator-dot {% if not active_chat.is_online and not active_chat.en_linea %}offline{% endif %}"></span>
+                    </div>
+                    <div>
+                        <h3 id="activeChatName" class="active-chat-title">{{ active_chat.name|default:active_chat.nombre }}</h3>
+                        <span id="activeChatStatus" class="active-chat-status">
+                            {% if active_chat.is_online or active_chat.en_linea %}{% translate "En línea" %}{% else %}{% translate "Desconectado" %}{% endif %} &bull; {{
+                            active_chat.subject|default:active_chat.asunto }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="active-chat-actions">
+                    <a href="{% url 'adoptions' %}" class="btn-chat-header-action" title="{% translate 'Ver ficha de adopción' %}">
+                        <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo de PetLink"> {% translate "Ficha" %}
+                    </a>
+                </div>
+            </div>
+
+            <div class="chat-messages-body" id="chatMessagesBody">
+
+                <div id="messagesContainer" class="messages-stack">
+                    {% for msg in active_chat.messages|default:active_chat.mensajes %}
+                    <div class="message-bubble-wrapper message-{{ msg.sender|default:msg.emisor }}">
+                        <div class="message-bubble">
+                            <p class="message-text">{{ msg.text|default:msg.texto }}</p>
+                            <span class="message-time">
+                                {{ msg.time|default:msg.hora }}
+                                {% if msg.sender == 'me' or msg.emisor == 'me' %}
+                                <span class="message-check">✓✓</span>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="chat-no-messages">
+                        <p>{% translate "No hay mensajes aún. ¡Envía el primero!" %}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="chat-input-footer">
+                <form id="formEnviarMensaje" class="chat-input-form" onsubmit="sendChatMessage(event)">
+                    <button type="button" class="btn-chat-attach" title="{% translate 'Adjuntar foto o archivo' %}">📎</button>
+                    <input type="text" id="inputMensajeChat" class="chat-text-input"
+                        placeholder="{% translate 'Escribe un mensaje seguro...' %}" autocomplete="off">
+                    <button type="submit" id="btnEnviarMensaje" class="btn-chat-send" aria-label="{% translate 'Enviar mensaje' %}">
+                        <span>{% translate "Enviar" %}</span> &rarr;
+                    </button>
+                </form>
+            </div>
+
+            {% else %}
+            <div class="chat-welcome-panel">
+                <div class="chat-welcome-icon"><img class="logo" src="{% static 'img/logo.png' %}"
+                        alt="Logo de PetLink"></div>
+                <h3 class="chat-welcome-title">{% translate "Tus mensajes" %}</h3>
+                <p class="chat-welcome-text">{% translate "Selecciona una conversación de la lista, o inicia una nueva desde la ficha de adopción de una mascota." %}</p>
+                <a href="{% url 'adoptions' %}" class="btn-auth">{% translate "Explorar Adopciones" %}</a>
+            </div>
+            {% endif %}
+
+        </section>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/messages.js' %}"></script>
+{% endblock %}

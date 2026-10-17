@@ -19,6 +19,4 @@ __pycache__/
 # Sistema operativo
 .DS_Store
 Thumbs.db
-
-# Base de datos SQLite
 *.sqlite3

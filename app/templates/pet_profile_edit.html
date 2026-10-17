@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="max-width: 600px;">
+        <h2>{% translate "Editar Perfil de" %} {{ pet.name }}</h2>
+
+        <form method="post" enctype="multipart/form-data" class="auth-form">
+            {% csrf_token %}
+
+            {% for field in pet_form %}
+            <div class="auth-form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <small class="help-text">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button type="submit" class="btn-auth">{% translate "Guardar Cambios" %}</button>
+                <a href="{% url 'pet_profile' pet.pk %}" class="btn-auth profile-edit-btn"
+                    style="text-align: center; width: 100%; display: inline-block; padding: 12px; text-decoration: none;">
+                    {% translate "Cancelar" %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

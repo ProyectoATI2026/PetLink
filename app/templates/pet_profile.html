@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar-wrapper">
+                {% if pet.image %}
+                <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="profile-avatar">
+                {% else %}
+                <img src="{% static 'img/logoConFondo.png' %}" alt="Default Pet" class="profile-avatar">
+                {% endif %}
+            </div>
+            <div class="profile-main-info">
+                <h2>{{ pet.name }}</h2>
+                <p class="badge">{{ pet.species }}{% if pet.breed %} • {{ pet.breed }}{% endif %}</p>
+                <p class="text-muted">{% translate "Propietario" %}: <strong>{{ pet.owner.username }}</strong></p>
+            </div>
+            <div class="profile-actions">
+                {% if is_owner %}
+                <a href="{% url 'pet_profile_edit' pet.pk %}" class="btn-auth profile-edit-btn">
+                    {% translate "Editar Perfil" %}
+                </a>
+                {% else %}
+                <a href="{% url 'messages' %}?contacto={{ pet.owner.username }}&mascota={{ pet.name }}"
+                    class="btn-auth profile-chat-btn">
+                    {% translate "Iniciar Chat con el Dueño" %}
+                </a>
+                {% endif %}
+            </div>
+
+            <hr class="separador">
+
+            <div class="profile-details">
+                <h3>{% translate "Información de la Mascota" %}</h3>
+                <table class="details-table">
+                    <tr>
+                        <th>{% translate "Edad / Fecha Nacimiento" %}:</th>
+                        <td>{{ pet.birth_date|default:_("No especificada") }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% translate "Género" %}:</th>
+                        <td>{{ pet.gender|default:_("No especificado") }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% translate "Registrado el" %}:</th>
+                        <td>{{ pet.registration_date|date:"d/m/Y" }}</td>
+                    </tr>
+                </table>
+
+                <div class="profile-bio">
+                    <h3>{% translate "Sobre" %} {{ pet.name }}</h3>
+                    <p>{{ pet.description|default:_("Sin descripción disponible.") }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

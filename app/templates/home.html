@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% translate "Inicio - PetLink | Comunidad y Adopción Responsable" %}{% endblock %}
+
+{% block content %}
+<div class="inicio-layout-container">
+
+    <aside class="sidebar-filtros desktop-only">
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">
+                <span class="sidebar-icon"></span> {% translate "Filtros Rápidos" %}
+            </h3>
+            <ul class="filtros-rapidos-list">
+                <li>
+                    <a href="{% url 'adoptions' %}?especie=perro" class="filtro-rapido-link">
+                        <span class="filtro-nombre">{% translate "Perros" %}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'adoptions' %}?especie=gato" class="filtro-rapido-link">
+                        <span class="filtro-nombre">{% translate "Gatos" %}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'adoptions' %}?especie=ave" class="filtro-rapido-link">
+                        <span class="filtro-nombre">{% translate "Aves" %}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'adoptions' %}?especie=otros" class="filtro-rapido-link">
+                        <span class="filtro-nombre">{% translate "Otros" %}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sidebar-card tips-card">
+            <h4 class="sidebar-subtitle">{% translate "¿Sabías qué?" %}</h4>
+            <p class="sidebar-tip-text">
+                {% blocktranslate %}En PetLink todas las adopciones son <strong>gratuitas</strong> y verificadas por la comunidad. Denuncia cualquier intento de cobro.{% endblocktranslate %}
+            </p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'register_pet' %}" class="btn-sidebar-action">{% translate "+ Dar en Adopción" %}</a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <section class="feed-main-column">
+        <div class="hero-banner-card">
+            <div class="hero-banner-content">
+                <span class="hero-tag">{% translate "Encuentra un compañero" %}</span>
+                <h2 class="hero-title">{% translate "¿Listo para dar amor?" %}</h2>
+                <p class="hero-description">
+                    {% translate "Cientos de mascotas en tu zona están buscando un hogar cálido. Explora nuestro catálogo verificado hoy mismo." %}
+                </p>
+                <a href="{% url 'adoptions' %}" class="btn-hero-action">
+                    {% translate "Ver Adopciones" %} &rarr;
+                </a>
+            </div>
+            <div class="hero-banner-visual">
+                <img src="{% static 'img/paw.svg' %}" alt="{% translate 'Mascota en adopción' %}"
+                    class="hero-pet-image hero-pet-image--icon">
+            </div>
+        </div>
+
+        <div class="mobile-only mobile-chips-container">
+            <div class="mobile-chips-scroll">
+                <a href="{% url 'adoptions' %}" class="chip-item active">{% translate "Todos" %}</a>
+                <a href="{% url 'adoptions' %}?especie=perro" class="chip-item">{% translate "Perros" %}</a>
+                <a href="{% url 'adoptions' %}?especie=gato" class="chip-item">{% translate "Gatos" %}</a>
+                <a href="{% url 'adoptions' %}?especie=ave" class="chip-item">{% translate "Aves" %}</a>
+            </div>
+        </div>
+
+        <div class="create-post-card">
+            <div class="create-post-header">
+                <div class="avatar-small">
+                    {% if user.is_authenticated %}
+                    {{ user.first_name|default:user.username|slice:":1"|upper }}
+                    {% else %}
+
+                    {% endif %}
+                </div>
+                <input type="text" class="create-post-input"
+                    placeholder="{% translate '¿Tienes una historia de rescate o una mascota para reportar?' %}" readonly
+                    onclick="openPostModal()">
+            </div>
+            <div class="create-post-actions">
+                <button type="button" class="post-action-btn" onclick="openPostModal()">
+                    {% translate "Foto / Mascota" %}
+                </button>
+                <button type="button" class="post-action-btn" onclick="openPostModal()">
+                    {% translate "Reportar Encontrado" %}
+                </button>
+                <a href="{% url 'adoptions' %}" class="post-action-btn">
+                    {% translate "Adoptar" %}
+                </a>
+            </div>
+        </div>
+
+        <div class="feed-section-header">
+            <h2 class="feed-section-title">{% translate "Publicaciones Recientes" %}</h2>
+            <span class="feed-filter-indicator">{% translate "Actualizado en tiempo real" %}</span>
+        </div>
+
+        <div class="feed-posts-list">
+            {% for post in posts %}
+            <article class="feed-post-card" id="post-{{ post.id }}">
+
+                <div class="post-card-header">
+                    <div class="post-author-wrapper">
+                        {% if post.author_avatar %}
+                        <img src="{{ post.author_avatar }}" alt="{{ post.author_name }}" class="post-author-avatar"
+                            onerror="this.src='{% static 'img/userIcon.svg' %}';">
+                        {% else %}
+                        <img src="{% static 'img/userIcon.svg' %}" alt="{{ post.author_name }}"
+                            class="post-author-avatar">
+                        {% endif %}
+                        <div class="post-author-meta">
+                            <div class="post-author-title-row">
+                                <h4 class="post-author-name">{{ post.author_name }}</h4>
+                                <span class="post-author-handle">{{ post.author_username }}</span>
+                            </div>
+                            <span class="post-timestamp-location">{{ post.time_location }}</span>
+                        </div>
+                    </div>
+
+                    {% if post.badge_text %}
+                    <span class="post-category-badge badge-{{ post.badge_type }}">
+                        {{ post.badge_text }}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <div class="post-body">
+                    <p class="post-text-content">{{ post.text }}</p>
+
+                    {% if post.image_url %}
+                    <div class="post-media-container">
+                        <img src="{{ post.image_url }}" alt="{% translate 'Imagen de' %} {{ post.author_name }}"
+                            class="post-media-image" loading="lazy" onerror="this.src='{% static 'img/paw.svg' %}';">
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="post-footer">
+                    <div class="post-reactions">
+                        <button class="reaction-btn btn-like" onclick="toggleLike(this, {{ post.likes|default:0 }})">
+                            <span class="heart-icon">🤍</span> <span class="like-count">{{ post.likes|default:0
+                                }}</span> {% translate "Me gusta" %}
+                        </button>
+                        <button class="reaction-btn btn-comment" onclick="toggleComments({{ post.id }})">
+                            <span></span> {{ post.comments|default:0 }} {% translate "Comentarios" %}
+                        </button>
+                        <button class="reaction-btn btn-share" onclick="sharePost('{{ post.author_name }}')">
+                            <span></span> {% translate "Compartir" %}
+                        </button>
+                    </div>
+
+                    <a href="{% url 'messages' %}" class="btn-contactar-autor"
+                        title="{% translate 'Enviar mensaje directo a' %} {{ post.author_name }}">
+                        <span></span> {% translate "Contactar" %}
+                    </a>
+                </div>
+
+                <div class="post-comments-section" id="comentarios-{{ post.id }}" style="display: none;">
+                    <div class="comments-list" id="listaComentarios-{{ post.id }}"></div>
+                    <form class="comment-input-form" onsubmit="addComment(event, {{ post.id }})">
+                        <input type="text" placeholder="{% translate 'Escribe un comentario respetuoso...' %}" class="input-comment">
+                        <button type="submit" class="btn-send-comment">{% translate "Comentar" %}</button>
+                    </form>
+                </div>
+
+            </article>
+            {% empty %}
+            <div class="feed-empty-state">
+                <div class="empty-icon"><img class="logo" src="{% static 'img/logo.png' %}" alt="Logo de PetLink"></div>
+                <h3>{% translate "Aún no hay publicaciones" %}</h3>
+                <p>{% translate "Sé el primero en compartir una historia de rescate, adopción o mascota encontrada con la comunidad." %}
+                </p>
+                {% if user.is_authenticated %}
+                <button type="button" class="btn-auth" onclick="openPostModal()">{% translate "+ Crear Publicación" %}</button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+</div>
+
+<div id="modalNuevoPost" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>{% translate "Crear Publicación Comunitaria" %}</h3>
+            <button type="button" class="modal-close-btn" onclick="closePostModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <textarea id="modalPostTexto" placeholder="{% translate 'Describe la situación: rescate, extravío o adopción...' %}" rows="4"
+                class="modal-textarea"></textarea>
+            <div class="modal-upload-preview">
+                <span class="modal-upload-hint">{% translate "Puedes adjuntar fotos en la versión completa" %}</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel" onclick="closePostModal()">{% translate "Cancelar" %}</button>
+            <button type="button" class="btn-auth" onclick="publishMockPost()">{% translate "Publicar" %}</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function openPostModal() {
+        const modal = document.getElementById('modalNuevoPost');
+        if (modal) modal.style.display = 'flex';
+    }
+
+    function closePostModal() {
+        const modal = document.getElementById('modalNuevoPost');
+        if (modal) modal.style.display = 'none';
+    }
+
+    function publishMockPost() {
+        const text = document.getElementById('modalPostTexto').value.trim();
+        if (!text) {
+            alert('{% translate "Por favor escribe algún detalle para la publicación." %}');
+            return;
+        }
+        closePostModal();
+        alert('{% translate "¡Publicación enviada exitosamente a la comunidad PetLink!" %}');
+        document.getElementById('modalPostTexto').value = '';
+    }
+
+    function toggleLike(btn, baseCount) {
+        const heart = btn.querySelector('.heart-icon');
+        const countSpan = btn.querySelector('.like-count');
+        let current = parseInt(countSpan.textContent) || baseCount;
+
+        if (heart.textContent === '🤍') {
+            heart.textContent = '❤️';
+            countSpan.textContent = current + 1;
+            btn.classList.add('liked');
+        } else {
+            heart.textContent = '🤍';
+            countSpan.textContent = current - 1;
+            btn.classList.remove('liked');
+        }
+    }
+
+    function toggleComments(postId) {
+        const sec = document.getElementById('comentarios-' + postId);
+        if (!sec) return;
+        sec.style.display = (sec.style.display === 'none' || sec.style.display === '') ? 'block' : 'none';
+    }
+
+    function addComment(event, postId) {
+        event.preventDefault();
+        const form = event.target;
+        const input = form.querySelector('.input-comment');
+        const val = input.value.trim();
+        if (!val) return;
+
+        const list = document.querySelector('#comentarios-' + postId + ' .comments-list');
+        const div = document.createElement('div');
+        div.className = 'comment-item';
+        div.innerHTML = `<strong>{% translate "Tú" %}:</strong> ${val}`;
+        list.appendChild(div);
+        input.value = '';
+    }
+
+    function sharePost(author) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(window.location.href);
+            alert(`{% translate "¡Enlace a la publicación de" %} ${author} {% translate "copiado al portapapeles!" %}`);
+        } else {
+            alert(`{% translate "Publicación de" %} ${author} {% translate "compartida." %}`);
+        }
+    }
+
+    // Aliases para retrocompatibilidad
+    window.abrirModalPost = openPostModal;
+    window.cerrarModalPost = closePostModal;
+    window.publicarPostSimulado = publishMockPost;
+    window.toggleComentarios = toggleComments;
+    window.agregarComentario = addComment;
+    window.compartirPost = sharePost;
+</script>
+{% endblock %}

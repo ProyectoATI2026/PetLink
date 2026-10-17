@@ -22,9 +22,9 @@
             
             <!-- Campo de imagen fuera de <form>, vinculado con el atributo form="..." -->
             <div class="auth-form-group">
-                <label for="{{ form.imagen.id_for_label }}">{{ form.imagen.label }}</label>
+                <label for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
                 
-                <input type="file" name="imagen" accept="image/*" id="id_imagen" form="pet-registration-form">
+                <input type="file" name="image" accept="image/*" id="id_image" form="pet-registration-form">
             </div>
         </div>
         <div class="auth-wrapper">
@@ -34,10 +34,10 @@
             <div class="auth-form-section">
                 <h2>{% translate "Registrar nueva Mascota" %}</h2>
 
-                <form id="pet-registration-form" method="post" action="{% url 'registro_mascota' %}" class="auth-form" enctype="multipart/form-data">
+                <form id="pet-registration-form" method="post" action="{% url 'register_pet' %}" class="auth-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
-                    {% if field.name != 'imagen' %}
+                    {% if field.name != 'image' %}
                         <div class="auth-form-group">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                             {{ field }}

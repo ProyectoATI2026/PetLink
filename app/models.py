@@ -90,6 +90,280 @@ class CustomPet(models.Model):
 
     def __str__(self):
         return f"{self.nombre} ({self.especie})"
+    
+class Publication(models.Model):
+    """
+    Represents a publication created by a user in PetLink.
+    """
+
+    class PublicationType(models.TextChoices):
+        GENERAL = 'GENERAL', _('General')
+        ADOPTION = 'ADOPTION', _('Adoption')
+        LOST = 'LOST', _('Lost Pet')
+    
+
+    author = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='publications',
+        verbose_name=_('Author')
+    )
+
+    pet = models.ForeignKey(
+        CustomPet,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='publications',
+        verbose_name=_('Pet')
+    )
+
+    publication_type = models.CharField(
+        max_length=20,
+        choices=PublicationType.choices,
+        default=PublicationType.GENERAL,
+        verbose_name=_('Publication Type')
+    )
+    
+    title = models.CharField(
+        max_length = 200,
+        verbose_name=_('Title')
+    )
+
+    description = models.TextField(
+        verbose_name=_('Description')
+    )
+
+    image = models.ImageField(
+        upload_to='publications/',
+        null=True,
+        blank=True,
+        verbose_name=_('Image')
+    )
+
+    location = models.CharField(
+        max_length=150,
+        blank=True,
+        verbose_name=_('Location')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name=_('Active')
+    )
+
+    class Meta:
+        verbose_name = _('Publication')
+        verbose_name_plural = _('Publications')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.author.username} - {self.get_publication_type_display()}"
+
+class Comment(models.Model):
+    """Represents a comment made by a user on a publication,
+       Comments can also be replies yo other comments.
+    """
+    
+    publication = models.ForeignKey(
+        Publication,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('Publication')
+    )
+    
+    author = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('Author')
+    )
+    
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='replies',
+        verbose_name=_('Parent Comment')
+    )
+    
+    contet = models.TextField (
+        verbose_name=_('Content')
+    )
+    
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+    
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name=_('Active')
+    )
+
+    class Meta:
+        verbose_name = _('Comment')
+        verbose_name_plural = _('Comments')
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"Comment by {self.author.username}"
+
+
+class AdoptionRequest(models.Model):
+    """
+    Represents a request made by a user to adopt a pet
+    through an adoption publication.
+    """
+
+    class Status(models.TextChoices):
+        PENDING = 'PENDING', _('Pending')
+        ACCEPTED = 'ACCEPTED', _('Accepted')
+        REJECTED = 'REJECTED', _('Rejected')
+        CANCELLED = 'CANCELLED', _('Cancelled')
+        COMPLETED = 'COMPLETED', _('Completed')
+
+    publication = models.ForeignKey(
+        Publication,
+        on_delete=models.CASCADE,
+        related_name='adoption_requests',
+        verbose_name=_('Publication')
+    )
+
+    applicant = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='adoption_requests',
+        verbose_name=_('Applicant')
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+        verbose_name=_('Status')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    class Meta:
+        verbose_name = _('Adoption Request')
+        verbose_name_plural = _('Adoption Requests')
+        ordering = ['-created_at']
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=['publication', 'applicant'],
+                name='unique_adoption_request'
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.applicant.username} - {self.publication.title}"
+
+class Conversation(models.Model):
+    """
+    Represents a conversation between PetLink users.
+    It can optionally originate from an adoption request.
+    """
+
+    participants = models.ManyToManyField(
+        CustomUser,
+        related_name='conversations',
+        verbose_name=_('Participants')
+    )
+
+    adoption_request = models.OneToOneField(
+        AdoptionRequest,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='conversation',
+        verbose_name=_('Adoption Request')
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created At')
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Updated At')
+    )
+
+    class Meta:
+        verbose_name = _('Conversation')
+        verbose_name_plural = _('Conversations')
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        return f"Conversation {self.id}"
+
+class Message(models.Model):
+    """
+    Represents a message sent inside a conversation.
+    """
+
+    conversation = models.ForeignKey(
+        Conversation,
+        on_delete=models.CASCADE,
+        related_name='messages',
+        verbose_name=_('Conversation')
+    )
+
+    sender = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='sent_messages',
+        verbose_name=_('Sender')
+    )
+
+    content = models.TextField(
+        verbose_name=_('Content')
+    )
+
+    sent_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Sent At')
+    )
+
+    is_read = models.BooleanField(
+        default=False,
+        verbose_name=_('Read')
+    )
+
+    class Meta:
+        verbose_name = _('Message')
+        verbose_name_plural = _('Messages')
+        ordering = ['sent_at']
+
+    def __str__(self):
+        return f"Message from {self.sender.username}"
 
 class ProfileInfo(models.Model):
     """

@@ -1,0 +1,292 @@
+/* ==========================================================================
+   CATÁLOGO DE ADOPCIONES
+   ========================================================================== */
+
+.adopciones-page-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.adopciones-hero {
+    margin-bottom: 30px;
+}
+
+.adopciones-filter-section {
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.filter-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.adopciones-section-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--grey-950);
+    margin: 0;
+}
+
+.catalog-counter {
+    font-size: 0.85rem;
+    color: var(--grey-400);
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.btn-reset-filters {
+    background: none;
+    border: 1px solid var(--grey-100);
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-reset-filters:hover {
+    background-color: var(--grey-50);
+}
+
+.filter-search-box {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.search-icon-inside {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    opacity: 0.5;
+}
+
+.input-search-adopciones {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 42px 12px 44px;
+    border-radius: 30px;
+    border: 1.5px solid var(--grey-100);
+    background-color: var(--grey-50);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.input-search-adopciones:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: var(--white);
+}
+
+.btn-clear-search {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--grey-400);
+    cursor: pointer;
+}
+
+.filter-chips-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-chip-btn {
+    background-color: var(--grey-50);
+    border: 1px solid var(--grey-100);
+    color: var(--grey-800);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-chip-btn:hover {
+    background-color: #e6fffa;
+    border-color: #99f6e4;
+    color: var(--accent-color);
+}
+
+.filter-chip-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--white);
+    box-shadow: 0 4px 10px rgba(13, 148, 136, 0.25);
+}
+
+/* Grilla de Tarjetas */
+.adopciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.pet-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustes de Imagen y Badges */
+.pet-card-image-box {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-color: var(--grey-100);
+    overflow: hidden;
+}
+
+.pet-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.pet-card:hover .pet-card-img {
+    transform: scale(1.06);
+}
+
+.pet-card-badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.badge-vacunado {
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: var(--white);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.badge-especie {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    color: var(--white);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 12px;
+}
+
+.pet-card-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.pet-card-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--grey-950);
+    margin: 0 0 6px 0;
+}
+
+.pet-card-subtitle {
+    font-size: 0.85rem;
+    color: var(--grey-400);
+    line-height: 1.4;
+    margin: 0 0 12px 0;
+    flex: 1;
+}
+
+.pet-card-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--grey-800);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.location-pin {
+    font-size: 0.95rem;
+}
+
+.btn-card-adopt {
+    width: 100%;
+    background-color: var(--white);
+    color: var(--accent-color);
+    border: 1.5px solid var(--accent-color);
+    padding: 9px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
+    display: block;
+    transition: all 0.2s ease;
+}
+
+.btn-card-adopt:hover {
+    background-color: var(--accent-color);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+}
+
+.empty-catalog-inline {
+    grid-column: 1 / -1;
+    background-color: var(--white);
+    border-radius: 18px;
+    padding: 60px 30px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.empty-catalog-inline .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.empty-catalog-inline h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--grey-950);
+    margin: 0 0 10px 0;
+}
+
+.empty-catalog-inline p {
+    color: var(--grey-400);
+    font-size: 0.95rem;
+    margin: 0 0 20px 0;
+}

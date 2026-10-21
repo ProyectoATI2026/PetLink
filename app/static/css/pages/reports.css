@@ -1,0 +1,79 @@
+/* ==========================================================================
+   ADMINISTRACIÓN Y MODERACIÓN DE REPORTES
+   ========================================================================== */
+
+.admin-page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.admin-page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--grey-950);
+}
+
+.admin-tabs-row {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1.5px solid var(--grey-100);
+    padding-bottom: 8px;
+}
+
+.admin-tab-btn {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--grey-400);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.admin-tab-btn.active {
+    color: var(--accent-color);
+    background-color: #f0fdfa;
+}
+
+.reports-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.report-card {
+    background-color: var(--white);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-left: 5px solid var(--grey-200);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.report-priority-alta { border-left-color: #ef4444; }
+.report-priority-media { border-left-color: #f59e0b; }
+.report-priority-baja { border-left-color: #3b82f6; }
+
+.btn-report-ignore {
+    background-color: var(--white);
+    border: 1.5px solid var(--grey-200);
+    color: var(--grey-800);
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-report-delete {
+    background-color: #ef4444;
+    border: 1.5px solid #ef4444;
+    color: var(--white);
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}

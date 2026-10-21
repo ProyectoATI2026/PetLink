@@ -2,48 +2,53 @@
 {% load i18n %}
 
 {% block content %}
-<div class="profile-container" style="max-width: 700px; margin: 40px auto;">
-    <div class="profile-card">
-        <h2 style="color: var(--grey-950); margin-top: 0; margin-bottom: 25px; font-size: 1.8rem;">{% translate "Modificar Perfil" %}</h2>
+<div class="profile-edit-wrapper">
+    <div class="profile-edit-card">
+        <h2>{% translate "Modificar Perfil" %}</h2>
+        <p class="profile-description">{% translate "Mantén tu información actualizada para una mejor experiencia comunitaria." %}</p>
         
-        <form method="post">
+        <form method="post" class="edit-pet-form">
             {% csrf_token %}
             
-            <h4 style="color: var(--grey-800); margin-bottom: 15px; border-bottom: 1px solid var(--grey-150); padding-bottom: 5px;">{% translate "Información de Usuario" %}</h4>
-            <div class="auth-form-group">
+            <h4>{% translate "Información de Usuario" %}</h4>
+            <div class="edit-form-group">
                 <label>{% translate "Nombre" %}</label>
                 {{ user_form.first_name }}
             </div>
-            <div class="auth-form-group">
+            <div class="edit-form-group">
                 <label>{% translate "Apellido" %}</label>
                 {{ user_form.last_name }}
             </div>
 
-            <h4 style="color: var(--grey-800); margin: 25px 0 15px 0; border-bottom: 1px solid var(--grey-150); padding-bottom: 5px;">{% translate "Detalles Personales" %}</h4>
-            <div class="auth-form-group">
+            <h4>{% translate "Detalles Personales" %}</h4>
+            <div class="edit-form-group">
                 <label>{% translate "Cédula de identidad" %}</label>
                 {{ profile_form.id_number }}
             </div>
-            <div class="auth-form-group">
+            <div class="edit-form-group">
                 <label>{% translate "Fecha de nacimiento" %}</label>
                 {{ profile_form.birth_date }}
             </div>
-            <div class="auth-form-group">
+            <div class="edit-form-group">
                 <label>{% translate "Género" %}</label>
                 {{ profile_form.gender }}
             </div>
-            <div class="auth-form-group">
+            <div class="edit-form-group">
                 <label>{% translate "Ubicación" %}</label>
                 {{ profile_form.location }}
             </div>
-            <div class="auth-form-group">
+            <div class="edit-form-group">
                 <label>{% translate "Gustos e Intereses (separados por comas)" %}</label>
                 {{ profile_form.interests }}
             </div>
 
-            <div style="display: flex; gap: 15px; margin-top: 30px;">
-                <button type="submit" class="btn-auth" style="margin-top: 0;">{% translate "Guardar Cambios" %}</button>
-                <a href="{% url 'profile' %}" style="display: inline-flex; align-items: center; justify-content: center; padding: 14px; background-color: var(--grey-100); color: var(--grey-800); text-decoration: none; border-radius: 8px; font-weight: bold; width: 100%;">{% translate "Cancelar" %}</a>
+            <div class="profile-edit-actions">
+                <button type="submit" class="btn-save-profile">
+                    {% translate "Guardar Cambios" %}
+                </button>
+                <a href="{% url 'profile' %}" class="btn-cancel-profile">
+                    {% translate "Cancelar" %}
+                </a>
             </div>
         </form>
     </div>

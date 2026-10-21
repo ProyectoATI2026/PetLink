@@ -76,7 +76,7 @@ class CustomPet(models.Model):
     birth_date = models.DateField(verbose_name=_('Edad'), null=True, blank=True)
     gender = models.CharField(max_length=10, verbose_name=_('Género'), blank=True)
     description = models.TextField(verbose_name=_('Breve Descripción / Estado'), blank=True)
-    image = models.ImageField(upload_to='mascotas/', null=True, blank=True, verbose_name=_('Imagen de la Mascota'))
+    image = models.ImageField(upload_to='pets/', null=True, blank=True, verbose_name=_('Imagen de la Mascota'))
     
     owner = models.ForeignKey(
         CustomUser,

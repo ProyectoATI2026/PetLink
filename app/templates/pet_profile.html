@@ -5,39 +5,50 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+
 <div class="profile-container">
-    <div class="profile-card">
-        <div class="profile-header">
-            <div class="profile-avatar-wrapper">
+    <div class="pet-profile-card">
+        <!-- Encabezado del Perfil -->
+        <div class="pet-profile-header">
+            <div class="pet-profile-avatar-wrapper">
                 {% if pet.image %}
-                <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="profile-avatar">
+                <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="pet-profile-avatar">
                 {% else %}
-                <img src="{% static 'img/logoConFondo.png' %}" alt="Default Pet" class="profile-avatar">
+                <img src="{% static 'img/logoConFondo.png' %}" alt="Default Pet" class="pet-profile-avatar">
                 {% endif %}
             </div>
-            <div class="profile-main-info">
+            
+            <div class="pet-profile-main-info">
                 <h2>{{ pet.name }}</h2>
-                <p class="badge">{{ pet.species }}{% if pet.breed %} • {{ pet.breed }}{% endif %}</p>
-                <p class="text-muted">{% translate "Propietario" %}: <strong>{{ pet.owner.username }}</strong></p>
+                <span class="pet-badge-species">
+                    {{ pet.species }}{% if pet.breed %} • {{ pet.breed }}{% endif %}
+                </span>
+                <p class="pet-owner-text">
+                    {% translate "Propietario" %}: <strong>{{ pet.owner.username }}</strong>
+                </p>
             </div>
-            <div class="profile-actions">
+
+            <div class="pet-profile-actions">
                 {% if is_owner %}
-                <a href="{% url 'pet_profile_edit' pet.pk %}" class="btn-auth profile-edit-btn">
+                <a href="{% url 'pet_profile_edit' pet.pk %}" class="pet-action-btn edit">
                     {% translate "Editar Perfil" %}
                 </a>
                 {% else %}
                 <a href="{% url 'messages' %}?contacto={{ pet.owner.username }}&mascota={{ pet.name }}"
-                    class="btn-auth profile-chat-btn">
+                    class="pet-action-btn chat">
                     {% translate "Iniciar Chat con el Dueño" %}
                 </a>
                 {% endif %}
             </div>
+        </div>
 
-            <hr class="separador">
+        <hr class="pet-divider">
 
-            <div class="profile-details">
-                <h3>{% translate "Información de la Mascota" %}</h3>
-                <table class="details-table">
+        <!-- Detalles e Información -->
+        <div class="pet-details-section">
+            <h3>{% translate "Información de la Mascota" %}</h3>
+            <table class="pet-details-table">
+                <tbody>
                     <tr>
                         <th>{% translate "Edad / Fecha Nacimiento" %}:</th>
                         <td>{{ pet.birth_date|default:_("No especificada") }}</td>
@@ -50,12 +61,12 @@
                         <th>{% translate "Registrado el" %}:</th>
                         <td>{{ pet.registration_date|date:"d/m/Y" }}</td>
                     </tr>
-                </table>
+                </tbody>
+            </table>
 
-                <div class="profile-bio">
-                    <h3>{% translate "Sobre" %} {{ pet.name }}</h3>
-                    <p>{{ pet.description|default:_("Sin descripción disponible.") }}</p>
-                </div>
+            <div class="pet-bio-section">
+                <h3>{% translate "Sobre" %} {{ pet.name }}</h3>
+                <p>{{ pet.description|default:_("Sin descripción disponible.") }}</p>
             </div>
         </div>
     </div>

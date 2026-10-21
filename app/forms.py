@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-from .models import CustomPet, CustomUser, UserProfile
+from .models import CustomPet, CustomUser, UserProfile, Publication
 
 class CustomLoginForm(AuthenticationForm):
     """
@@ -151,3 +151,30 @@ class UserProfileForm(forms.ModelForm):
             'location': forms.TextInput(attrs={'class': 'auth-form-group input'}),
             'interests': forms.Textarea(attrs={'rows': 3, 'class': 'auth-form-group input'}),
         }
+
+class PublicationForm(forms.ModelForm):
+    """
+    Formulario para la creación de publicaciones comunitarias con imagen opcional.
+    """
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'id': 'modalPostTexto',
+            'placeholder': _('Describe la situación: rescate, extravío o adopción...'),
+            'rows': 4,
+            'class': 'modal-textarea'
+        }),
+        label=_("Descripción")
+    )
+    image = forms.ImageField(
+        required=False,
+        label=_("Adjuntar Foto"),
+        widget=forms.ClearableFileInput(attrs={
+            'id': 'inputPostImagen',
+            'accept': 'image/*',
+            'class': 'modal-file-input'
+        })
+    )
+
+    class Meta:
+        model = Publication
+        fields = ('description', 'image', 'publication_type', 'location')

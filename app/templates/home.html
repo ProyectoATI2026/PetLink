@@ -135,15 +135,14 @@
                 </div>
 
                 <div class="post-body">
-                    <p class="post-text-content">{{ post.text }}</p>
+    <p class="post-text-content">{{ post.description }}</p>
 
-                    {% if post.image_url %}
-                    <div class="post-media-container">
-                        <img src="{{ post.image_url }}" alt="{% translate 'Imagen de' %} {{ post.author_name }}"
-                            class="post-media-image" loading="lazy" onerror="this.src='{% static 'img/paw.svg' %}';">
-                    </div>
-                    {% endif %}
-                </div>
+    {% if post.image %}
+    <div class="post-media-container">
+        <img src="{{ post.image.url }}" alt="{% translate 'Imagen de' %} {{ post.author.username }}" class="post-media-image" loading="lazy">
+    </div>
+    {% endif %}
+</div>
 
                 <div class="post-footer">
                     <div class="post-reactions">
@@ -196,17 +195,29 @@
             <h3>{% translate "Crear Publicación Comunitaria" %}</h3>
             <button type="button" class="modal-close-btn" onclick="closePostModal()">&times;</button>
         </div>
-        <div class="modal-body">
-            <textarea id="modalPostTexto" placeholder="{% translate 'Describe la situación: rescate, extravío o adopción...' %}" rows="4"
-                class="modal-textarea"></textarea>
-            <div class="modal-upload-preview">
-                <span class="modal-upload-hint">{% translate "Puedes adjuntar fotos en la versión completa" %}</span>
+        
+        <form method="post" action="{% url 'home' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <textarea id="modalPostTexto" name="description" placeholder="{% translate 'Describe la situación: rescate, extravío o adopción...' %}" rows="4" class="modal-textarea" required></textarea>
+                
+                <div class="modal-upload-preview">
+                    <label for="inputPostImagen" class="btn-secondary" style="cursor: pointer; display: inline-block; padding: 8px 12px; margin-top: 10px;">
+                        {% translate "Adjuntar Foto / Imagen" %}
+                    </label>
+                    <input type="file" id="inputPostImagen" name="image" accept="image/*" style="display: none;" onchange="previewSelectedImage(this)">
+                    <span id="fileNameHint" class="modal-upload-hint" style="display: block; margin-top: 5px;">
+                        {% translate "Formatos soportados: JPG, PNG" %}
+                    </span>
+                    <img id="imgPreview" src="" alt="Previsualización" style="display: none; width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; margin-top: 10px;">
+                </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn-cancel" onclick="closePostModal()">{% translate "Cancelar" %}</button>
-            <button type="button" class="btn-auth" onclick="publishMockPost()">{% translate "Publicar" %}</button>
-        </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closePostModal()">{% translate "Cancelar" %}</button>
+                <button type="submit" class="btn-auth">{% translate "Publicar" %}</button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}
@@ -223,15 +234,24 @@
         if (modal) modal.style.display = 'none';
     }
 
-    function publishMockPost() {
-        const text = document.getElementById('modalPostTexto').value.trim();
-        if (!text) {
-            alert('{% translate "Por favor escribe algún detalle para la publicación." %}');
-            return;
+    function previewSelectedImage(input) {
+        const hint = document.getElementById('fileNameHint');
+        const preview = document.getElementById('imgPreview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+        
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+        
+            reader.readAsDataURL(input.files[0]);
+            hint.textContent = input.files[0].name;
+        } else {
+            preview.style.display = 'none';
+            hint.textContent = '{% translate "Formatos soportados: JPG, PNG" %}';
         }
-        closePostModal();
-        alert('{% translate "¡Publicación enviada exitosamente a la comunidad PetLink!" %}');
-        document.getElementById('modalPostTexto').value = '';
     }
 
     function toggleLike(btn, baseCount) {
@@ -279,13 +299,5 @@
             alert(`{% translate "Publicación de" %} ${author} {% translate "compartida." %}`);
         }
     }
-
-    // Aliases para retrocompatibilidad
-    window.abrirModalPost = openPostModal;
-    window.cerrarModalPost = closePostModal;
-    window.publicarPostSimulado = publishMockPost;
-    window.toggleComentarios = toggleComments;
-    window.agregarComentario = addComment;
-    window.compartirPost = sharePost;
 </script>
 {% endblock %}

@@ -1,0 +1,307 @@
+/* ==========================================================================
+   INICIO / FEED COMUNITARIO
+   ========================================================================== */
+
+.inicio-layout-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 25px;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* Sidebar Filtros */
+.sidebar-card {
+    background-color: var(--white);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.sidebar-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--grey-950);
+    margin: 0 0 15px 0;
+}
+
+.filtros-rapidos-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filtro-rapido-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--grey-800);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.filtro-rapido-link:hover {
+    background-color: var(--grey-50);
+    color: var(--accent-color);
+    transform: translateX(3px);
+}
+
+.tips-card {
+    background: linear-gradient(145deg, #f0fdfa, #ccfbf1);
+    border: 1px solid #99f6e4;
+}
+
+/* Hero Banner */
+.feed-main-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hero-banner-card {
+    background: linear-gradient(135deg, #06B6D4 0%, #0D9488 100%);
+    border-radius: 16px;
+    padding: 30px;
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 24px rgba(13, 148, 136, 0.25);
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-banner-content {
+    flex: 1;
+    max-width: 65%;
+    z-index: 2;
+}
+
+.hero-tag {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.hero-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+}
+
+.btn-hero-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--white);
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hero-pet-image--icon {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    opacity: 0.25;
+    filter: brightness(0) invert(1);
+}
+
+/* Crear Publicación Box */
+.create-post-card {
+    background-color: var(--white);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.create-post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.avatar-small {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.create-post-input {
+    flex: 1;
+    background-color: var(--grey-50);
+    border: 1px solid var(--grey-100);
+    border-radius: 25px;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.create-post-actions {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid var(--grey-50);
+    padding-top: 10px;
+}
+
+.post-action-btn {
+    background: none;
+    border: none;
+    color: var(--grey-400);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 6px 10px;
+}
+
+/* Publicaciones / Feed Post Card */
+.feed-post-card {
+    background-color: var(--white);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.post-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
+
+.post-author-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.post-author-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-media-container {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    max-height: 380px;
+    background-color: var(--grey-50);
+}
+
+.post-media-image {
+    width: 100%;
+    height: auto;
+    max-height: 380px;
+    object-fit: cover;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--grey-50);
+    padding-top: 12px;
+}
+
+.btn-contactar-autor {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f0fdfa;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #99f6e4;
+}
+
+/* Modal Crear Publicación Custom Styles */
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--grey-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1.5px solid var(--grey-100);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background-color: var(--grey-50);
+    resize: vertical;
+    min-height: 110px;
+}
+
+.modal-upload-preview {
+    border: 2px dashed var(--grey-200);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    background-color: var(--grey-50);
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    background-color: var(--grey-50);
+    border-top: 1px solid var(--grey-100);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid var(--grey-200);
+    color: var(--grey-800);
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .inicio-layout-container {
+        grid-template-columns: 1fr;
+    }
+}

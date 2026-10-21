@@ -1,0 +1,784 @@
+/* ==========================================================================
+   PERFILES DE USUARIO Y MASCOTAS
+   ========================================================================== */
+
+.profile-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* --- Encabezado del Perfil --- */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-subtitle {
+    color: var(--grey-400);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.profile-title {
+    color: var(--grey-950);
+    font-size: 1.8rem;
+    margin: 4px 0 6px 0;
+    font-weight: 800;
+}
+
+.profile-description {
+    color: var(--grey-400);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Botón Modificar Perfil */
+.profile-edit-btn {
+    width: auto !important;
+    margin-top: 0 !important;
+    padding: 10px 22px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-edit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.3);
+}
+
+/* --- Disposición en Grilla --- */
+.profile-grid-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.profile-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.profile-sidebar {
+    flex: 1;
+    min-width: 280px;
+    text-align: center;
+}
+
+.profile-content-area {
+    flex: 2;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Avatar del Usuario */
+.profile-avatar {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, var(--main-color), var(--accent-color));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 auto 18px auto;
+    box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25);
+}
+
+.profile-username {
+    color: var(--grey-950);
+    margin: 0 0 8px 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.profile-badge-verified {
+    display: inline-block;
+    background-color: #f0fdfa;
+    color: var(--accent-color);
+    border: 1px solid #99f6e4;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.profile-sidebar-text {
+    color: var(--grey-400);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Tarjeta de Información Personal */
+.profile-section-title {
+    color: var(--grey-950);
+    margin: 0 0 4px 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.profile-section-subtitle {
+    color: var(--grey-400);
+    font-size: 0.85rem;
+    margin: 0 0 20px 0;
+    display: block;
+}
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.profile-info-box {
+    background-color: var(--grey-50);
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--grey-100);
+}
+
+.profile-info-label {
+    display: block;
+    color: var(--grey-400);
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.profile-info-value {
+    color: var(--grey-800);
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.profile-interests-container {
+    margin-top: 25px;
+    border-top: 1px solid var(--grey-100);
+    padding-top: 20px;
+}
+
+.profile-tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.profile-interest-tag {
+    background-color: #f0fdfa;
+    color: var(--accent-color);
+    border: 1px solid #99f6e4;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+/* --- Lista de Mascotas del Usuario (Rediseñada) --- */
+.profile-pets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.profile-pet-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background-color: var(--grey-50);
+    border-radius: 14px;
+    border: 1px solid var(--grey-100);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.profile-pet-item:hover {
+    background-color: var(--white);
+    border-color: #99f6e4;
+}
+
+.profile-pet-avatar-wrapper {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--grey-100);
+    border: 2px solid var(--accent-color);
+}
+
+.profile-pet-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-pet-main-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-pet-name {
+    display: block;
+    color: var(--grey-950);
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.profile-pet-details {
+    color: var(--grey-400);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.profile-pet-item-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.profile-action-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 18px;
+    background-color: var(--white);
+    border: 1px solid var(--grey-100);
+    transition: all 0.2s ease;
+}
+
+.profile-action-link:hover {
+    background-color: #f0fdfa;
+    border-color: #99f6e4;
+}
+
+.profile-add-pet-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--accent-color);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 9px 18px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.profile-add-pet-btn:hover {
+    background-color: var(--main-color);
+}
+
+.profile-empty-text {
+    color: var(--grey-400);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* --- Vista Modificar Perfil Usuario (profile_edit) --- */
+.profile-edit-wrapper {
+    max-width: 650px;
+    margin: 30px auto;
+}
+
+.profile-edit-card {
+    background-color: var(--white);
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--grey-100);
+}
+
+.profile-edit-card h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--grey-950);
+    margin: 0 0 6px 0;
+}
+
+.profile-edit-card h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--grey-800);
+    margin: 24px 0 14px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--grey-100);
+}
+
+.profile-edit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.btn-save-profile {
+    flex: 1;
+    background: linear-gradient(135deg, #06B6D4, #0D9488);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-save-profile:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35);
+}
+
+.btn-cancel-profile {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    background-color: var(--grey-50);
+    color: var(--grey-800);
+    border: 1px solid var(--grey-200);
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel-profile:hover {
+    background-color: var(--grey-100);
+    color: var(--grey-950);
+}
+
+/* Responsividad para Perfil */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 0 5px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .profile-edit-btn {
+        width: 100% !important;
+    }
+
+    .profile-grid-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .profile-sidebar,
+    .profile-content-area {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .profile-card,
+    .profile-edit-card {
+        padding: 20px;
+    }
+
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-pet-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .profile-pet-item-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .profile-edit-actions {
+        flex-direction: column;
+    }
+}
+
+/* ==========================================================================
+   PERFILES Y EDICIÓN DE MASCOTAS (pet_profile & pet_profile_edit)
+   ========================================================================== */
+
+/* --- Vista Perfil de Mascota --- */
+.pet-profile-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pet-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.pet-profile-avatar-wrapper {
+    flex-shrink: 0;
+}
+
+.pet-profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
+}
+
+.pet-profile-main-info {
+    flex: 1;
+}
+
+.pet-profile-main-info h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--grey-950);
+    margin: 0 0 8px 0;
+}
+
+.pet-badge-species {
+    display: inline-block;
+    background-color: #f0fdfa;
+    color: var(--accent-color);
+    border: 1px solid #99f6e4;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.pet-owner-text {
+    color: var(--grey-400);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.pet-owner-text strong {
+    color: var(--grey-800);
+}
+
+.pet-profile-actions {
+    display: flex;
+    align-items: center;
+}
+
+.pet-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pet-action-btn.edit {
+    background-color: var(--grey-50);
+    color: var(--grey-800);
+    border: 1px solid var(--grey-200);
+}
+
+.pet-action-btn.edit:hover {
+    background-color: var(--grey-100);
+    color: var(--grey-950);
+}
+
+.pet-action-btn.chat {
+    background: linear-gradient(135deg, #06B6D4, #0D9488);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+}
+
+.pet-action-btn.chat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35);
+}
+
+.pet-divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--grey-100);
+    margin: 25px 0;
+}
+
+.pet-details-section h3,
+.pet-bio-section h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--grey-950);
+    margin: 0 0 15px 0;
+}
+
+.pet-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+}
+
+.pet-details-table th,
+.pet-details-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey-50);
+    font-size: 0.92rem;
+}
+
+.pet-details-table th {
+    color: var(--grey-400);
+    font-weight: 600;
+    width: 35%;
+    background-color: var(--grey-50);
+    border-radius: 6px 0 0 6px;
+}
+
+.pet-details-table td {
+    color: var(--grey-800);
+    font-weight: 500;
+    background-color: var(--grey-50);
+    border-radius: 0 6px 6px 0;
+}
+
+.pet-bio-section p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--grey-800);
+    background-color: var(--grey-50);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--grey-100);
+    margin: 0;
+}
+
+/* --- Vista Edición de Mascota --- */
+.edit-pet-container {
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+.edit-pet-card {
+    background-color: var(--white);
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--grey-100);
+}
+
+.edit-pet-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.edit-pet-header h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--grey-950);
+    margin: 0 0 6px 0;
+}
+
+.edit-pet-header p {
+    font-size: 0.9rem;
+    color: var(--grey-400);
+    margin: 0;
+}
+
+.edit-pet-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.edit-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.edit-form-group label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--grey-800);
+}
+
+.edit-form-group input[type="text"],
+.edit-form-group input[type="date"],
+.edit-form-group select,
+.edit-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    border: 1.5px solid var(--grey-100);
+    border-radius: 10px;
+    font-family: var(--primary-font);
+    font-size: 0.95rem;
+    color: var(--grey-800);
+    background-color: var(--grey-50);
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-form-group input:focus,
+.edit-form-group select:focus,
+.edit-form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.edit-form-group input[type="file"] {
+    padding: 8px 12px;
+    background-color: var(--grey-50);
+    border: 1.5px dashed var(--grey-200);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    cursor: pointer;
+}
+
+.edit-form-group .help-text {
+    font-size: 0.8rem;
+    color: var(--grey-400);
+    margin-top: 2px;
+}
+
+.edit-form-group .error-message {
+    font-size: 0.85rem;
+    color: #ef4444;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.edit-pet-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.btn-save-pet {
+    flex: 1;
+    background: linear-gradient(135deg, #06B6D4, #0D9488);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-save-pet:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35);
+}
+
+.btn-cancel-pet {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    background-color: var(--grey-50);
+    color: var(--grey-800);
+    border: 1px solid var(--grey-200);
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel-pet:hover {
+    background-color: var(--grey-100);
+    color: var(--grey-950);
+}
+
+/* Responsividad para Mascotas */
+@media (max-width: 640px) {
+    .pet-profile-card {
+        padding: 20px;
+    }
+
+    .pet-profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .pet-profile-actions,
+    .pet-action-btn {
+        width: 100%;
+    }
+
+    .pet-details-table th,
+    .pet-details-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+
+    .pet-details-table th {
+        padding-bottom: 4px;
+        background-color: transparent;
+    }
+
+    .pet-details-table td {
+        padding-top: 0;
+        padding-bottom: 12px;
+        background-color: transparent;
+    }
+
+    .edit-pet-card {
+        padding: 22px 18px;
+    }
+
+    .edit-pet-actions {
+        flex-direction: column;
+    }
+
+    .btn-save-pet,
+    .btn-cancel-pet {
+        width: 100%;
+    }
+}

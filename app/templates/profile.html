@@ -16,11 +16,11 @@
     </div>
 
     <div class="profile-grid-layout">
+        <!-- Sidebar de usuario -->
         <div class="profile-card profile-sidebar">
             <div class="profile-avatar">
                 {% if request.user.first_name %}
-                {{ request.user.first_name|slice:":1"|upper }}{% if request.user.last_name %}
-                {{ request.user.last_name|slice:":1"|upper }}{% endif %}
+                {{ request.user.first_name|slice:":1"|upper }}{% if request.user.last_name %}{{ request.user.last_name|slice:":1"|upper }}{% endif %}
                 {% else %}
                 {{ request.user.username|slice:":1"|upper }}
                 {% endif %}
@@ -38,70 +38,81 @@
             </p>
         </div>
 
+        <!-- Área de contenido principal -->
         <div class="profile-content-area">
+            <!-- Datos Personales -->
             <div class="profile-card">
                 <h4 class="profile-section-title">{% translate "Información personal" %}</h4>
-                <p class="profile-section-subtitle">{% translate "Datos visibles únicamente para ti." %}</p>
+                <span class="profile-section-subtitle">{% translate "Datos visibles únicamente para ti." %}</span>
 
                 <div class="profile-info-grid">
-                    <div>
+                    <div class="profile-info-box">
                         <span class="profile-info-label">{% translate "Cédula de identidad" %}</span>
-                        <span class="profile-info-value">{{ profile.id_number }}</span>
+                        <span class="profile-info-value">{{ profile.id_number|default:_("No especificada") }}</span>
                     </div>
-                    <div>
+                    <div class="profile-info-box">
                         <span class="profile-info-label">{% translate "Fecha de nacimiento" %}</span>
-                        <span class="profile-info-value">{{ profile.birth_date|date:"d \d\e F \d\e Y" }}</span>
+                        <span class="profile-info-value">{{ profile.birth_date|date:"d/m/Y"|default:_("No especificada") }}</span>
                     </div>
-                    <div>
+                    <div class="profile-info-box">
                         <span class="profile-info-label">{% translate "Género" %}</span>
-                        <span class="profile-info-value">{{ profile.gender }}</span>
+                        <span class="profile-info-value">{{ profile.gender|default:_("No especificado") }}</span>
                     </div>
-                    <div>
+                    <div class="profile-info-box">
                         <span class="profile-info-label">{% translate "Ubicación" %}</span>
-                        <span class="profile-info-value">{{ profile.location }}</span>
+                        <span class="profile-info-value">{{ profile.location|default:_("No especificada") }}</span>
                     </div>
                 </div>
 
                 <div class="profile-interests-container">
-                    <span class="profile-section-subtitle">{% translate "Intereses y afinidades" %}</span>
+                    <span class="profile-section-subtitle" style="margin-bottom: 5px;">{% translate "Intereses y afinidades" %}</span>
                     <div class="profile-tags-wrapper">
                         {% for interest in interests_list %}
-                        <span class="profile-interest-tag">
-                            {{ interest }}
-                        </span>
+                        <span class="profile-interest-tag">{{ interest }}</span>
+                        {% empty %}
+                        <span class="profile-empty-text">{% translate "Sin intereses registrados." %}</span>
                         {% endfor %}
                     </div>
                 </div>
             </div>
 
+            <!-- Lista de Mascotas del Usuario -->
             <div class="profile-card">
-                <h4 class="profile-section-title" style="margin-bottom: 20px;">{% translate "Mis Mascotas" %}</h4>
+                <h4 class="profile-section-title" style="margin-bottom: 15px;">{% translate "Mis Mascotas" %}</h4>
 
                 <div class="profile-pets-list">
                     {% for pet in pets %}
                     <div class="profile-pet-item">
-                        {% if pet.image %}
-                        <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="profile-pet-img" loading="lazy"
-                            onerror="this.src='{% static 'img/paw.svg' %}';">
-                        {% endif %}
-                        <span class="profile-pet-name">{{ pet.name }}</span>
-                        <span class="profile-pet-details">
-                            {{ pet.species }}
-                            {% if pet.birth_date %}
-                            • {% translate "Nacimiento:" %} {{ pet.birth_date|date:"d/m/Y" }}
-                            {% endif %}</span>
+                        <div class="profile-pet-avatar-wrapper">
+                            {% if pet.image %}
+                            <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="profile-pet-img" loading="lazy">
+                            {% else %}
+                            <img src="{% static 'img/paw.svg' %}" alt="{{ pet.name }}" class="profile-pet-img" style="padding: 10px; opacity: 0.4;">
+                            {% endif %}
+                        </div>
 
-                        <a href="{% url 'pet_profile' pk=pet.pk %}" class="profile-action-link">{% translate "Ver perfil" %}</a>
-                        <a href="{% url 'pet_profile_edit' pk=pet.pk %}" class="profile-action-link">{% translate "Editar" %}</a>
+                        <div class="profile-pet-main-info">
+                            <span class="profile-pet-name">{{ pet.name }}</span>
+                            <span class="profile-pet-details">
+                                {{ pet.species }}{% if pet.breed %} • {{ pet.breed }}{% endif %}
+                                {% if pet.birth_date %}
+                                • {% translate "Nacimiento:" %} {{ pet.birth_date|date:"d/m/Y" }}
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <div class="profile-pet-item-actions">
+                            <a href="{% url 'pet_profile' pk=pet.pk %}" class="profile-action-link">{% translate "Ver perfil" %}</a>
+                            <a href="{% url 'pet_profile_edit' pk=pet.pk %}" class="profile-action-link">{% translate "Editar" %}</a>
+                        </div>
                     </div>
                     {% empty %}
                     <p class="profile-empty-text">{% translate "No tienes mascotas registradas todavía." %}</p>
                     {% endfor %}
                 </div>
 
-                <div class="profile-add-pet-wrapper">
-                    <a href="{% url 'register_pet' %}" class="profile-action-link"
-                        style="display: inline-flex; align-items: center; gap: 5px;">
+                <div class="profile-add-pet-wrapper" style="margin-top: 20px;">
+                    <a href="{% url 'register_pet' %}" class="profile-add-pet-btn">
                         {% translate "Agregar mascota" %}
                     </a>
                 </div>

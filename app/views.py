@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 
-from .models import AuditLog, CustomPet, CustomUser, UserProfile
+from .models import AuditLog, CustomPet, CustomUser, UserProfile, Publication
 from .forms import (
     CustomLoginForm,
     CustomUserCreationForm,
@@ -19,6 +19,7 @@ from .forms import (
     CustomPetForm,
     UserForm,
     UserProfileForm,
+    PublicationForm
 )
 
 def register_audit_log(request, user, action, details=""):
@@ -263,26 +264,44 @@ class HomeView(View):
         if request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser):
             return redirect('reports')
 
-        quick_filters = {
-            'perros': CustomPet.objects.filter(species__iexact='perro').count(),
-            'gatos': CustomPet.objects.filter(species__iexact='gato').count(),
-            'aves': CustomPet.objects.filter(species__iexact='ave').count(),
-            'otros': CustomPet.objects.exclude(species__iexact='perro').exclude(species__iexact='gato').exclude(species__iexact='ave').count(),
-            'urgentes': 0
-        }
-
         db_pets = CustomPet.objects.select_related('owner').all().order_by('-registration_date')[:4]
-
-        posts = []
+        
+        posts = Publication.objects.select_related('author', 'pet').filter(is_active=True).order_by('-created_at')
+        
+        form_post = PublicationForm()
 
         context = {
             'posts': posts,
-            'quick_filters': quick_filters,
             'featured_pets': db_pets,
+            'form_post': form_post,
             'active_tab': 'home',
             'title': 'Inicio - PetLink',
         }
         return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        """Maneja la creación de una nueva publicación con imagen."""
+        if not request.user.is_authenticated:
+            messages.error(request, _("Debes iniciar sesión para publicar."))
+            return redirect('login')
+
+        form_post = PublicationForm(request.POST, request.FILES)
+        if form_post.is_valid():
+            publication = form_post.save(commit=False)
+            publication.author = request.user
+            publication.save()
+            
+            register_audit_log(
+                request=request,
+                user=request.user,
+                action="PUBLICATION_CREATED",
+                details=f"El usuario creó la publicación #{publication.id}"
+            )
+            messages.success(request, _("¡Publicación realizada exitosamente!"))
+            return redirect('home')
+        
+        messages.error(request, _("Error al crear la publicación. Verifica los datos ingresados."))
+        return redirect('home')
 
 class AdoptionsView(View):
     template_name = 'adoptions.html'

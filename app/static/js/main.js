@@ -1,31 +1,41 @@
+/**
+ * PetLink - Funcionalidades Principales y Navegación Global
+ */
 document.addEventListener('DOMContentLoaded', function () {
+    // 1. Menú móvil desplegable
     const btnMenu = document.getElementById('menu-toggle');
     const listaMenu = document.getElementById('listaMenu');
     
     if (btnMenu && listaMenu) {
-        btnMenu.addEventListener('click', function () {
-            if (listaMenu.style.display === 'flex') {
+        btnMenu.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = listaMenu.classList.contains('open') || listaMenu.style.display === 'flex';
+            if (isOpen) {
                 listaMenu.style.display = 'none';
+                listaMenu.classList.remove('open');
             } else {
                 listaMenu.style.display = 'flex';
+                listaMenu.classList.add('open');
+            }
+        });
+
+        // Cerrar menú si se hace click fuera
+        document.addEventListener('click', function (e) {
+            if (!listaMenu.contains(e.target) && e.target !== btnMenu && !btnMenu.contains(e.target)) {
+                listaMenu.style.display = 'none';
+                listaMenu.classList.remove('open');
             }
         });
     }
 
-    const formBusqueda = document.getElementById('busqueda');
-    const formBusquedaMini = document.getElementById('busquedaMini');
-
-    if (formBusqueda) {
-        formBusqueda.addEventListener('submit', function (event) {
-            const busqueda = document.getElementById('campoBusqueda').value;
-            console.log('Ejecutando búsqueda (Escritorio): ' + busqueda);
-        });
-    }
-
-    if (formBusquedaMini) {
-        formBusquedaMini.addEventListener('submit', function (event) {
-            const busquedaMini = document.getElementById('campoBusquedaMini').value;
-            console.log('Ejecutando búsqueda (Móvil): ' + busquedaMini);
-        });
-    }
+    // 2. Auto-desvanecimiento de alertas del sistema
+    const banners = document.querySelectorAll('.alert-banner');
+    banners.forEach(banner => {
+        setTimeout(() => {
+            banner.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            banner.style.opacity = '0';
+            banner.style.transform = 'translateY(-10px)';
+            setTimeout(() => banner.remove(), 500);
+        }, 5000);
+    });
 });

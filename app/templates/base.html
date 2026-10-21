@@ -1,104 +1,197 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ LANGUAGE_CODE|default:'es' }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
-            {% if title %}{{ title }}{% else %}PetLink{% endif %}
+        {% if title %}{{ title }}{% else %}{% translate "PetLink - Comunidad y Adopción Responsable" %}{% endif %}
         {% endblock %}
     </title>
-    <link rel="icon" href="../static/img/logo.png">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <script src="../static/js/main.js"></script>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_head %}{% endblock %}
 </head>
 
 <body>
     <header class="header-main">
         {% block header %}
-        <a href="/" class="logo-container">
-            <img class="logo" src="../static/img/logoConFondo.png" alt="Logo de PetLink">
+        {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'reports' %}" class="logo-container" aria-label="{% translate 'Ir a Inicio de Administrador' %}">
+            <img class="logo" src="{% static 'img/logoConFondo.png' %}" alt="Logo de PetLink">
+            <h1 class="titulo">Pet<span class="titulo2">Link</span> <span class="admin-title-badge">Admin</span></h1>
+        </a>
+
+        <nav class="nav-desktop desktop-only">
+            <a href="{% url 'reports' %}" class="nav-item {% if active_tab == 'reports' %}active{% endif %}">
+                <img class="nav-img" src="{% static 'img/home.svg' %}" alt="{% translate 'Inicio' %}">
+                <span>{% translate "Inicio" %}</span>
+            </a>
+        </nav>
+        {% else %}
+        <a href="{% url 'home' %}" class="logo-container" aria-label="{% translate 'Ir a Inicio de PetLink' %}">
+            <img class="logo" src="{% static 'img/logoConFondo.png' %}" alt="Logo de PetLink">
             <h1 class="titulo">Pet<span class="titulo2">Link</span></h1>
         </a>
 
-        <form id="busqueda" class="desktop-only">
-            <input id="campoBusqueda" type="text" placeholder="Buscar mascotas...">
-            <button id="botonBusqueda" type="submit">Buscar</button>
+        <form id="busqueda" class="desktop-only" action="{% url 'adoptions' %}" method="get">
+            <input id="campoBusqueda" name="q" type="text" placeholder="{% translate 'Buscar mascotas...' %}"
+                value="{{ current_search|default:'' }}">
+            <button id="botonBusqueda" type="submit" aria-label="{% translate 'Buscar' %}">{% translate "Buscar" %}</button>
         </form>
 
         <nav class="nav-desktop desktop-only">
-            <a href="#" class="nav-item">
-                <img class="nav-img" src="../static/img/home.svg" alt="Casa">
-                <span>Inicio</span>
+            <a href="{% url 'home' %}" class="nav-item {% if active_tab == 'home' %}active{% endif %}">
+                <img class="nav-img" src="{% static 'img/home.svg' %}" alt="{% translate 'Casa' %}">
+                <span>{% translate "Inicio" %}</span>
             </a>
-            <a href="#" class="nav-item">
-                <img class="nav-img" src="../static/img/paw.svg" alt="Pata">
-                <span>Adopciones</span>
+            <a href="{% url 'adoptions' %}" class="nav-item {% if active_tab == 'adoptions' %}active{% endif %}">
+                <img class="nav-img" src="{% static 'img/paw.svg' %}" alt="{% translate 'Pata' %}">
+                <span>{% translate "Adopciones" %}</span>
             </a>
-            <a href="#" class="nav-item">
-                <img class="nav-img" src="../static/img/message.svg" alt="Chat">
-                <span>Mensajes</span>
+            <a href="{% url 'messages' %}" class="nav-item {% if active_tab == 'messages' %}active{% endif %}">
+                <img class="nav-img" src="{% static 'img/message.svg' %}" alt="{% translate 'Chat' %}">
+                <span>{% translate "Mensajes" %}</span>
             </a>
         </nav>
+        {% endif %}
 
         <div class="user-profile desktop-only">
-            <div id="circuloIconoUsuario">
-                <img src="../static/img/userIcon.svg" id="iconoUsuario" alt="Usuario">
+            <!-- Selector de Idioma -->
+            <form action="{% url 'set_language' %}" method="post" class="lang-switch-form">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                <div class="lang-switch-btn-group">
+                    {% get_current_language as CURRENT_LANG %}
+                    <button type="submit" name="language" value="es" class="lang-btn {% if CURRENT_LANG == 'es' %}active{% endif %}" title="Español">ES</button>
+                    <button type="submit" name="language" value="en" class="lang-btn {% if CURRENT_LANG == 'en' %}active{% endif %}" title="English">EN</button>
+                </div>
+            </form>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="user-profile-anchor" title="{% translate 'Ver mi perfil' %}">
+                <div id="circuloIconoUsuario">
+                    <img src="{% static 'img/userIcon.svg' %}" id="iconoUsuario" alt="{% translate 'Usuario' %}">
+                </div>
+                <div class="user-name-wrapper">
+                    <p class="user-display-name">{{ user.first_name|default:user.username }}</p>
+                    {% if user.is_staff or user.is_superuser %}
+                    <span class="admin-pill-tag">Admin</span>
+                    {% endif %}
+                </div>
+            </a>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout-icon" title="{% translate 'Cerrar sesión' %}" aria-label="{% translate 'Cerrar sesión' %}"><img
+                        class="nav-img" src="{% static 'img/cerrarSesion.png' %}" alt="{% translate 'Salir' %}"></button>
+            </form>
+            {% else %}
+            <div class="auth-buttons-header">
+                <a href="{% url 'login' %}" class="btn-header-login">{% translate "Iniciar Sesión" %}</a>
+                <a href="{% url 'register' %}" class="btn-header-register">{% translate "Registro" %}</a>
             </div>
-            <p>{{ user.username|default:"Usuario" }}</p>
+            {% endif %}
         </div>
 
-        <button id="menu-toggle" class="mobile-only" aria-label="Abrir menú">
-            <img src="../static/img/menuIcon.svg" id="iconoMenu" alt="Menu">
+        <button id="menu-toggle" class="mobile-only" aria-label="{% translate 'Abrir menú' %}">
+            <img src="{% static 'img/menuIcon.svg' %}" id="iconoMenu" alt="Menu">
         </button>
         {% endblock %}
     </header>
 
     <div id="listaMenu" class="mobile-menu">
-        <form id="busquedaMini">
-            <input id="campoBusquedaMini" type="text" placeholder="Buscar...">
-            <button id="botonBusquedaMini" type="submit">🔍</button>
+        <div style="padding: 10px 15px;">
+            <form action="{% url 'set_language' %}" method="post" class="lang-switch-form" style="margin: 0;">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                <div class="lang-switch-btn-group">
+                    {% get_current_language as CURRENT_LANG %}
+                    <button type="submit" name="language" value="es" class="lang-btn {% if CURRENT_LANG == 'es' %}active{% endif %}">Español (ES)</button>
+                    <button type="submit" name="language" value="en" class="lang-btn {% if CURRENT_LANG == 'en' %}active{% endif %}">English (EN)</button>
+                </div>
+            </form>
+        </div>
+
+        {% if user.is_staff or user.is_superuser %}
+        {% else %}
+        <form id="busquedaMini" action="{% url 'adoptions' %}" method="get">
+            <input id="campoBusquedaMini" name="q" type="text" placeholder="{% translate 'Buscar mascotas...' %}"
+                value="{{ current_search|default:'' }}">
+            <button id="botonBusquedaMini" type="submit" aria-label="{% translate 'Buscar en móvil' %}">{% translate "Buscar" %}</button>
         </form>
+        {% endif %}
+
         <hr class="separadorMenu">
+
         <div id="contenedorUsuarioMini">
-            <p id="myProfile">{{ user.username|default:"Mi Perfil" }}</p>
-            <div id="circuloIconoUsuarioMini">
-                <img src="{% static 'icon/userIcon.svg' %}" id="iconoUsuarioMini" alt="Usuario">
-            </div>
+            <a href="{% url 'profile' %}" class="mobile-user-link">
+                <div id="circuloIconoUsuarioMini">
+                    <img src="{% static 'img/userIcon.svg' %}" id="iconoUsuarioMini" alt="{% translate 'Usuario' %}">
+                </div>
+                <div>
+                    <p id="myProfile">{{ user.get_full_name|default:user.username }}</p>
+                    <small style="color: rgba(255,255,255,0.8);">{% translate "Ver perfil" %}</small>
+                </div>
+            </a>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout-mobile">{% translate "Salir" %}</button>
+            </form>
         </div>
     </div>
+
+    {% if messages %}
+    <div class="system-messages-container">
+        {% for message in messages %}
+        <div class="alert-banner alert-{{ message.tags }}">
+            <span>{{ message }}</span>
+            <button type="button" class="close-alert-btn" onclick="this.parentElement.remove();">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <main>
         {% block content %}
         <section>
-
         </section>
         {% endblock %}
     </main>
 
     <footer>
         {% block footer %}
-        <p>Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados</p>
+        <p>{% translate "Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados" %}</p>
         {% endblock %}
     </footer>
 
     <nav class="bottom-nav mobile-only">
-        <a href="#" class="bottom-nav-item">
-            <img class="nav-img" src="../static/img/home.svg" alt="Casa">
-            <span>Inicio</span>
+        {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'reports' %}" class="bottom-nav-item active">
+            <img class="nav-img" src="{% static 'img/home.svg' %}" alt="{% translate 'Inicio' %}">
+            <span>{% translate "Inicio" %}</span>
         </a>
-        <a href="#" class="bottom-nav-item">
-            <img class="nav-img" src="../static/img/paw.svg" alt="Pata">
-            <span>Adopciones</span>
+        {% else %}
+        <a href="{% url 'home' %}" class="bottom-nav-item {% if active_tab == 'home' %}active{% endif %}">
+            <img class="nav-img" src="{% static 'img/home.svg' %}" alt="{% translate 'Casa' %}">
+            <span>{% translate "Inicio" %}</span>
         </a>
-        <a href="#" class="bottom-nav-item">
-            <img class="nav-img" src="../static/img/message.svg" alt="Chat">
-            <span>Mensajes</span>
+        <a href="{% url 'adoptions' %}" class="bottom-nav-item {% if active_tab == 'adoptions' %}active{% endif %}">
+            <img class="nav-img" src="{% static 'img/paw.svg' %}" alt="{% translate 'Pata' %}">
+            <span>{% translate "Adopciones" %}</span>
         </a>
+        <a href="{% url 'messages' %}" class="bottom-nav-item {% if active_tab == 'messages' %}active{% endif %}">
+            <img class="nav-img" src="{% static 'img/message.svg' %}" alt="{% translate 'Chat' %}">
+            <span>{% translate "Mensajes" %}</span>
+        </a>
+        {% endif %}
     </nav>
+
+
+    {% block extra_js %}{% endblock %}
 </body>
 
 </html>

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% translate "Adopciones - PetLink | Catálogo de Mascotas" %}{% endblock %}
+
+{% block content %}
+<div class="adopciones-page-container">
+    <div class="hero-banner-card adopciones-hero">
+        <div class="hero-banner-content">
+            <span class="hero-tag">{% translate "Encuentra un compañero" %}</span>
+            <h2 class="hero-title">{% translate "¿Listo para dar amor?" %}</h2>
+            <p class="hero-description">
+                {% translate "Cientos de mascotas en tu zona están buscando un hogar cálido. Explora nuestro catálogo verificado hoy mismo." %}
+            </p>
+            <a href="#catalogo" class="btn-hero-action">
+                {% translate "Ver Adopciones" %} &darr;
+            </a>
+        </div>
+        <div class="hero-banner-visual">
+            <img src="{% static 'img/paw.svg' %}" alt="{% translate 'Adopción PetLink' %}" class="hero-pet-image hero-pet-image--icon">
+        </div>
+    </div>
+
+    <div class="adopciones-filter-section" id="catalogo">
+        <div class="filter-header-row">
+            <div class="filter-title-group">
+                <h2 class="adopciones-section-title">{% translate "Mascotas disponibles" %}</h2>
+                <span class="catalog-counter" id="contadorResultados">{% translate "Mostrando" %} {{ pets|length }} {% translate "mascotas" %}</span>
+            </div>
+            <button type="button" class="btn-reset-filters" id="btnResetFilters" style="display: none;">
+                {% translate "↺ Restablecer filtros" %}
+            </button>
+        </div>
+
+        <div class="filter-search-box">
+            <span class="search-icon-inside"></span>
+            <input type="text" id="filtroTexto" class="input-search-adopciones"
+                placeholder="{% translate 'Buscar por nombre, raza o ubicación (ej. Simba, Pastor Alemán, Chacao)...' %}"
+                value="{{ current_search|default:'' }}">
+            <button type="button" id="btnLimpiarBusqueda" class="btn-clear-search"
+                style="display: none;">&times;</button>
+        </div>
+
+        <div class="filter-chips-wrapper">
+            <button type="button" class="filter-chip-btn active" data-especie="todos">{% translate "Todos" %}</button>
+            <button type="button" class="filter-chip-btn" data-especie="perro">{% translate "Perros" %}</button>
+            <button type="button" class="filter-chip-btn" data-especie="gato">{% translate "Gatos" %}</button>
+            <button type="button" class="filter-chip-btn" data-especie="ave">{% translate "Aves" %}</button>
+            <button type="button" class="filter-chip-btn" data-especie="otros">{% translate "Otros" %}</button>
+        </div>
+    </div>
+
+    <div class="adopciones-grid" id="adopcionesGrid">
+        {% for pet in pets %}
+        <article class="pet-card" data-id="{{ pet.pk }}" data-name="{{ pet.name|lower }}"
+            data-nombre="{{ pet.name|lower }}"
+            data-species="{{ pet.species|lower }}" data-especie="{{ pet.species|lower }}"
+            data-breed="{{ pet.breed|lower }}" data-raza="{{ pet.breed|lower }}"
+            data-description="{{ pet.description|truncatechars:80 }}"
+            data-descripcion="{{ pet.description|truncatechars:80 }}">
+
+            <div class="pet-card-image-box">
+                {% if pet.image %}
+                <img src="{{ pet.image.url }}" alt="{{ pet.name }}" class="pet-card-img" loading="lazy"
+                    onerror="this.src='{% static 'img/paw.svg' %}';">
+                {% else %}
+                <img src="{% static 'img/paw.svg' %}" alt="{{ pet.name }}"
+                    class="pet-card-img pet-card-img--placeholder" loading="lazy">
+                {% endif %}
+
+                <div class="pet-card-badges">
+                    <span class="badge-especie">{{ pet.species }}</span>
+                </div>
+            </div>
+
+            <div class="pet-card-body">
+                <div class="pet-card-header">
+                    <h3 class="pet-card-name">{{ pet.name }}</h3>
+                </div>
+
+                <p class="pet-card-subtitle">
+                    {% if pet.breed %}{{ pet.breed }}{% else %}{% translate "Mestizo" %}{% endif %}{% if pet.gender %}, {{ pet.gender }}
+                    {% endif %}
+                </p>
+
+                <div class="pet-card-location">
+                    <span class="location-pin"></span>
+                    <span>{{ pet.owner.get_full_name|default:pet.owner.username }}</span>
+                </div>
+
+                <div class="pet-card-footer">
+                    <a href="{% url 'pet_profile' pk=pet.pk %}" class="btn-card-adopt">{% translate "Conocer a" %} {{ pet.name }}</a>
+                </div>
+            </div>
+
+        </article>
+        {% empty %}
+        <div class="empty-catalog-inline">
+            <div class="empty-icon"><img class="logo" src="{% static 'img/logo.png' %}" alt="Logo de PetLink"></div>
+            <h3>{% translate "No hay mascotas disponibles" %}</h3>
+            <p>{% translate "Aún no se han registrado mascotas, o ninguna coincide con tu búsqueda. ¡Regresa pronto!" %}</p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'register_pet' %}" class="btn-auth">{% translate "+ Registrar una mascota" %}</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/adoptions.js' %}"></script>
+{% endblock %}

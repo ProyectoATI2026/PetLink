@@ -1,0 +1,651 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PetLink 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 19:50-0400\n"
+"PO-Revision-Date: 2026-10-16 19:50-0400\n"
+"Last-Translator: PetLink Team\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "PetLink - Comunidad y Adopción Responsable"
+msgstr "PetLink - Comunidad y Adopción Responsable"
+
+msgid "Inicio"
+msgstr "Inicio"
+
+msgid "Adopciones"
+msgstr "Adopciones"
+
+msgid "Mensajes"
+msgstr "Mensajes"
+
+msgid "Buscar mascotas..."
+msgstr "Buscar mascotas..."
+
+msgid "Buscar"
+msgstr "Buscar"
+
+msgid "Buscar en móvil"
+msgstr "Buscar en móvil"
+
+msgid "Ver mi perfil"
+msgstr "Ver mi perfil"
+
+msgid "Ver perfil"
+msgstr "Ver perfil"
+
+msgid "Cerrar sesión"
+msgstr "Cerrar sesión"
+
+msgid "Salir"
+msgstr "Salir"
+
+msgid "Iniciar Sesión"
+msgstr "Iniciar Sesión"
+
+msgid "Registro"
+msgstr "Registro"
+
+msgid "Casa"
+msgstr "Casa"
+
+msgid "Pata"
+msgstr "Pata"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "Usuario"
+msgstr "Usuario"
+
+msgid "Usuarios"
+msgstr "Usuarios"
+
+msgid "Ir a Inicio de PetLink"
+msgstr "Ir a Inicio de PetLink"
+
+msgid "Ir a Inicio de Administrador"
+msgstr "Ir a Inicio de Administrador"
+
+msgid "Abrir menú"
+msgstr "Abrir menú"
+
+msgid "Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados"
+msgstr "Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados"
+
+msgid "Inicio - PetLink | Comunidad y Adopción Responsable"
+msgstr "Inicio - PetLink | Comunidad y Adopción Responsable"
+
+msgid "Filtros Rápidos"
+msgstr "Filtros Rápidos"
+
+msgid "Perros"
+msgstr "Perros"
+
+msgid "Gatos"
+msgstr "Gatos"
+
+msgid "Aves"
+msgstr "Aves"
+
+msgid "Otros"
+msgstr "Otros"
+
+msgid "¿Sabías qué?"
+msgstr "¿Sabías qué?"
+
+msgid "En PetLink todas las adopciones son <strong>gratuitas</strong> y verificadas por la comunidad. Denuncia cualquier intento de cobro."
+msgstr "En PetLink todas las adopciones son <strong>gratuitas</strong> y verificadas por la comunidad. Denuncia cualquier intento de cobro."
+
+msgid "+ Dar en Adopción"
+msgstr "+ Dar en Adopción"
+
+msgid "Encuentra un compañero"
+msgstr "Encuentra un compañero"
+
+msgid "¿Listo para dar amor?"
+msgstr "¿Listo para dar amor?"
+
+msgid "Cientos de mascotas en tu zona están buscando un hogar cálido. Explora nuestro catálogo verificado hoy mismo."
+msgstr "Cientos de mascotas en tu zona están buscando un hogar cálido. Explora nuestro catálogo verificado hoy mismo."
+
+msgid "Ver Adopciones"
+msgstr "Ver Adopciones"
+
+msgid "Mascota en adopción"
+msgstr "Mascota en adopción"
+
+msgid "Todos"
+msgstr "Todos"
+
+msgid "¿Tienes una historia de rescate o una mascota para reportar?"
+msgstr "¿Tienes una historia de rescate o una mascota para reportar?"
+
+msgid "Foto / Mascota"
+msgstr "Foto / Mascota"
+
+msgid "Reportar Encontrado"
+msgstr "Reportar Encontrado"
+
+msgid "Adoptar"
+msgstr "Adoptar"
+
+msgid "Publicaciones Recientes"
+msgstr "Publicaciones Recientes"
+
+msgid "Actualizado en tiempo real"
+msgstr "Actualizado en tiempo real"
+
+msgid "Imagen de"
+msgstr "Imagen de"
+
+msgid "Me gusta"
+msgstr "Me gusta"
+
+msgid "Comentarios"
+msgstr "Comentarios"
+
+msgid "Compartir"
+msgstr "Compartir"
+
+msgid "Enviar mensaje directo a"
+msgstr "Enviar mensaje directo a"
+
+msgid "Contactar"
+msgstr "Contactar"
+
+msgid "Escribe un comentario respetuoso..."
+msgstr "Escribe un comentario respetuoso..."
+
+msgid "Comentar"
+msgstr "Comentar"
+
+msgid "Tú"
+msgstr "Tú"
+
+msgid "Aún no hay publicaciones"
+msgstr "Aún no hay publicaciones"
+
+msgid "Sé el primero en compartir una historia de rescate, adopción o mascota encontrada con la comunidad."
+msgstr "Sé el primero en compartir una historia de rescate, adopción o mascota encontrada con la comunidad."
+
+msgid "+ Crear Publicación"
+msgstr "+ Crear Publicación"
+
+msgid "Crear Publicación Comunitaria"
+msgstr "Crear Publicación Comunitaria"
+
+msgid "Describe la situación: rescate, extravío o adopción..."
+msgstr "Describe la situación: rescate, extravío o adopción..."
+
+msgid "Puedes adjuntar fotos en la versión completa"
+msgstr "Puedes adjuntar fotos en la versión completa"
+
+msgid "Cancelar"
+msgstr "Cancelar"
+
+msgid "Publicar"
+msgstr "Publicar"
+
+msgid "Por favor escribe algún detalle para la publicación."
+msgstr "Por favor escribe algún detalle para la publicación."
+
+msgid "¡Publicación enviada exitosamente a la comunidad PetLink!"
+msgstr "¡Publicación enviada exitosamente a la comunidad PetLink!"
+
+msgid "¡Enlace a la publicación de"
+msgstr "¡Enlace a la publicación de"
+
+msgid "copiado al portapapeles!"
+msgstr "copiado al portapapeles!"
+
+msgid "Publicación de"
+msgstr "Publicación de"
+
+msgid "compartida."
+msgstr "compartida."
+
+msgid "Adopciones - PetLink | Catálogo de Mascotas"
+msgstr "Adopciones - PetLink | Catálogo de Mascotas"
+
+msgid "Mascotas disponibles"
+msgstr "Mascotas disponibles"
+
+msgid "Mostrando"
+msgstr "Mostrando"
+
+msgid "mascotas"
+msgstr "mascotas"
+
+msgid "↺ Restablecer filtros"
+msgstr "↺ Restablecer filtros"
+
+msgid "Buscar por nombre, raza o ubicación (ej. Simba, Pastor Alemán, Chacao)..."
+msgstr "Buscar por nombre, raza o ubicación (ej. Simba, Pastor Alemán, Chacao)..."
+
+msgid "Mestizo"
+msgstr "Mestizo"
+
+msgid "Conocer a"
+msgstr "Conocer a"
+
+msgid "No hay mascotas disponibles"
+msgstr "No hay mascotas disponibles"
+
+msgid "Aún no se han registrado mascotas, o ninguna coincide con tu búsqueda. ¡Regresa pronto!"
+msgstr "Aún no se han registrado mascotas, o ninguna coincide con tu búsqueda. ¡Regresa pronto!"
+
+msgid "+ Registrar una mascota"
+msgstr "+ Registrar una mascota"
+
+msgid "Mensajes - PetLink | Chats y Conversaciones"
+msgstr "Mensajes - PetLink | Chats y Conversaciones"
+
+msgid "Continúa tus conversaciones con la comunidad."
+msgstr "Continúa tus conversaciones con la comunidad."
+
+msgid "Buscar conversaciones..."
+msgstr "Buscar conversaciones..."
+
+msgid "Abrir chat con"
+msgstr "Abrir chat con"
+
+msgid "No tienes conversaciones aún."
+msgstr "No tienes conversaciones aún."
+
+msgid "Cuando contactes a alguien desde una ficha de adopción, aparecerá aquí."
+msgstr "Cuando contactes a alguien desde una ficha de adopción, aparecerá aquí."
+
+msgid "Volver a lista de mensajes"
+msgstr "Volver a lista de mensajes"
+
+msgid "Chats"
+msgstr "Chats"
+
+msgid "En línea"
+msgstr "En línea"
+
+msgid "Desconectado"
+msgstr "Desconectado"
+
+msgid "Ver ficha de adopción"
+msgstr "Ver ficha de adopción"
+
+msgid "Ficha"
+msgstr "Ficha"
+
+msgid "No hay mensajes aún. ¡Envía el primero!"
+msgstr "No hay mensajes aún. ¡Envía el primero!"
+
+msgid "Adjuntar foto o archivo"
+msgstr "Adjuntar foto o archivo"
+
+msgid "Escribe un mensaje seguro..."
+msgstr "Escribe un mensaje seguro..."
+
+msgid "Enviar mensaje"
+msgstr "Enviar mensaje"
+
+msgid "Enviar"
+msgstr "Enviar"
+
+msgid "Tus mensajes"
+msgstr "Tus mensajes"
+
+msgid "Selecciona una conversación de la lista, o inicia una nueva desde la ficha de adopción de una mascota."
+msgstr "Selecciona una conversación de la lista, o inicia una nueva desde la ficha de adopción de una mascota."
+
+msgid "Explorar Adopciones"
+msgstr "Explorar Adopciones"
+
+msgid "Moderación de Reportes - PetLink Admin"
+msgstr "Moderación de Reportes - PetLink Admin"
+
+msgid "Administración / Moderación"
+msgstr "Administración / Moderación"
+
+msgid "Moderación de Reportes"
+msgstr "Moderación de Reportes"
+
+msgid "Revisa y procesa las denuncias enviadas por la comunidad para mantener a PetLink seguro y libre de abusos."
+msgstr "Revisa y procesa las denuncias enviadas por la comunidad para mantener a PetLink seguro y libre de abusos."
+
+msgid "Pendientes"
+msgstr "Pendientes"
+
+msgid "Procesados"
+msgstr "Procesados"
+
+msgid "Historial Completo"
+msgstr "Historial Completo"
+
+msgid "Reportado por:"
+msgstr "Reportado por:"
+
+msgid "Publicación denunciada:"
+msgstr "Publicación denunciada:"
+
+msgid "reportes acumulados"
+msgstr "reportes acumulados"
+
+msgid "Ignorar"
+msgstr "Ignorar"
+
+msgid "Eliminar Post"
+msgstr "Eliminar Post"
+
+msgid "¡Bandeja de moderación limpia!"
+msgstr "¡Bandeja de moderación limpia!"
+
+msgid "No hay denuncias o publicaciones pendientes de moderación en este momento. La comunidad está en orden."
+msgstr "No hay denuncias o publicaciones pendientes de moderación en este momento. La comunidad está en orden."
+
+msgid "Confirmar Acción"
+msgstr "Confirmar Acción"
+
+msgid "¿Estás seguro de procesar esta moderación?"
+msgstr "¿Estás seguro de procesar esta moderación?"
+
+msgid "Confirmar"
+msgstr "Confirmar"
+
+msgid "Propietario"
+msgstr "Propietario"
+
+msgid "Editar Perfil"
+msgstr "Editar Perfil"
+
+msgid "Iniciar Chat con el Dueño"
+msgstr "Iniciar Chat con el Dueño"
+
+msgid "Información de la Mascota"
+msgstr "Información de la Mascota"
+
+msgid "Edad / Fecha Nacimiento"
+msgstr "Edad / Fecha Nacimiento"
+
+msgid "No especificada"
+msgstr "No especificada"
+
+msgid "Género"
+msgstr "Género"
+
+msgid "No especificado"
+msgstr "No especificado"
+
+msgid "Registrado el"
+msgstr "Registrado el"
+
+msgid "Sobre"
+msgstr "Sobre"
+
+msgid "Sin descripción disponible."
+msgstr "Sin descripción disponible."
+
+msgid "Editar Perfil de"
+msgstr "Editar Perfil de"
+
+msgid "Guardar Cambios"
+msgstr "Guardar Cambios"
+
+msgid "Mi perfil"
+msgstr "Mi perfil"
+
+msgid "Administra tu información personal y tus preferencias en PetLink."
+msgstr "Administra tu información personal y tus preferencias en PetLink."
+
+msgid "Modificar perfil"
+msgstr "Modificar perfil"
+
+msgid "Perfil Verificado"
+msgstr "Perfil Verificado"
+
+msgid "Tu información ayuda a crear una comunidad PetLink más segura y cercana."
+msgstr "Tu información ayuda a crear una comunidad PetLink más segura y cercana."
+
+msgid "Información personal"
+msgstr "Información personal"
+
+msgid "Datos visibles únicamente para ti."
+msgstr "Datos visibles únicamente para ti."
+
+msgid "Cédula de identidad"
+msgstr "Cédula de identidad"
+
+msgid "Cédula"
+msgstr "Cédula"
+
+msgid "Fecha de nacimiento"
+msgstr "Fecha de nacimiento"
+
+msgid "Ubicación"
+msgstr "Ubicación"
+
+msgid "Intereses y afinidades"
+msgstr "Intereses y afinidades"
+
+msgid "Mis Mascotas"
+msgstr "Mis Mascotas"
+
+msgid "Nacimiento:"
+msgstr "Nacimiento:"
+
+msgid "Editar"
+msgstr "Editar"
+
+msgid "No tienes mascotas registradas todavía."
+msgstr "No tienes mascotas registradas todavía."
+
+msgid "Agregar mascota"
+msgstr "Agregar mascota"
+
+msgid "Modificar Perfil"
+msgstr "Modificar Perfil"
+
+msgid "Información de Usuario"
+msgstr "Información de Usuario"
+
+msgid "Nombre"
+msgstr "Nombre"
+
+msgid "Apellido"
+msgstr "Apellido"
+
+msgid "Detalles Personales"
+msgstr "Detalles Personales"
+
+msgid "Gustos e Intereses (separados por comas)"
+msgstr "Gustos e Intereses (separados por comas)"
+
+msgid "Conectando corazones, cambiando vidas"
+msgstr "Conectando corazones, cambiando vidas"
+
+msgid "Nombre de Usuario"
+msgstr "Nombre de Usuario"
+
+msgid "Contraseña"
+msgstr "Contraseña"
+
+msgid "Confirmar Contraseña"
+msgstr "Confirmar Contraseña"
+
+msgid "Correo Electrónico"
+msgstr "Correo Electrónico"
+
+msgid "Ingresar"
+msgstr "Ingresar"
+
+msgid "¿No tienes una cuenta?"
+msgstr "¿No tienes una cuenta?"
+
+msgid "Regístrate aquí"
+msgstr "Regístrate aquí"
+
+msgid "Crear Cuenta"
+msgstr "Crear Cuenta"
+
+msgid "Registrarse"
+msgstr "Registrarse"
+
+msgid "¿Ya tienes cuenta?"
+msgstr "¿Ya tienes cuenta?"
+
+msgid "Inicia sesión"
+msgstr "Inicia sesión"
+
+msgid "Registro Mascota"
+msgstr "Registro Mascota"
+
+msgid "Registrar nueva Mascota"
+msgstr "Registrar nueva Mascota"
+
+msgid "Nombre de la Mascota"
+msgstr "Nombre de la Mascota"
+
+msgid "Especie"
+msgstr "Especie"
+
+msgid "Raza / Mestizaje"
+msgstr "Raza / Mestizaje"
+
+msgid "Edad"
+msgstr "Edad"
+
+msgid "Macho"
+msgstr "Macho"
+
+msgid "Hembra"
+msgstr "Hembra"
+
+msgid "Breve Descripción / Estado"
+msgstr "Breve Descripción / Estado"
+
+msgid "Imagen de la Mascota"
+msgstr "Imagen de la Mascota"
+
+msgid "Foto de Perfil de la Mascota"
+msgstr "Foto de Perfil de la Mascota"
+
+msgid "Registrar Mascota"
+msgstr "Registrar Mascota"
+
+msgid "Al registrar la mascota, aceptas publicar esta información de forma abierta para que otros miembros de PetLink puedan contactarte."
+msgstr "Al registrar la mascota, aceptas publicar esta información de forma abierta para que otros miembros de PetLink puedan contactarte."
+
+msgid "El usuario inició sesión correctamente."
+msgstr "El usuario inició sesión correctamente."
+
+msgid "¡Bienvenido de nuevo!"
+msgstr "¡Bienvenido de nuevo!"
+
+msgid "Nombre de usuario o contraseña incorrectos."
+msgstr "Nombre de usuario o contraseña incorrectos."
+
+msgid "El usuario cerró sesión."
+msgstr "El usuario cerró sesión."
+
+msgid "Nuevo usuario registrado en la plataforma."
+msgstr "Nuevo usuario registrado en la plataforma."
+
+msgid "Cuenta creada exitosamente. Ya puedes iniciar sesión."
+msgstr "Cuenta creada exitosamente. Ya puedes iniciar sesión."
+
+msgid "Mascota registrada exitosamente."
+msgstr "Mascota registrada exitosamente."
+
+msgid "No tienes permiso para editar el perfil de esta mascota."
+msgstr "No tienes permiso para editar el perfil de esta mascota."
+
+msgid "Perfil de la mascota actualizado correctamente."
+msgstr "Perfil de la mascota actualizado correctamente."
+
+msgid "Acceso denegado: Se requieren credenciales de Administrador para ver la pantalla de moderación de reportes."
+msgstr "Acceso denegado: Se requieren credenciales de Administrador para ver la pantalla de moderación de reportes."
+
+msgid "El administrador accedió a la pantalla de moderación de reportes."
+msgstr "El administrador accedió a la pantalla de moderación de reportes."
+
+msgid "Inicio de Sesión Exitoso"
+msgstr "Inicio de Sesión Exitoso"
+
+msgid "Intento de Login Fallido"
+msgstr "Intento de Login Fallido"
+
+msgid "Cierre de Sesión"
+msgstr "Cierre de Sesión"
+
+msgid "Registro de Usuario"
+msgstr "Registro de Usuario"
+
+msgid "Acción"
+msgstr "Acción"
+
+msgid "Dirección IP"
+msgstr "Dirección IP"
+
+msgid "Detalles"
+msgstr "Detalles"
+
+msgid "Fecha y Hora"
+msgstr "Fecha y Hora"
+
+msgid "Log de Auditoría"
+msgstr "Log de Auditoría"
+
+msgid "Logs de Auditoría"
+msgstr "Logs de Auditoría"
+
+msgid "Mascota"
+msgstr "Mascota"
+
+msgid "Mascotas"
+msgstr "Mascotas"
+
+msgid "Anónimo"
+msgstr "Anónimo"
+
+msgid "Ingrese su usuario"
+msgstr "Ingrese su usuario"
+
+msgid "Ingrese su contraseña"
+msgstr "Ingrese su contraseña"
+
+msgid "Ingrese el nombre de la mascota"
+msgstr "Ingrese el nombre de la mascota"
+
+msgid "Ingrese la especie de la mascota"
+msgstr "Ingrese la especie de la mascota"
+
+msgid "Ingrese la edad de la mascota"
+msgstr "Ingrese la edad de la mascota"
+
+msgid "Ingrese la raza de la mascota"
+msgstr "Ingrese la raza de la mascota"
+
+msgid "Ingrese una descripción de la mascota"
+msgstr "Ingrese una descripción de la mascota"
+
+msgid "Nombre de la mascota"
+msgstr "Nombre de la mascota"
+
+msgid "Ej. Perro, Gato"
+msgstr "Ej. Perro, Gato"
+
+msgid "Ej. Mestizo, Poodle"
+msgstr "Ej. Mestizo, Poodle"
+
+msgid "Macho / Hembra"
+msgstr "Macho / Hembra"
+
+msgid "Descripción..."
+msgstr "Descripción..."
+
+msgid "Español"
+msgstr "Español"
+
+msgid "English"
+msgstr "English"

@@ -1,0 +1,651 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PetLink 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 19:50-0400\n"
+"PO-Revision-Date: 2026-10-16 19:50-0400\n"
+"Last-Translator: PetLink Team\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "PetLink - Comunidad y Adopción Responsable"
+msgstr "PetLink - Community and Responsible Adoption"
+
+msgid "Inicio"
+msgstr "Home"
+
+msgid "Adopciones"
+msgstr "Adoptions"
+
+msgid "Mensajes"
+msgstr "Messages"
+
+msgid "Buscar mascotas..."
+msgstr "Search pets..."
+
+msgid "Buscar"
+msgstr "Search"
+
+msgid "Buscar en móvil"
+msgstr "Search on mobile"
+
+msgid "Ver mi perfil"
+msgstr "View my profile"
+
+msgid "Ver perfil"
+msgstr "View profile"
+
+msgid "Cerrar sesión"
+msgstr "Log out"
+
+msgid "Salir"
+msgstr "Exit"
+
+msgid "Iniciar Sesión"
+msgstr "Log In"
+
+msgid "Registro"
+msgstr "Register"
+
+msgid "Casa"
+msgstr "Home"
+
+msgid "Pata"
+msgstr "Paw"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "Usuario"
+msgstr "User"
+
+msgid "Usuarios"
+msgstr "Users"
+
+msgid "Ir a Inicio de PetLink"
+msgstr "Go to PetLink Home"
+
+msgid "Ir a Inicio de Administrador"
+msgstr "Go to Admin Home"
+
+msgid "Abrir menú"
+msgstr "Open menu"
+
+msgid "Copyright &copy; 2026 Escuela de computación - ATI. Todos los derechos reservados"
+msgstr "Copyright &copy; 2026 School of Computing - ATI. All rights reserved"
+
+msgid "Inicio - PetLink | Comunidad y Adopción Responsable"
+msgstr "Home - PetLink | Community and Responsible Adoption"
+
+msgid "Filtros Rápidos"
+msgstr "Quick Filters"
+
+msgid "Perros"
+msgstr "Dogs"
+
+msgid "Gatos"
+msgstr "Cats"
+
+msgid "Aves"
+msgstr "Birds"
+
+msgid "Otros"
+msgstr "Others"
+
+msgid "¿Sabías qué?"
+msgstr "Did you know?"
+
+msgid "En PetLink todas las adopciones son <strong>gratuitas</strong> y verificadas por la comunidad. Denuncia cualquier intento de cobro."
+msgstr "At PetLink all adoptions are <strong>free</strong> and verified by the community. Report any attempt to charge."
+
+msgid "+ Dar en Adopción"
+msgstr "+ Put up for Adoption"
+
+msgid "Encuentra un compañero"
+msgstr "Find a companion"
+
+msgid "¿Listo para dar amor?"
+msgstr "Ready to give love?"
+
+msgid "Cientos de mascotas en tu zona están buscando un hogar cálido. Explora nuestro catálogo verificado hoy mismo."
+msgstr "Hundreds of pets in your area are looking for a warm home. Explore our verified catalog today."
+
+msgid "Ver Adopciones"
+msgstr "View Adoptions"
+
+msgid "Mascota en adopción"
+msgstr "Pet for adoption"
+
+msgid "Todos"
+msgstr "All"
+
+msgid "¿Tienes una historia de rescate o una mascota para reportar?"
+msgstr "Do you have a rescue story or a pet to report?"
+
+msgid "Foto / Mascota"
+msgstr "Photo / Pet"
+
+msgid "Reportar Encontrado"
+msgstr "Report Found"
+
+msgid "Adoptar"
+msgstr "Adopt"
+
+msgid "Publicaciones Recientes"
+msgstr "Recent Posts"
+
+msgid "Actualizado en tiempo real"
+msgstr "Updated in real time"
+
+msgid "Imagen de"
+msgstr "Image of"
+
+msgid "Me gusta"
+msgstr "Like"
+
+msgid "Comentarios"
+msgstr "Comments"
+
+msgid "Compartir"
+msgstr "Share"
+
+msgid "Enviar mensaje directo a"
+msgstr "Send direct message to"
+
+msgid "Contactar"
+msgstr "Contact"
+
+msgid "Escribe un comentario respetuoso..."
+msgstr "Write a respectful comment..."
+
+msgid "Comentar"
+msgstr "Comment"
+
+msgid "Tú"
+msgstr "You"
+
+msgid "Aún no hay publicaciones"
+msgstr "No posts yet"
+
+msgid "Sé el primero en compartir una historia de rescate, adopción o mascota encontrada con la comunidad."
+msgstr "Be the first to share a rescue, adoption, or found pet story with the community."
+
+msgid "+ Crear Publicación"
+msgstr "+ Create Post"
+
+msgid "Crear Publicación Comunitaria"
+msgstr "Create Community Post"
+
+msgid "Describe la situación: rescate, extravío o adopción..."
+msgstr "Describe the situation: rescue, loss, or adoption..."
+
+msgid "Puedes adjuntar fotos en la versión completa"
+msgstr "You can attach photos in the full version"
+
+msgid "Cancelar"
+msgstr "Cancel"
+
+msgid "Publicar"
+msgstr "Publish"
+
+msgid "Por favor escribe algún detalle para la publicación."
+msgstr "Please write some details for the post."
+
+msgid "¡Publicación enviada exitosamente a la comunidad PetLink!"
+msgstr "Post successfully submitted to the PetLink community!"
+
+msgid "¡Enlace a la publicación de"
+msgstr "Link to the post of"
+
+msgid "copiado al portapapeles!"
+msgstr "copied to clipboard!"
+
+msgid "Publicación de"
+msgstr "Post of"
+
+msgid "compartida."
+msgstr "shared."
+
+msgid "Adopciones - PetLink | Catálogo de Mascotas"
+msgstr "Adoptions - PetLink | Pet Catalog"
+
+msgid "Mascotas disponibles"
+msgstr "Available pets"
+
+msgid "Mostrando"
+msgstr "Showing"
+
+msgid "mascotas"
+msgstr "pets"
+
+msgid "↺ Restablecer filtros"
+msgstr "↺ Reset filters"
+
+msgid "Buscar por nombre, raza o ubicación (ej. Simba, Pastor Alemán, Chacao)..."
+msgstr "Search by name, breed, or location (e.g., Simba, German Shepherd, Chacao)..."
+
+msgid "Mestizo"
+msgstr "Mixed breed"
+
+msgid "Conocer a"
+msgstr "Meet"
+
+msgid "No hay mascotas disponibles"
+msgstr "No pets available"
+
+msgid "Aún no se han registrado mascotas, o ninguna coincide con tu búsqueda. ¡Regresa pronto!"
+msgstr "No pets have been registered yet, or none match your search. Check back soon!"
+
+msgid "+ Registrar una mascota"
+msgstr "+ Register a pet"
+
+msgid "Mensajes - PetLink | Chats y Conversaciones"
+msgstr "Messages - PetLink | Chats and Conversations"
+
+msgid "Continúa tus conversaciones con la comunidad."
+msgstr "Continue your conversations with the community."
+
+msgid "Buscar conversaciones..."
+msgstr "Search conversations..."
+
+msgid "Abrir chat con"
+msgstr "Open chat with"
+
+msgid "No tienes conversaciones aún."
+msgstr "You don't have conversations yet."
+
+msgid "Cuando contactes a alguien desde una ficha de adopción, aparecerá aquí."
+msgstr "When you contact someone from an adoption listing, it will appear here."
+
+msgid "Volver a lista de mensajes"
+msgstr "Back to messages list"
+
+msgid "Chats"
+msgstr "Chats"
+
+msgid "En línea"
+msgstr "Online"
+
+msgid "Desconectado"
+msgstr "Offline"
+
+msgid "Ver ficha de adopción"
+msgstr "View adoption listing"
+
+msgid "Ficha"
+msgstr "Listing"
+
+msgid "No hay mensajes aún. ¡Envía el primero!"
+msgstr "No messages yet. Send the first one!"
+
+msgid "Adjuntar foto o archivo"
+msgstr "Attach photo or file"
+
+msgid "Escribe un mensaje seguro..."
+msgstr "Write a secure message..."
+
+msgid "Enviar mensaje"
+msgstr "Send message"
+
+msgid "Enviar"
+msgstr "Send"
+
+msgid "Tus mensajes"
+msgstr "Your messages"
+
+msgid "Selecciona una conversación de la lista, o inicia una nueva desde la ficha de adopción de una mascota."
+msgstr "Select a conversation from the list, or start a new one from a pet adoption listing."
+
+msgid "Explorar Adopciones"
+msgstr "Explore Adoptions"
+
+msgid "Moderación de Reportes - PetLink Admin"
+msgstr "Reports Moderation - PetLink Admin"
+
+msgid "Administración / Moderación"
+msgstr "Administration / Moderation"
+
+msgid "Moderación de Reportes"
+msgstr "Reports Moderation"
+
+msgid "Revisa y procesa las denuncias enviadas por la comunidad para mantener a PetLink seguro y libre de abusos."
+msgstr "Review and process reports submitted by the community to keep PetLink safe and free of abuse."
+
+msgid "Pendientes"
+msgstr "Pending"
+
+msgid "Procesados"
+msgstr "Processed"
+
+msgid "Historial Completo"
+msgstr "Full History"
+
+msgid "Reportado por:"
+msgstr "Reported by:"
+
+msgid "Publicación denunciada:"
+msgstr "Reported post:"
+
+msgid "reportes acumulados"
+msgstr "accumulated reports"
+
+msgid "Ignorar"
+msgstr "Ignore"
+
+msgid "Eliminar Post"
+msgstr "Delete Post"
+
+msgid "¡Bandeja de moderación limpia!"
+msgstr "Moderation inbox clean!"
+
+msgid "No hay denuncias o publicaciones pendientes de moderación en este momento. La comunidad está en orden."
+msgstr "There are no pending reports or posts at this time. The community is in order."
+
+msgid "Confirmar Acción"
+msgstr "Confirm Action"
+
+msgid "¿Estás seguro de procesar esta moderación?"
+msgstr "Are you sure you want to process this moderation action?"
+
+msgid "Confirmar"
+msgstr "Confirm"
+
+msgid "Propietario"
+msgstr "Owner"
+
+msgid "Editar Perfil"
+msgstr "Edit Profile"
+
+msgid "Iniciar Chat con el Dueño"
+msgstr "Start Chat with Owner"
+
+msgid "Información de la Mascota"
+msgstr "Pet Information"
+
+msgid "Edad / Fecha Nacimiento"
+msgstr "Age / Birth Date"
+
+msgid "No especificada"
+msgstr "Not specified"
+
+msgid "Género"
+msgstr "Gender"
+
+msgid "No especificado"
+msgstr "Not specified"
+
+msgid "Registrado el"
+msgstr "Registered on"
+
+msgid "Sobre"
+msgstr "About"
+
+msgid "Sin descripción disponible."
+msgstr "No description available."
+
+msgid "Editar Perfil de"
+msgstr "Edit Profile of"
+
+msgid "Guardar Cambios"
+msgstr "Save Changes"
+
+msgid "Mi perfil"
+msgstr "My profile"
+
+msgid "Administra tu información personal y tus preferencias en PetLink."
+msgstr "Manage your personal information and preferences on PetLink."
+
+msgid "Modificar perfil"
+msgstr "Modify profile"
+
+msgid "Perfil Verificado"
+msgstr "Verified Profile"
+
+msgid "Tu información ayuda a crear una comunidad PetLink más segura y cercana."
+msgstr "Your information helps create a safer and closer PetLink community."
+
+msgid "Información personal"
+msgstr "Personal information"
+
+msgid "Datos visibles únicamente para ti."
+msgstr "Data visible only to you."
+
+msgid "Cédula de identidad"
+msgstr "National ID"
+
+msgid "Cédula"
+msgstr "National ID"
+
+msgid "Fecha de nacimiento"
+msgstr "Birth date"
+
+msgid "Ubicación"
+msgstr "Location"
+
+msgid "Intereses y afinidades"
+msgstr "Interests and affinities"
+
+msgid "Mis Mascotas"
+msgstr "My Pets"
+
+msgid "Nacimiento:"
+msgstr "Birth:"
+
+msgid "Editar"
+msgstr "Edit"
+
+msgid "No tienes mascotas registradas todavía."
+msgstr "You don't have registered pets yet."
+
+msgid "Agregar mascota"
+msgstr "Add pet"
+
+msgid "Modificar Perfil"
+msgstr "Modify Profile"
+
+msgid "Información de Usuario"
+msgstr "User Information"
+
+msgid "Nombre"
+msgstr "First Name"
+
+msgid "Apellido"
+msgstr "Last Name"
+
+msgid "Detalles Personales"
+msgstr "Personal Details"
+
+msgid "Gustos e Intereses (separados por comas)"
+msgstr "Interests and Hobbies (separated by commas)"
+
+msgid "Conectando corazones, cambiando vidas"
+msgstr "Connecting hearts, changing lives"
+
+msgid "Nombre de Usuario"
+msgstr "Username"
+
+msgid "Contraseña"
+msgstr "Password"
+
+msgid "Confirmar Contraseña"
+msgstr "Confirm Password"
+
+msgid "Correo Electrónico"
+msgstr "Email Address"
+
+msgid "Ingresar"
+msgstr "Sign In"
+
+msgid "¿No tienes una cuenta?"
+msgstr "Don't have an account?"
+
+msgid "Regístrate aquí"
+msgstr "Register here"
+
+msgid "Crear Cuenta"
+msgstr "Create Account"
+
+msgid "Registrarse"
+msgstr "Register"
+
+msgid "¿Ya tienes cuenta?"
+msgstr "Already have an account?"
+
+msgid "Inicia sesión"
+msgstr "Log in"
+
+msgid "Registro Mascota"
+msgstr "Pet Registration"
+
+msgid "Registrar nueva Mascota"
+msgstr "Register new Pet"
+
+msgid "Nombre de la Mascota"
+msgstr "Pet Name"
+
+msgid "Especie"
+msgstr "Species"
+
+msgid "Raza / Mestizaje"
+msgstr "Breed / Mixed"
+
+msgid "Edad"
+msgstr "Age"
+
+msgid "Macho"
+msgstr "Male"
+
+msgid "Hembra"
+msgstr "Female"
+
+msgid "Breve Descripción / Estado"
+msgstr "Brief Description / Status"
+
+msgid "Imagen de la Mascota"
+msgstr "Pet Image"
+
+msgid "Foto de Perfil de la Mascota"
+msgstr "Pet Profile Photo"
+
+msgid "Registrar Mascota"
+msgstr "Register Pet"
+
+msgid "Al registrar la mascota, aceptas publicar esta información de forma abierta para que otros miembros de PetLink puedan contactarte."
+msgstr "By registering the pet, you agree to publish this information openly so other PetLink members can contact you."
+
+msgid "El usuario inició sesión correctamente."
+msgstr "User logged in successfully."
+
+msgid "¡Bienvenido de nuevo!"
+msgstr "Welcome back!"
+
+msgid "Nombre de usuario o contraseña incorrectos."
+msgstr "Invalid username or password."
+
+msgid "El usuario cerró sesión."
+msgstr "User logged out."
+
+msgid "Nuevo usuario registrado en la plataforma."
+msgstr "New user registered on the platform."
+
+msgid "Cuenta creada exitosamente. Ya puedes iniciar sesión."
+msgstr "Account created successfully. You can now log in."
+
+msgid "Mascota registrada exitosamente."
+msgstr "Pet registered successfully."
+
+msgid "No tienes permiso para editar el perfil de esta mascota."
+msgstr "You do not have permission to edit this pet's profile."
+
+msgid "Perfil de la mascota actualizado correctamente."
+msgstr "Pet profile updated successfully."
+
+msgid "Acceso denegado: Se requieren credenciales de Administrador para ver la pantalla de moderación de reportes."
+msgstr "Access denied: Administrator credentials required to view the report moderation screen."
+
+msgid "El administrador accedió a la pantalla de moderación de reportes."
+msgstr "Administrator accessed the report moderation screen."
+
+msgid "Inicio de Sesión Exitoso"
+msgstr "Successful Login"
+
+msgid "Intento de Login Fallido"
+msgstr "Failed Login Attempt"
+
+msgid "Cierre de Sesión"
+msgstr "Logout"
+
+msgid "Registro de Usuario"
+msgstr "User Registration"
+
+msgid "Acción"
+msgstr "Action"
+
+msgid "Dirección IP"
+msgstr "IP Address"
+
+msgid "Detalles"
+msgstr "Details"
+
+msgid "Fecha y Hora"
+msgstr "Date and Time"
+
+msgid "Log de Auditoría"
+msgstr "Audit Log"
+
+msgid "Logs de Auditoría"
+msgstr "Audit Logs"
+
+msgid "Mascota"
+msgstr "Pet"
+
+msgid "Mascotas"
+msgstr "Pets"
+
+msgid "Anónimo"
+msgstr "Anonymous"
+
+msgid "Ingrese su usuario"
+msgstr "Enter your username"
+
+msgid "Ingrese su contraseña"
+msgstr "Enter your password"
+
+msgid "Ingrese el nombre de la mascota"
+msgstr "Enter pet name"
+
+msgid "Ingrese la especie de la mascota"
+msgstr "Enter pet species"
+
+msgid "Ingrese la edad de la mascota"
+msgstr "Enter pet age"
+
+msgid "Ingrese la raza de la mascota"
+msgstr "Enter pet breed"
+
+msgid "Ingrese una descripción de la mascota"
+msgstr "Enter a description of the pet"
+
+msgid "Nombre de la mascota"
+msgstr "Pet name"
+
+msgid "Ej. Perro, Gato"
+msgstr "E.g. Dog, Cat"
+
+msgid "Ej. Mestizo, Poodle"
+msgstr "E.g. Mixed breed, Poodle"
+
+msgid "Macho / Hembra"
+msgstr "Male / Female"
+
+msgid "Descripción..."
+msgstr "Description..."
+
+msgid "Español"
+msgstr "Spanish"
+
+msgid "English"
+msgstr "English"

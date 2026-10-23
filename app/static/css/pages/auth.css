@@ -65,7 +65,6 @@
     opacity: 0.95;
     margin: 0.75em;
     line-height: 1.4;
-    color: var(--grey-400);
 }
 
 .auth-form-section {

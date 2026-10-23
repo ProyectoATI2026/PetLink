@@ -387,24 +387,18 @@
         gap: 15px;
     }
 
-    .profile-edit-btn {
-        width: 100% !important;
-    }
-
     .profile-grid-layout {
         flex-direction: column;
         gap: 20px;
     }
 
-    .profile-sidebar,
-    .profile-content-area {
-        width: 100%;
-        min-width: unset;
-    }
-
     .profile-card,
     .profile-edit-card {
         padding: 20px;
+    }
+
+    .profile-content-area {
+        min-width: 100%;
     }
 
     .profile-info-grid {

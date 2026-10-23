@@ -24,29 +24,30 @@
 
             <div class="chat-conversations-list" id="chatConversationsList">
                 {% for conv in conversations %}
-                <div class="chat-item" data-id="{{ conv.id }}" data-name="{{ conv.name|default:conv.nombre }}"
-                    data-nombre="{{ conv.name|default:conv.nombre }}"
-                    data-online="{% if conv.is_online or conv.en_linea %}true{% else %}false{% endif %}"
-                    data-subject="{{ conv.subject|default:conv.asunto }}"
-                    data-asunto="{{ conv.subject|default:conv.asunto }}"
-                    tabindex="0" role="button" aria-label="{% translate 'Abrir chat con' %} {{ conv.name|default:conv.nombre }}">
+                <div class="chat-item {% if active_chat and active_chat.id == conv.id %}active{% endif %}"
+                    data-id="{{ conv.id }}"
+                    data-url="{% url 'messages' %}?chat={{ conv.id }}"
+                    data-name="{{ conv.name }}"
+                    data-online="{% if conv.is_online %}true{% else %}false{% endif %}"
+                    data-subject="{{ conv.subject }}"
+                    tabindex="0" role="button" aria-label="{% translate 'Abrir chat con' %} {{ conv.name }}">
 
                     <div class="chat-item-avatar-wrapper">
-                        <div class="chat-item-avatar-initial">{{ conv.name|default:conv.nombre|slice:":1"|upper }}</div>
-                        {% if conv.is_online or conv.en_linea %}
+                        <div class="chat-item-avatar-initial">{{ conv.name|slice:":1"|upper }}</div>
+                        {% if conv.is_online %}
                         <span class="online-indicator-dot" title="{% translate 'En línea' %}"></span>
                         {% endif %}
                     </div>
 
                     <div class="chat-item-info">
                         <div class="chat-item-row-top">
-                            <h4 class="chat-item-name">{{ conv.name|default:conv.nombre }}</h4>
-                            <span class="chat-item-time">{{ conv.time|default:conv.hora }}</span>
+                            <h4 class="chat-item-name">{{ conv.name }}</h4>
+                            <span class="chat-item-time">{{ conv.time }}</span>
                         </div>
                         <div class="chat-item-row-bottom">
-                            <p class="chat-item-snippet">{{ conv.last_message|default:conv.ultimo_mensaje }}</p>
-                            {% if conv.unread_count > 0 or conv.no_leidos > 0 %}
-                            <span class="chat-unread-badge">{{ conv.unread_count|default:conv.no_leidos }}</span>
+                            <p class="chat-item-snippet">{{ conv.last_message }}</p>
+                            {% if conv.unread_count > 0 %}
+                            <span class="chat-unread-badge">{{ conv.unread_count }}</span>
                             {% endif %}
                         </div>
                     </div>
@@ -74,15 +75,14 @@
                 <div class="active-chat-user-info">
                     <div class="chat-user-avatar-box">
                         <div class="chat-item-avatar-initial" id="activeChatAvatarInitial">{{
-                            active_chat.name|default:active_chat.nombre|slice:":1"|upper }}</div>
+                            active_chat.name|slice:":1"|upper }}</div>
                         <span id="activeChatOnlineDot"
-                            class="online-indicator-dot {% if not active_chat.is_online and not active_chat.en_linea %}offline{% endif %}"></span>
+                            class="online-indicator-dot {% if not active_chat.is_online %}offline{% endif %}"></span>
                     </div>
                     <div>
-                        <h3 id="activeChatName" class="active-chat-title">{{ active_chat.name|default:active_chat.nombre }}</h3>
+                        <h3 id="activeChatName" class="active-chat-title">{{ active_chat.name }}</h3>
                         <span id="activeChatStatus" class="active-chat-status">
-                            {% if active_chat.is_online or active_chat.en_linea %}{% translate "En línea" %}{% else %}{% translate "Desconectado" %}{% endif %} &bull; {{
-                            active_chat.subject|default:active_chat.asunto }}
+                            {% if active_chat.is_online %}{% translate "En línea" %}{% else %}{% translate "Desconectado" %}{% endif %} &bull; {{active_chat.subject }}
                         </span>
                     </div>
                 </div>
@@ -97,13 +97,13 @@
             <div class="chat-messages-body" id="chatMessagesBody">
 
                 <div id="messagesContainer" class="messages-stack">
-                    {% for msg in active_chat.messages|default:active_chat.mensajes %}
-                    <div class="message-bubble-wrapper message-{{ msg.sender|default:msg.emisor }}">
+                    {% for msg in active_chat.messages %}
+                    <div class="message-bubble-wrapper message-{{ msg.sender }}">
                         <div class="message-bubble">
-                            <p class="message-text">{{ msg.text|default:msg.texto }}</p>
+                            <p class="message-text">{{ msg.text }}</p>
                             <span class="message-time">
-                                {{ msg.time|default:msg.hora }}
-                                {% if msg.sender == 'me' or msg.emisor == 'me' %}
+                                {{ msg.time }}
+                                {% if msg.sender == 'me' %}
                                 <span class="message-check">✓✓</span>
                                 {% endif %}
                             </span>
@@ -119,10 +119,12 @@
             </div>
 
             <div class="chat-input-footer">
-                <form id="formEnviarMensaje" class="chat-input-form" onsubmit="sendChatMessage(event)">
+                <form id="formEnviarMensaje" class="chat-input-form" method="post"
+                    action="{% url 'messages' %}?chat={{ active_chat.id }}">
+                    {% csrf_token %}
                     <button type="button" class="btn-chat-attach" title="{% translate 'Adjuntar foto o archivo' %}">📎</button>
-                    <input type="text" id="inputMensajeChat" class="chat-text-input"
-                        placeholder="{% translate 'Escribe un mensaje seguro...' %}" autocomplete="off">
+                    <input type="text" id="inputMensajeChat" name="content" class="chat-text-input"
+                        placeholder="{% translate 'Escribe un mensaje seguro...' %}" autocomplete="off" required>
                     <button type="submit" id="btnEnviarMensaje" class="btn-chat-send" aria-label="{% translate 'Enviar mensaje' %}">
                         <span>{% translate "Enviar" %}</span> &rarr;
                     </button>

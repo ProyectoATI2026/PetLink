@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 
-from .models import AuditLog, CustomPet, CustomUser, UserProfile, Publication
+from .models import AuditLog, CustomPet, CustomUser, UserProfile, Publication, Conversation, Message
 from .forms import (
     CustomLoginForm,
     CustomUserCreationForm,
@@ -341,12 +341,149 @@ class MessagesView(LoginRequiredMixin, View):
     template_name = 'messages.html'
     login_url = 'login'
 
+    def _get_subject(self, conversation):
+        if conversation.adoption_request:
+            return conversation.adoption_request.publication.title
+
+        return _('Conversation')
+
+    def _get_other_user(self, conversation, current_user):
+        return conversation.participants.exclude(
+            pk=current_user.pk
+        ).first()
+
+    def _get_conversation_data(self, conversation, current_user):
+        other_user = self._get_other_user(
+            conversation,
+            current_user
+        )
+
+        last_message = conversation.messages.order_by(
+            '-sent_at'
+        ).first()
+
+        unread_count = conversation.messages.filter(
+            is_read=False
+        ).exclude(
+            sender=current_user
+        ).count()
+
+        if other_user:
+            name = other_user.get_full_name().strip() or other_user.username
+        else:
+            name = _('Conversation')
+
+        return {
+            'id': conversation.id,
+            'name': name,
+            'is_online': False,
+            'subject': self._get_subject(conversation),
+            'time': (
+                last_message.sent_at.strftime('%H:%M')
+                if last_message
+                else ''
+            ),
+            'last_message': (
+                last_message.content
+                if last_message
+                else _('No messages yet')
+            ),
+            'unread_count': unread_count,
+        }
+
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser):
+
+        if request.user.is_staff or request.user.is_superuser:
             return redirect('reports')
 
-        conversations = []
+        user_conversations = (
+            Conversation.objects
+            .filter(participants=request.user)
+            .select_related(
+                'adoption_request__publication'
+            )
+            .prefetch_related(
+                'participants',
+                'messages'
+            )
+            .distinct()
+            .order_by('-updated_at')
+        )
+
+        conversations = [
+            self._get_conversation_data(
+                conversation,
+                request.user
+            )
+            for conversation in user_conversations
+        ]
+
         active_chat = None
+        chat_id = request.GET.get('chat')
+
+        if chat_id:
+            active_conversation = (
+                Conversation.objects
+                .filter(
+                    id=chat_id,
+                    participants=request.user
+                )
+                .select_related(
+                    'adoption_request__publication'
+                )
+                .prefetch_related(
+                    'participants',
+                    'messages__sender'
+                )
+                .first()
+            )
+
+            if active_conversation:
+
+                Message.objects.filter(
+                    conversation=active_conversation,
+                    is_read=False
+                ).exclude(
+                    sender=request.user
+                ).update(
+                    is_read=True
+                )
+
+                other_user = self._get_other_user(
+                    active_conversation,
+                    request.user
+                )
+
+                if other_user:
+                    chat_name = (
+                        other_user.get_full_name().strip()
+                        or other_user.username
+                    )
+                else:
+                    chat_name = _('Conversation')
+
+                chat_messages = []
+
+                for message in active_conversation.messages.all():
+                    chat_messages.append({
+                        'sender': (
+                            'me'
+                            if message.sender_id == request.user.id
+                            else 'them'
+                        ),
+                        'text': message.content,
+                        'time': message.sent_at.strftime('%H:%M'),
+                    })
+
+                active_chat = {
+                    'id': active_conversation.id,
+                    'name': chat_name,
+                    'is_online': False,
+                    'subject': self._get_subject(
+                        active_conversation
+                    ),
+                    'messages': chat_messages,
+                }
 
         context = {
             'conversations': conversations,
@@ -354,7 +491,48 @@ class MessagesView(LoginRequiredMixin, View):
             'active_tab': 'messages',
             'title': 'Mensajes - PetLink',
         }
-        return render(request, self.template_name, context)
+
+        return render(
+            request,
+            self.template_name,
+            context
+        )
+
+    def post(self, request, *args, **kwargs):
+
+        chat_id = request.GET.get('chat')
+        content = request.POST.get('content', '').strip()
+
+        conversation = Conversation.objects.filter(
+            id=chat_id,
+            participants=request.user
+        ).first()
+
+        if not conversation:
+            messages.error(
+                request,
+                _('Conversation not found.')
+            )
+            return redirect('messages')
+
+        if not content:
+            return redirect(
+                f"{reverse_lazy('messages')}?chat={conversation.id}"
+            )
+
+        Message.objects.create(
+            conversation=conversation,
+            sender=request.user,
+            content=content
+        )
+
+        conversation.save(
+            update_fields=['updated_at']
+        )
+
+        return redirect(
+            f"{reverse_lazy('messages')}?chat={conversation.id}"
+        )
 
 class AdminReportsView(LoginRequiredMixin, UserPassesTestMixin, View):
     template_name = 'reports.html'

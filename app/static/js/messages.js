@@ -1,6 +1,6 @@
 /**
  * PetLink - Messages and Chats Logic
- * UI skeleton ready to connect with the database messages model.
+ * UI connected with Django conversations and messages.
  */
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -14,25 +14,56 @@ document.addEventListener('DOMContentLoaded', function () {
     const backBtn           = document.getElementById('btnVolverListaChats');
 
     // -------------------------------------------------------------------------
-    // 1. Click on conversation items (switches active chat)
+    // 1. Click on conversation items
     // -------------------------------------------------------------------------
     conversationItems.forEach(function (item) {
         item.addEventListener('click', function () {
+
             // Marcar como activo
-            conversationItems.forEach(function (i) { i.classList.remove('active'); });
+            conversationItems.forEach(function (i) {
+                i.classList.remove('active');
+            });
+
             this.classList.add('active');
 
             // Limpiar badge de no leídos
             var badge = this.querySelector('.chat-unread-badge');
-            if (badge) badge.remove();
 
-            // En móvil: mostrar panel de chat y ocultar sidebar
+            if (badge) {
+                badge.remove();
+            }
+
+            // Abrir la conversación real usando Django
+            var chatUrl = this.getAttribute('data-url');
+
+            if (chatUrl) {
+                window.location.href = chatUrl;
+                return;
+            }
+
+            // En móvil: mostrar panel de chat
             if (chatAppCard) {
                 chatAppCard.classList.add('mobile-chat-open');
             }
 
             // Foco en el campo de texto
-            if (messageInput) messageInput.focus();
+            if (messageInput) {
+                messageInput.focus();
+            }
+        });
+
+        // Permitir abrir con Enter o barra espaciadora
+        item.addEventListener('keydown', function (event) {
+
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+
+                var chatUrl = this.getAttribute('data-url');
+
+                if (chatUrl) {
+                    window.location.href = chatUrl;
+                }
+            }
         });
     });
 
@@ -41,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // -------------------------------------------------------------------------
     if (backBtn) {
         backBtn.addEventListener('click', function () {
+
             if (chatAppCard) {
                 chatAppCard.classList.remove('mobile-chat-open');
             }
@@ -51,36 +83,29 @@ document.addEventListener('DOMContentLoaded', function () {
     // 3. Send new message
     // -------------------------------------------------------------------------
     window.sendChatMessage = function (event) {
-        event.preventDefault();
-        if (!messageInput || !messagesContainer) return;
+
+        if (event) {
+            event.preventDefault();
+        }
+
+        var form = document.getElementById('formEnviarMensaje');
+
+        if (!messageInput || !form) {
+            return;
+        }
 
         var text = messageInput.value.trim();
-        if (!text) return;
 
-        var now = new Date();
-        var timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        // Crear burbuja de mensaje propio
-        var wrapper = document.createElement('div');
-        wrapper.className = 'message-bubble-wrapper message-me';
-        wrapper.innerHTML =
-            '<div class="message-bubble">' +
-                '<p class="message-text">' + escapeHtml(text) + '</p>' +
-                '<span class="message-time">' + timeStr + ' <span class="message-check">\u2713\u2713</span></span>' +
-            '</div>';
-
-        messagesContainer.appendChild(wrapper);
-        messageInput.value = '';
-        scrollToBottom();
-
-        // Actualizar snippet en la lista lateral (el activo)
-        var activeItem = document.querySelector('.chat-item.active');
-        if (activeItem) {
-            var snippet = activeItem.querySelector('.chat-item-snippet');
-            var time    = activeItem.querySelector('.chat-item-time');
-            if (snippet) snippet.textContent = 'Tú: ' + text;
-            if (time)    time.textContent    = timeStr;
+        if (!text) {
+            return;
         }
+
+        /*
+         * El mensaje ya no se crea solamente en el navegador.
+         * El formulario se envía a Django y MessagesView
+         * guarda el mensaje en SQLite.
+         */
+        form.submit();
     };
 
     // Alias para retrocompatibilidad
@@ -91,11 +116,27 @@ document.addEventListener('DOMContentLoaded', function () {
     // -------------------------------------------------------------------------
     if (searchInput) {
         searchInput.addEventListener('input', function () {
+
             var q = this.value.trim().toLowerCase();
+
             conversationItems.forEach(function (item) {
-                var name = (item.getAttribute('data-name') || item.getAttribute('data-nombre') || '').toLowerCase();
-                var subject = (item.getAttribute('data-subject') || item.getAttribute('data-asunto') || '').toLowerCase();
-                item.style.display = (name.includes(q) || subject.includes(q)) ? 'flex' : 'none';
+
+                var name = (
+                    item.getAttribute('data-name') ||
+                    item.getAttribute('data-nombre') ||
+                    ''
+                ).toLowerCase();
+
+                var subject = (
+                    item.getAttribute('data-subject') ||
+                    item.getAttribute('data-asunto') ||
+                    ''
+                ).toLowerCase();
+
+                item.style.display =
+                    (name.includes(q) || subject.includes(q))
+                        ? 'flex'
+                        : 'none';
             });
         });
     }
@@ -104,15 +145,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Utilities
     // -------------------------------------------------------------------------
     function scrollToBottom() {
-        if (chatMessagesBody) {
-            chatMessagesBody.scrollTop = chatMessagesBody.scrollHeight;
-        }
-    }
 
-    function escapeHtml(str) {
-        var div = document.createElement('div');
-        div.innerText = str;
-        return div.innerHTML;
+        if (chatMessagesBody) {
+            chatMessagesBody.scrollTop =
+                chatMessagesBody.scrollHeight;
+        }
     }
 
     // Scroll inicial al cargar la página

@@ -34,10 +34,12 @@
                     {% translate "Editar Perfil" %}
                 </a>
                 {% else %}
-                <a href="{% url 'messages' %}?contacto={{ pet.owner.username }}&mascota={{ pet.name }}"
-                    class="pet-action-btn chat">
-                    {% translate "Iniciar Chat con el Dueño" %}
-                </a>
+                <form method="post" action="{% url 'start_chat' pet.pk %}" class="pet-chat-form">
+                    {% csrf_token %}
+                    <button type="submit" class="pet-action-btn chat">
+                        {% translate "Iniciar Chat con el Dueño" %}
+                    </button>
+                </form>
                 {% endif %}
             </div>
         </div>

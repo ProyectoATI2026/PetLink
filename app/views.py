@@ -337,6 +337,40 @@ class AdoptionsView(View):
         return render(request, self.template_name, context)
 
 
+
+class StartChatWithOwnerView(LoginRequiredMixin, View):
+    login_url = 'login'
+
+    def post(self, request, pk, *args, **kwargs):
+        pet = get_object_or_404(CustomPet, pk=pk)
+        owner = pet.owner
+
+        if owner == request.user:
+            messages.error(
+                request,
+                _("No puedes iniciar una conversación contigo mismo.")
+            )
+            return redirect('pet_profile', pk=pet.pk)
+
+        existing_conversation = (
+            Conversation.objects
+            .filter(participants=request.user)
+            .filter(participants=owner)
+            .distinct()
+            .first()
+        )
+
+        if existing_conversation:
+            conversation = existing_conversation
+        else:
+            conversation = Conversation.objects.create()
+            conversation.participants.add(request.user, owner)
+
+        return redirect(
+            f"{reverse_lazy('messages')}?chat={conversation.id}"
+        )
+
+
 class MessagesView(LoginRequiredMixin, View):
     template_name = 'messages.html'
     login_url = 'login'

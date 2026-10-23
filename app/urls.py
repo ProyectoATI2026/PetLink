@@ -12,7 +12,8 @@ from .views import (
     AdminReportsView,
     ReportActionView,
     PetProfileUpdateView,
-    PetProfileView
+    PetProfileView,
+    StartChatWithOwnerView
 )
 
 urlpatterns = [
@@ -31,5 +32,6 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='profile'),
     path('profile/edit/', UserProfileUpdateView.as_view(), name='profile_edit'),
     path('pet/<int:pk>/', PetProfileView.as_view(), name='pet_profile'),
+    path('pet/<int:pk>/start-chat/', StartChatWithOwnerView.as_view(), name='start_chat'),
     path('pet/<int:pk>/edit/', PetProfileUpdateView.as_view(), name='pet_profile_edit'),
 ]
